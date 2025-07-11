@@ -17,11 +17,11 @@ router.get("/:id", getCourseById);
 router.use(verifyUserToken)
 router.post("/create", createCourse);
 router.get("/my-courses", getCreatedCourses);
-router.post("/update:id", updateCourse);
+router.put("/update/:id", updateCourse);
 
 // Only student can access.
-router.post("/enroll:id", enrollInCourse);
-router.get("/my-courses", getEnrolledCourses);
-router.get("/my-course:id", getEnrolledCourseDetails);
+router.post("/enroll/:id", enrollInCourse);
+router.get("/enrolled", getEnrolledCourses);
+router.get("/my-course/:id", getEnrolledCourseDetails);
 
 export default router;
