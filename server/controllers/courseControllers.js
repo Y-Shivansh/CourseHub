@@ -1,4 +1,4 @@
-import { generateToken } from "../utils/generateToken";
+import { generateToken } from "../utils/generateToken.js";
 
 // Public routes controllers anyone can access.
 export const getAllCourses = () => {

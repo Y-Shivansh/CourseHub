@@ -18,4 +18,4 @@
 ## 📌 Note
 
 This project is currently under development.  
-Frontend integration, file uploads, and payment features will be added in upcoming phases.
+Frontend integration, file uploads, and payment features and AI Chat will be added in upcoming phases.

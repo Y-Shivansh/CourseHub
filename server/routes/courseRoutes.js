@@ -1,11 +1,11 @@
 import express from 'express';
-import verifyUserToken from '../middlewares/user.middleware';
+import verifyUserToken from '../middlewares/user.middleware.js';
 import {
     getAllCourses, getCourseById,
     createCourse, getCreatedCourses, updateCourse, 
     enrollInCourse, getEnrolledCourses, getEnrolledCourseDetails
-} from "../controllers/courseControllers"
-
+} from "../controllers/courseControllers.js";
+import {authorizeRoles} from "../middlewares/authorizeRoles.js"
 
 const router = express.Router();
 
@@ -15,13 +15,13 @@ router.get("/:id", getCourseById);
 
 // Only teacher can access. 
 router.use(verifyUserToken)
-router.post("/create", createCourse);
-router.get("/my-courses", getCreatedCourses);
-router.put("/update/:id", updateCourse);
+router.post("/create", authorizeRoles('teacher'), createCourse, );
+router.get("/my-courses", authorizeRoles('teacher'), getCreatedCourses, );
+router.put("/update/:id", authorizeRoles('teacher'), updateCourse, );
 
 // Only student can access.
-router.post("/enroll/:id", enrollInCourse);
-router.get("/enrolled", getEnrolledCourses);
-router.get("/my-course/:id", getEnrolledCourseDetails);
+router.post("/enroll/:id", authorizeRoles('student'), enrollInCourse);
+router.get("/enrolled", authorizeRoles('student'), getEnrolledCourses);
+router.get("/my-course/:id", authorizeRoles('student'), getEnrolledCourseDetails);
 
 export default router;

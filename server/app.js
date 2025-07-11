@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import userRoutes from './routes/userRoutes';
-import courseRoutes from './routes/courseRoutes'
+import userRoutes from './routes/userRoutes.js';
+import courseRoutes from './routes/courseRoutes.js'
 const app = express();
 // const corsOption = {
 //     origin: [],

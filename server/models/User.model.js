@@ -46,7 +46,7 @@ const userSchema = new mongoose.Schema(
 
         // courseCreated (For Teachers)
         courseCreated: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: [mongoose.Schema.Types.ObjectId],
             ref: 'Course',
             default: []
         },
