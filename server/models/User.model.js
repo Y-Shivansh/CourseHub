@@ -26,6 +26,8 @@ const userSchema = new mongoose.Schema(
             type: String,
             minLength: 6,
             required: true,
+            select: false // MongoDB will not send password, unless explicitly asked. 
+            /* const user = await user.findById({userId}).select("+password") */ // like this.
         },
         phone: {
             type: String,

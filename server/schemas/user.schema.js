@@ -13,3 +13,11 @@ export const loginSchema = z.object({
     email: z.email({message: "Invalid Email Address"}),
     password: z.string().min(6, "Password must be at least 6 characters")
 })
+
+export const updationSchema = z.object({
+    name: z.string().optional(),
+    profile: z.string().optional(),
+    bio: z.string().optional(),
+    phone: z.string().optional(),
+    password: z.string().min(6).optional(),
+})
