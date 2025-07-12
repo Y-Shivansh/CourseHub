@@ -12,7 +12,7 @@ const verifyUserToken = (req, res, next) => {
             if(err){
                 return res.status(403).json({message: "Invalid or Forbidded Token", err});
             }
-
+            
             req.user = {
                 userId: decoded.userId,
                 role: decoded.role
