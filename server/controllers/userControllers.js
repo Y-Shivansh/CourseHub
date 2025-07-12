@@ -1,7 +1,9 @@
 import bcrypt from 'bcrypt';
 import { generateToken } from "../utils/generateToken.js";
 import User from "../models/User.model.js";
-import { registerSchema, loginSchema, updationSchema } from '../schemas/user.schema.js';
+import DeletionLog from "../models/DeletionLog.js"
+import { registerSchema, loginSchema, updationSchema, deletionSchema } from '../schemas/user.schema.js';
+import { sendEmail } from '../utils/sendEmail.js';
 
 
 export const registerUser = async (req, res) => {
@@ -151,6 +153,47 @@ export const updateUser = async (req, res) => {
 };
 
 
-export const deleteUser = () => {
+export const deleteUser = async(req, res) => {
+    const result = deletionSchema.safeParse(req.body);
+    
+    if(!result.success){
+        return res.status(400).json({message: "Validation Failed"})
+    }
+    const password = result.data.password;
+    const userId = req.user.userId;
+    try {
+        const user = await User.findById(userId).select("+password");
+        const isValidPassword = await bcrypt.compare(password, user.password);
+        if(!isValidPassword){
+            console.error("Delete User Failed.")
+            return res.status(401).json({message: "Incorrect Password"});
+        }
+        // Creating Deletion Log
+        await DeletionLog.create({
+            userId: user._id,
+            email: user.email,
+        })
 
+        // Use at the time of actual email addresses in the DB.
+        try{
+            const mailSent = await sendEmail({
+                to: user.email,
+                subject: "Account Deleted",
+                html: `<h1>Hello ${user.name}</h1> <p> your account was deleted from CourseHub.</p>`
+            })
+            if(mailSent) console.log(`Mail Sent to ${user.email}`);
+        }catch(err){
+            console.error("An Error Occurred, while sending mail." , err);
+        }
+        
+        await user.deleteOne();
+
+        return res.status(200).json("User deleted.")
+    } catch (error) {
+        console.error("Delete User Error");
+        return res.status(500).json({
+            message: "Server Error",
+            error: error
+        })
+    }
 };
