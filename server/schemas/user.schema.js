@@ -1,0 +1,15 @@
+import {email, z} from 'zod';
+
+export const registerSchema = z.object({
+    name: z.string().min(3, "Name must be at least 3 characters"),
+    email: z.email({message: "Invalid Email Address"}),
+    password: z.string().min(6,  "Password must be at least 6 characters"),
+    phone: z.string().length(10),
+    role: z.enum(['student', 'teacher']).optional()
+})
+
+export const loginSchema = z.object({
+    // email: z.string().email("Invalid Email Address"),
+    email: z.email({message: "Invalid Email Address"}),
+    password: z.string().min(6, "Password must be at least 6 characters")
+})
