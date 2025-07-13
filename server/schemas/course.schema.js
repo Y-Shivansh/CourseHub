@@ -9,8 +9,8 @@ export const createCourseSchema = z.object({
 
 export const updateCourseSchema = z.object({
     name: z.string().min(4).optional(),
-    duration: z.string().min(30).optional(),
-    description: z.string().optional(),
+    duration: z.string().optional(),
+    description: z.string().min(30).optional(),
     thumbnail: z.string().optional(),
     category: z.enum(['Development', 'Designing', 'AI/ML', 'Data Analysis', 'Academic']).optional()
 })

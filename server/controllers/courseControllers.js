@@ -1,6 +1,8 @@
 import { generateToken } from "../utils/generateToken.js";
 import { createCourseSchema, updateCourseSchema } from "../schemas/course.schema.js";
 import Course from "../models/Course.model.js";
+import User from "../models/User.model.js";
+import { success } from "zod";
 // Public routes controllers anyone can access.
 export const getAllCourses = async (req, res) => {
     try {
@@ -20,7 +22,7 @@ export const getAllCourses = async (req, res) => {
         console.error("All Courses Error", error.message);
         res.status(500).json({
             message: "Server Error",
-            error: error
+            error: error.message || error
         })
     }
 }
@@ -28,7 +30,7 @@ export const getAllCourses = async (req, res) => {
 export const getCourseById = async (req, res) => {
     try {
         const courseId = req.params.id;
-        const course = await Course.findById(courseId);
+        const course = await Course.findById(courseId).populate('createdBy', 'name');;
         // const courses = await Course.findByID(courseId).populate('createdBy', 'name'); // creastedBy me ab name bhi ayega
         if (course.length === 0) {
             return res.status(400).json({ message: "No course is uploaded as of now." });
@@ -41,7 +43,7 @@ export const getCourseById = async (req, res) => {
         console.error("All Courses Error", error.message);
         res.status(500).json({
             message: "Server Error",
-            error: error
+            error: error.message || error
         })
     }
 }
@@ -53,10 +55,12 @@ export const createCourse = async (req, res) => {
         return res.status(400).json({ message: "Validation Failed" })
     }
     const { name, duration, description, category } = result.data;
+    const userId = req.user.userId;
     try {
+        // Add Course
         let course = await Course.findOne({
             name: name,
-            createdBy: req.user.userId
+            createdBy: userId,
         })
         if (course) {
             return res.status(400).json({ message: "You already created a course with this name." });
@@ -64,10 +68,25 @@ export const createCourse = async (req, res) => {
         course = new Course({
             name, duration, description, category,
             thumbnail: req.body.thumbnail || "",
-            createdBy: req.user.userId
+            createdBy: userId
         })
+        
+        // Update User Also. (Created Courses)
+        let user = await User.findOneAndUpdate(
+            {_id: userId},
+            {$addToSet: {courseCreated: course._id}},
+            {new: true}
+        );
+        if(!user){
+            await Course.findByIdAndDelete(course._id);
+            console.error("Create Course Error - User Not Found.")
+            return res.status(404).json({
+                message: "Creation Failed, User Not Found"
+            })
+        }
 
         await course.save();
+
         return res.status(201).json({
             message: "Course Created.",
             courseId: course._id,
@@ -77,14 +96,16 @@ export const createCourse = async (req, res) => {
         console.error("Create Course Error", error.message);
         res.status(500).json({
             message: "Server Error",
-            error: error
+            error: error.message || error
         })
     }
 }
 
 export const getCreatedCourses = async (req, res) => {
     try {
-        const courses = await Course.find({ createdBy: req.user.userId });
+        const courses = await Course.find({ createdBy: req.user.userId })
+            .populate('createdBy', 'name')
+            .populate("enrolledStudents", "name email"); 
 
         if (courses.length === 0) {
             return res.status(404).json({
@@ -100,7 +121,7 @@ export const getCreatedCourses = async (req, res) => {
         console.error("My Courses Error", error);
         return res.status(500).json({
             message: "Server Error",
-            error: error.message
+            error: error.message || error
         })
     }
 }
@@ -139,7 +160,7 @@ export const updateCourse = async (req, res) => {
 
         return res.status(200).json({
             message: "Course Details Updated.",
-            course:{
+            course: {
                 name, duration, description, thumbnail, category
             }
         })
@@ -147,20 +168,113 @@ export const updateCourse = async (req, res) => {
         console.error("Updating Course Error.", error);
         return res.status(500).json({
             message: "Server Error",
-            error: error
+            error: error.message || error
         });
     }
 }
 
 // Student Course Routes Controllers Only Student Can Access.
-export const enrollInCourse = () => {
+export const enrollInCourse = async (req, res) => {
+    const userId = req.user.userId;
+    try {
+        const courseId = req.params.id;
 
+        // updating course enrollment
+        let course = await Course.findOneAndUpdate(
+            { _id: courseId },
+            // $set is used to replace the entire value at a path.
+            // $addToSet ensures no duplicates
+            // $push blindly adds
+            { $addToSet: { enrolledStudents: userId } },
+            { new: true }
+        );
+        if (!course) {
+            console.error("Enroll Course Error - Course not found");
+            return res.status(400).json({
+                message: "Course not found or enrollment failed."
+            })
+        }
+
+        // Updating User(student) DB, field -> Enrolled Courses 
+        let user = await User.findOneAndUpdate(
+            { _id: userId },
+            { $addToSet: { enrolledIn: courseId } },
+            { new: true },
+        );
+        if (!user) {
+            console.error("Enroll Course Error - User not found");
+            return res.status(400).json({
+                message: "User not found or enrollment failed."
+            })
+        }
+
+        return res.status(200).json({
+            message: "Enrolled successfully.",
+            courseId,
+            studentId: userId
+        });
+    } catch (error) {
+        console.error("Enroll To A Course Error.", error);
+        return res.status(500).json({
+            message: "Server Error",
+            error: error.message || error
+        });
+    }
 }
 
-export const getEnrolledCourses = () => {
-
+export const getEnrolledCourses = async(req, res) => {
+    const userId = req.user.userId;
+    try{
+        const courses = await Course.find({enrolledStudents: userId})
+            .select("name description duration thumbnail category")
+            .populate('createdBy','name email');
+        if(!courses || courses.length === 0){
+            console.error("No Courses Found.");
+            return res.status(404).json({
+                success: false, 
+                message: "No Course Found."
+            })
+        }
+        return res.status(200).json({
+             success: true,
+            message: "Courses Fetched.",
+            count: courses.length,
+            courses
+        })
+    }catch(error){
+        console.error("Fetch Enrolled Courses Error");
+        res.status(500).json({ success: false, message: "Server Error" });
+    }
 }
 
-export const getEnrolledCourseDetails = () => {
+export const getEnrolledCourseDetails = async (req, res) => {
+  const userId = req.user.userId;
+  const { courseId } = req.params;
 
-}
+  try {
+    const course = await Course.findOne({
+      _id: courseId,
+      enrolledStudents: userId,
+    }).populate("createdBy", "name email");
+
+    if (!course) {
+      return res.status(404).json({
+        success: false,
+        message: "Course not found or you're not enrolled.",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Course details fetched.",
+      course,
+    });
+
+  } catch (error) {
+    console.error("getEnrolledCourseDetails Error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server error while fetching course details.",
+    });
+  }
+};
