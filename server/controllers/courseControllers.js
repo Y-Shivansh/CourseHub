@@ -227,7 +227,7 @@ export const getEnrolledCourses = async(req, res) => {
     try{
         const courses = await Course.find({enrolledStudents: userId})
             .select("name description duration thumbnail category")
-            .populate('createdBy','name email');
+            .populate('createdBy','name');
         if(!courses || courses.length === 0){
             console.error("No Courses Found.");
             return res.status(404).json({
@@ -249,13 +249,14 @@ export const getEnrolledCourses = async(req, res) => {
 
 export const getEnrolledCourseDetails = async (req, res) => {
   const userId = req.user.userId;
-  const { courseId } = req.params;
+  const { id } = req.params;
 
   try {
     const course = await Course.findOne({
-      _id: courseId,
-      enrolledStudents: userId,
-    }).populate("createdBy", "name email");
+      _id: id,
+      enrolledStudents: userId,})
+        .select("-enrolledStudents")
+        .populate("createdBy", "name");
 
     if (!course) {
       return res.status(404).json({
