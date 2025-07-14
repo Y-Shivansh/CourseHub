@@ -20,7 +20,9 @@ const courseSchema = mongoose.Schema(
             enum: ['Development', 'Designing', 'AI/ML', 'Data Analysis', 'Academic'],
             required: true,
         },
-        thumbnail: String,
+        thumbnail:{
+            type: String, 
+        },
 
         createdBy: {
             type: mongoose.Schema.Types.ObjectId,

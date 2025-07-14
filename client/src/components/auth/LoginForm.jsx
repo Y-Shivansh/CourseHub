@@ -35,7 +35,7 @@ const LoginForm = () => {
   return (
     <form
       onSubmit={handleLogin}
-      className="w-full max-w-md mx-auto border border-gray-200 dark:border-gray-700 rounded-lg px-6 py-8 bg-secondary-light dark:bg-secondary-dark shadow-sm transition"
+      className="w-full max-w-md mx-auto border border-gray-200 dark:border-gray-700 rounded-2xl px-6 py-8 bg-secondary-light dark:bg-background-dark shadow-sm transition"
     >
       <div className="grid gap-5">
         <h1 className="text-2xl text-center font-semibold text-text-light dark:text-text-dark">

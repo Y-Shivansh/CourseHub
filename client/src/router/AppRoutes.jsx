@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 // Public
 import LandingPage from "../pages/public/LandingPage";
 import CourseDetails from "../pages/public/CourseDetails";
-import AllCourses from "../pages/public/AllCourses";
+// import AllCourses from "../pages/public/AllCourses";
 
 // Protected Pages (Dashboard)
 import Dashboard from "../pages/dashboard/Dashboard";
@@ -32,7 +32,7 @@ export const AppRoutes = () => {
                 {/* Public Routes */}
                 <Route path='/' element={<LandingPage />} />
                 <Route path='/signup' element={<LandingPage />} />
-                <Route path='/courses' element={<AllCourses />} />
+                <Route path='/' element={<LandingPage />} />
                 <Route path='/course/:id' element={<CourseDetails />} />
 
                 {/* Protected Routes */}

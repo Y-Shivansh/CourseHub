@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import { generateToken } from "../utils/generateToken.js";
-import User from "../models/User.model.js";
+
+import User from '../models/user.model.js';
 import DeletionLog from "../models/DeletionLog.js"
 import { registerSchema, loginSchema, updationSchema, deletionSchema } from '../schemas/user.schema.js';
 import { sendEmail } from '../utils/sendEmail.js';

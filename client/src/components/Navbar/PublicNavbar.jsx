@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import ThemeToggle from "../common/ThemeToggle"
 
 const PublicNavbar = () => {
     return (
@@ -12,7 +13,7 @@ const PublicNavbar = () => {
 
             {/* Nav Links */}
             <div className="flex gap-6 items-center text-sm font-medium">
-                <Link to={"/courses"} className="hover:text-primary-light dark:hover:text-primary-dark hover:underline">
+                <Link to={"/"} className="hover:text-primary-light dark:hover:text-primary-dark hover:underline">
                     Show Courses
                 </Link>
                 <Link to={"/"} className="hover:text-primary-light dark:hover:text-primary-dark hover:underline">
@@ -21,6 +22,7 @@ const PublicNavbar = () => {
                 <Link to={"/signup"} className="hover:text-primary-light dark:hover:text-primary-dark hover:underline">
                     Signup
                 </Link>
+                <ThemeToggle/>
             </div>
         </nav>
     )

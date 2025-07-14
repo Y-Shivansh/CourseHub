@@ -1,8 +1,9 @@
 import { generateToken } from "../utils/generateToken.js";
 import { createCourseSchema, updateCourseSchema } from "../schemas/course.schema.js";
 import Course from "../models/Course.model.js";
-import User from "../models/User.model.js";
-import { success } from "zod";
+import User from "../models/user.model.js";
+
+
 // Public routes controllers anyone can access.
 export const getAllCourses = async (req, res) => {
     try {
@@ -30,7 +31,7 @@ export const getAllCourses = async (req, res) => {
 export const getCourseById = async (req, res) => {
     try {
         const courseId = req.params.id;
-        const course = await Course.findById(courseId).populate('createdBy', 'name');;
+        const course = await Course.findById(courseId).populate('createdBy', 'name').select("-enrolledStudents");
         // const courses = await Course.findByID(courseId).populate('createdBy', 'name'); // creastedBy me ab name bhi ayega
         if (course.length === 0) {
             return res.status(400).json({ message: "No course is uploaded as of now." });

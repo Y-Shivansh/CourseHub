@@ -20,7 +20,7 @@ const Input = ({
 
     return (
         <div>
-            <label className='' htmlFor={name}>{label}</label>
+            <label className='dark:text-text-dark' htmlFor={name}>{label}</label>
             <input
                 id={name}
                 name={name}

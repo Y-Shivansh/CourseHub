@@ -17,7 +17,7 @@ const Footer = () => {
 
                 {/* Navigation Links again */}
                 <div className="flex flex-col items-center md:items-start gap-4 text-sm font-medium">
-                    <Link to="/courses" className="hover:text-primary-light dark:hover:text-primary-dark hover:underline transition-all duration-200">
+                    <Link to="/" className="hover:text-primary-light dark:hover:text-primary-dark hover:underline transition-all duration-200">
                         Show Courses
                     </Link>
                     <Link to="/" className="hover:text-primary-light dark:hover:text-primary-dark hover:underline transition-all duration-200">

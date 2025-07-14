@@ -5,10 +5,7 @@ import LandingPage from "./pages/public/LandingPage";
 function App() {
   return (
     <>
-      <BrowserRouter>
-          <LandingPage/>
-      </BrowserRouter>
-      {/* <AppRoutes/> */}
+      <AppRoutes/>
     </>
   )
 }

@@ -6,16 +6,17 @@ export default {
     extend: {
       colors: {
         primary: {
-          light: "#059669", // Emerald green (vibrant) — CTA buttons, highlights
-          dark: "#34D399",  // Mint green (soft) — CTA in dark mode
+          light: "#54AD99",
+          dark: "#60C3AD",  
+          
         },
         secondary: {
-          light: "#E6F4EA", // Pale green-gray — cards/sections bg (light mode)
+          light: "#F6FBFA", // Prototype blue-gray — cards/sections bg (light mode)
           dark: "#1F2937",  // Slate blue-gray — cards/containers (dark mode)
         },
         background: {
           light: "#ffffff", // Pure white — page background (light mode)
-          dark: "#0A0A0A",  // Blackish — base background (dark mode)
+          dark: "#14171c",  // Blackish — base background (dark mode)
         },
         text: {
           light: "#1C1C1C", // Charcoal black — headings/body (light mode)
