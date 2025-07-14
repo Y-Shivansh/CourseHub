@@ -1,0 +1,19 @@
+What is React Context?
+    -  Context is a way to pass data globally, without having to manually pass props through every level of the component tree.
+    - Problem it solves: Prop Drilling
+    - Without Context:
+        <App>
+        <Parent>
+            <Child>
+            <GrandChild theme="dark" /> // ❌ manually passing props down
+            </Child>
+        </Parent>
+        </App>
+        Even if only GrandChild needs the theme — every parent must pass it manually 😓
+
+    - With Context:
+        <ThemeProvider>
+            <App />
+        </ThemeProvider>
+        No need to pass props anymore — just "subscribe" to the context anywhere.
+

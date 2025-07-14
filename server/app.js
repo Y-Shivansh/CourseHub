@@ -11,6 +11,8 @@ const app = express();
 app.use(express.json());
 // app.use(cors(corsOption));
 app.use(cors());
+
+// Status Api
 app.get('/health', (req, res)=> {
     res.status(200).json({ status: 'UP' });
 });

@@ -9,14 +9,14 @@ import { sendEmail } from '../utils/sendEmail.js';
 export const registerUser = async (req, res) => {
     const result = registerSchema.safeParse(req.body);
     if (!result.success) {
-        return res.status(400).json({ message: "Validation Failed", errors: result.error.errors });
+        return res.status(400).json({ message: "Validation Failed", errors: result.error });
     }
     const validatedData = result.data;
     const { name, email, password, phone, role } = validatedData;
 
     try {
         let user = await User.findOne({
-            $or: [{ email }, { phone }]
+            $or: [{ email }, { phone }],
         });
 
         if (user) {
@@ -115,7 +115,7 @@ export const updateUser = async (req, res) => {
     if (!result.success) return res.status(400).json({ message: "Validation Failed" });
     const { name, profile, bio, phone, password } = result.data;
     try {
-        const user = await User.findById(req.user.userId);
+        const user = await User.findById(req.user.userId).select("+password");
         if (!user){
             console.error("Can not update user details");
             return res.status(404).json({ message: "User not found" });
@@ -130,7 +130,7 @@ export const updateUser = async (req, res) => {
             const salt = await bcrypt.genSalt(10);
             user.password = await bcrypt.hash(password, salt)
         }
-        await user.save()
+        await user.save();
 
         return res.status(200).json({
             message: "User data updated.",

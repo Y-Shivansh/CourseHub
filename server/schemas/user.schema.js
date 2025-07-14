@@ -22,6 +22,6 @@ export const updationSchema = z.object({
     password: z.string().min(6).optional(),
 });
 
-export const deletionSchema = z.object({
+const deletionSchema = z.object({
     password: z.string().min(6)
 });

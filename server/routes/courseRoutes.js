@@ -9,8 +9,12 @@ import {authorizeRoles} from "../middlewares/authorizeRoles.js"
 
 const router = express.Router();
 
+// Public routes anyone can access.
+router.get("/all", getAllCourses);
+router.get("/:id", getCourseById);
+
 // Only teacher can access. 
-router.use(verifyUserToken)
+router.use(verifyUserToken);
 router.post("/create", authorizeRoles('teacher'), createCourse, );
 router.get("/my-courses", authorizeRoles('teacher'), getCreatedCourses, );
 router.put("/update/:id", authorizeRoles('teacher'), updateCourse, );
@@ -20,7 +24,5 @@ router.post("/enroll/:id", authorizeRoles('student'), enrollInCourse);
 router.get("/enrolled", authorizeRoles('student'), getEnrolledCourses);
 router.get("/enrolled/:id", authorizeRoles('student'), getEnrolledCourseDetails);
 
-// Public routes anyone can access.
-router.get("/all", getAllCourses);
-router.get("/:id", getCourseById);
+
 export default router;
