@@ -17,7 +17,7 @@ const courseSchema = mongoose.Schema(
         },
         category: {
             type: String,
-            enum: ['Development', 'Designing', 'AI/ML', 'Data Analysis', 'Academic'],
+            enum: ['Development', 'Business', 'Designing', 'AI/ML', 'Data Analysis', 'Marketing', 'Academic'],
             required: true,
         },
         thumbnail:{

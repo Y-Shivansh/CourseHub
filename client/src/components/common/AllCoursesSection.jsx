@@ -1,29 +1,66 @@
 import { useEffect, useState } from "react";
 import { publicApi } from "../../services/axios.config";
 import CourseCard from "./CourseCard";
+import Input from "./Input";
+import { Search } from "lucide-react";
 
 const AllCoursesSection = () => {
+
     const [courses, setCourses] = useState([]);
-    const[showAll, setShowAll] = useState(false);
+    const [filteredCourses, setFilteredCourses] = useState([]);
+    const [searchCourse, setSearchCourse] = useState("");
+    const [showAll, setShowAll] = useState(false);
+
     useEffect(() => {
         (async () => {
             try {
                 const res = await publicApi.get("/course/all");
                 setCourses(res.data.courses || []);
+                setFilteredCourses(res.data.courses || []);
             } catch (error) {
                 console.error("Failed to fetch courses", error);
             }
-        })();
+        })(); // IIFE
     }, []);
 
-    const visibleCourses = showAll ? courses : courses.slice(0,4); 
+    const visibleCourses = showAll ? filteredCourses : filteredCourses.slice(0, 4);
+
+    const handleSearch = () => {
+        const term = searchCourse.trim().toLowerCase();
+
+        const filtered = courses.filter((course) =>
+            course.name.toLowerCase().includes(term)
+        );
+
+        setFilteredCourses(filtered);
+        setShowAll(true);
+    };
+
     return (
         <div className="max-w-7xl mx-auto px-4 py-10 border-t  border-gray-300 dark:border-gray-700">
             <h2 className="text-2xl font-bold mb-6 text-text-light dark:text-text-dark">
                 Explore Courses
             </h2>
 
-            {courses.length === 0 ? (
+            {/* Search Courses */}
+
+            <div className="w-full mb-6 relative">
+                <Input
+                    placeholder="Search Courses..."
+                    value={searchCourse}
+                    onChange={(e) => setSearchCourse(e.target.value)}
+                    className="pr-12"
+                />
+
+                <button
+                    onClick={handleSearch}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-primary-light dark:text-primary-dark hover:opacity-80 transition"
+                >
+                    <Search />
+                </button>
+            </div>
+
+            {filteredCourses.length === 0 ? (
                 <p className="text-gray-500">No courses available right now.</p>
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
@@ -32,17 +69,17 @@ const AllCoursesSection = () => {
                     ))}
                 </div>
             )}
-            
-            {courses.length > 4 && (
-            <div className="text-center mt-8">
-              <button
-                onClick={() => setShowAll(!showAll)}
-                className="inline-block bg-primary-light dark:bg-primary-dark text-white text-sm px-6 py-2 rounded hover:opacity-90 transition"
-              >
-                {showAll ? "Show Less" : "Show All Courses"}
-              </button>
-            </div>
-          )}
+
+            {filteredCourses.length > 4 && (
+                <div className="text-center mt-8">
+                    <button
+                        onClick={() => setShowAll(!showAll)}
+                        className="inline-block bg-primary-light dark:bg-primary-dark text-white text-sm px-6 py-2 rounded hover:opacity-90 transition"
+                    >
+                        {showAll ? "Show Less" : "Show All Courses"}
+                    </button>
+                </div>
+            )}
         </div>
     )
 }

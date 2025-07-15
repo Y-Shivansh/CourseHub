@@ -10,6 +10,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
   const role = getUserRoleFromToken();
 
+  // If already logged in navigate to dashboard.
   useEffect(() => {
     if (role) {
       navigate('/dashboard');

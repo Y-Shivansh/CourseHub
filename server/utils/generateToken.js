@@ -12,7 +12,6 @@ export const generateToken = (userId, role) => {
             { expiresIn: '7d' },
         );
         console.log(token);
-        return token;
     }catch(error){
         return console.error("Token can't be created.", error.message);
     }

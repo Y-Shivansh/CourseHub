@@ -1,8 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import defaultThumbnail from "../../assets/defaultThumbnail.png"
+import {Clock} from "lucide-react";
+import { getCategoryIcon } from '../../utils/getCategoryIcon';
 
 const CourseCard = ({ course }) => {
+
+  
 
   return (
     <div className="bg-background-light dark:bg-secondary-dark rounded-xl shadow-md hover:shadow-lg transition p-4 flex flex-col justify-between">
@@ -19,13 +23,16 @@ const CourseCard = ({ course }) => {
         {course.name}
       </h2>
 
-      <div className=''>
-        <p className="text-sm text-text-muted mb-1">
-          Category: {course.category}
-        </p>
+      <div className='flex justify-between items-center '>
+       
 
-        <p className="text-sm text-text-muted mb-1">
-          Duration: {course.duration}
+        <p className="flex items-center gap-1.5 text-sm text-text-muted mb-1">
+          <Clock size={16} className="text-primary-light dark:text-primary-dark"/>
+          {course.duration}
+        </p>
+         <p className="flex items-center gap-1.5 text-sm text-text-muted mb-1">
+          {getCategoryIcon(course.category)}
+          {course.category}
         </p>
       </div>
 
