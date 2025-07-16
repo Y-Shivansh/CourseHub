@@ -33,3 +33,7 @@ html.dark ::-webkit-scrollbar-thumb {
 html.dark ::-webkit-scrollbar-thumb:hover {
   background: #666;
 }
+
+html {
+  scroll-behavior: smooth;
+}

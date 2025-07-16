@@ -13,9 +13,9 @@ const PublicNavbar = () => {
 
             {/* Nav Links */}
             <div className="flex gap-6 items-center text-sm font-medium">
-                <Link to={"/"} className="hover:text-primary-light dark:hover:text-primary-dark hover:underline">
+                <a href="#showCourses" className="hover:text-primary-light dark:hover:text-primary-dark hover:underline">
                     Show Courses
-                </Link>
+                </a>
                 <Link to={"/"} className="hover:text-primary-light dark:hover:text-primary-dark hover:underline">
                     Login
                 </Link>

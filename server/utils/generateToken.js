@@ -11,7 +11,8 @@ export const generateToken = (userId, role) => {
             `${SECRET_KEY}`,
             { expiresIn: '7d' },
         );
-        console.log(token);
+        return token;
+        // console.log("TOken in util generate token: ", token);
     }catch(error){
         return console.error("Token can't be created.", error.message);
     }

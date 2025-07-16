@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 // Public
 import LandingPage from "../pages/public/LandingPage";
 import CourseDetails from "../pages/public/CourseDetails";
-// import AllCourses from "../pages/public/AllCourses";
+import AllCoursesSection from "../components/common/AllCoursesSection";
 
 // : Protected :
 // Teacher Pages
@@ -27,13 +27,11 @@ import ProtectedLayout from '../layout/ProtectedLayout';
 
 export const AppRoutes = () => {
     return (
-
         <BrowserRouter>
             <Routes>
                 {/* Public Routes */}
                 <Route path='/' element={<LandingPage />} />
                 <Route path='/signup' element={<LandingPage />} />
-                <Route path='/' element={<LandingPage />} />
                 <Route path='/course/:id' element={<CourseDetails />} />
 
                 {/* Protected Routes */}

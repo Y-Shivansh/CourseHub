@@ -1,7 +1,8 @@
-import React from 'react'
+import { Link } from 'react-router-dom'
+import ThemeToggle from '../common/ThemeToggle'
 
 const DashboardNavbar = () => {
-  return (
+ return (
         <nav className="flex items-center justify-between px-4 py-2 bg-background-light text-text-light dark:bg-background-dark dark:text-text-dark">
 
             {/*Logo and Name */}
@@ -12,9 +13,9 @@ const DashboardNavbar = () => {
 
             {/* Nav Links */}
             <div className="flex gap-6 items-center text-sm font-medium">
-                <Link to={"/"} className="hover:text-primary-light dark:hover:text-primary-dark hover:underline">
+                <a href="#showCourses" className="hover:text-primary-light dark:hover:text-primary-dark hover:underline">
                     Show Courses
-                </Link>
+                </a>
                 <Link to={"/"} className="hover:text-primary-light dark:hover:text-primary-dark hover:underline">
                     Login
                 </Link>

@@ -60,11 +60,12 @@ export const loginUser = async (req, res) => {
         if (!user) {
             return res.status(400).json({ message: "User does not exist" });
         }
-
+        
         // Password Check:
         const isValidPassword = await bcrypt.compare(password, user.password);
         if (isValidPassword) {
             const token = generateToken(user._id, user.role);
+            
             return res.status(200).json({
                 message: "Signin successful.",
                 token,

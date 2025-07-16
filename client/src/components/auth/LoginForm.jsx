@@ -6,6 +6,7 @@ import Button from "../common/Button"
 import { publicApi } from "../../services/axios.config"
 import Loader from '../common/Loader';
 import { toast } from "react-toastify";
+import { getUserRoleFromToken } from '../../utils/getUserRoleFromToken';
 
 
 const LoginForm = () => {
@@ -24,11 +25,13 @@ const LoginForm = () => {
       const token = res.data.token;
 
       if (token) {
+        
         localStorage.setItem("authToken", token);
+        const role = getUserRoleFromToken();
         toast.success("Logged in successfully")
         // localStorage.setItem("user", JSON.stringify(res.data.user)) 
         // commented out as not sending it back from backend.
-        navigate("/dashboard")
+        {role === 'student' ? navigate("/dashboard-student") : navigate("/dashboard-teacher")};
       }
     } catch (error) {
       console.error("Login failed", error);

@@ -11,26 +11,28 @@ import Loader from '../../components/common/Loader';
 const LandingPage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  
+
   // If already logged in navigate to dashboard.
   useEffect(() => {
     const role = getUserRoleFromToken();
 
     if (role) {
-      navigate('/dashboard'); // redirect if logged-in
-    }else{
+      {role === 'student' ? navigate("/dashboard-student") : navigate("/dashboard-teacher")}; // redirect if logged-in
+    } else {
       setTimeout(() => setLoading(false), 300); // show landing after 300ms
     }
   }, [navigate]);
-   if (loading) return <Loader />;
+  if (loading) return <Loader />;
 
   return (
     <div className='relative'>
-      <BlobBackground/>
+      <BlobBackground />
       <PublicNavbar />
       <Hero />
-      
-      <AllCoursesSection/>
+      <section id='showCourses'>
+        <AllCoursesSection />
+
+      </section>
       <Footer />
     </div>
   )

@@ -6,6 +6,7 @@ import Button from "../common/Button"
 import { publicApi } from "../../services/axios.config"
 import Loader from '../common/Loader';
 import { toast } from 'react-toastify';
+import { getUserRoleFromToken } from '../../utils/getUserRoleFromToken';
 
 
 const SignupForm = () => {
@@ -28,8 +29,9 @@ const SignupForm = () => {
       const token = res.data.token;
       if (token) {
         localStorage.setItem("authToken", token);
+        const role = getUserRoleFromToken();
         toast.success("SignUp Successful");
-        navigate("/dashboard");
+        {role === 'student' ? navigate("/dashboard-student") : navigate("/dashboard-teacher")};
       }
     } catch (error) {
       toast.error("Signup Failed")
