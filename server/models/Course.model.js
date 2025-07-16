@@ -15,6 +15,10 @@ const courseSchema = mongoose.Schema(
             required: true,
             minLength: 30,
         },
+        price:{
+            type: String,
+            required: true
+        },
         category: {
             type: String,
             enum: ['Development', 'Business', 'Designing', 'AI/ML', 'Data Analysis', 'Marketing', 'Academic'],

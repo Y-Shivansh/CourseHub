@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import Input from "../common/Input"
 import Button from "../common/Button"
 import { publicApi } from "../../services/axios.config"
+import Loader from '../common/Loader';
+import { toast } from 'react-toastify';
 
 
 const SignupForm = () => {
@@ -12,6 +14,7 @@ const SignupForm = () => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const[loading, setLoading] = useState(false);
 
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -19,27 +22,32 @@ const SignupForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     try {
       const res = await publicApi.post("/user/signup", { name, email, phone, password, role });
       const token = res.data.token;
       if (token) {
         localStorage.setItem("authToken", token);
+        toast.success("SignUp Successful");
         navigate("/dashboard");
       }
     } catch (error) {
+      toast.error("Signup Failed")
       console.error("Signup Failed", error);
       setError(error?.response?.data?.message || "Signup Failed")
-
+    }
+    finally{
+      setLoading(false);
     }
   }
+  if(loading) return <Loader/>
 
   return (
     <form onSubmit={handleSubmit}
-      className="w-full max-w-md mx-auto border border-gray-200 dark:border-gray-700 rounded-2xl px-6 py-8 bg-secondary-light dark:bg-background-dark shadow-sm transition"
+      className="w-full max-w-md mx-auto border border-gray-200 rounded-2xl px-6 py-8 dark:bg-secondary-light bg-background-light  shadow-sm transition"
     >
       <div className="grid gap-5">
-        <h1 className="text-2xl text-center font-semibold text-text-light dark:text-text-dark">
+        <h1 className="text-2xl text-center font-semibold text-text-light">
           Register to CourseHub
         </h1>
 
@@ -50,7 +58,9 @@ const SignupForm = () => {
           onChange={(e) => setName(e.target.value)}
           placeholder={"Enter your name"}
           required
-          className="bg-background-light dark:bg-background-dark border-gray-300 dark:border-gray-600"
+          className="bg-background-light  border-gray-300"
+          applyDark={false}
+          labelDark={false}
         />
 
         <Input
@@ -61,12 +71,14 @@ const SignupForm = () => {
           onChange={(e) => setPhone(e.target.value)}
           placeholder={"Enter your phone number"}
           required
-          className="bg-background-light dark:bg-background-dark border-gray-300 dark:border-gray-600"
+          className="bg-background-light  border-gray-300"
+          applyDark={false}
+          labelDark={false}
         />
 
         {/* Select Dropdown */}
         <div className="flex flex-col gap-1">
-          <label htmlFor="role" className="text-text-light dark:text-text-dark">
+          <label htmlFor="role" className="text-text-light">
             Select Role
           </label>
           <select
@@ -75,7 +87,7 @@ const SignupForm = () => {
             value={role}
             onChange={(e) => setRole(e.target.value)}
             required
-            className="focus:outline-none focus:ring-0 w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark text-sm"
+            className="focus:outline-none focus:ring-0 w-full px-4 py-2 rounded-md border border-gray-300  bg-background-light  text-text-light text-sm"
           >
             <option value="student">Student</option>
             <option value="teacher">Teacher</option>
@@ -90,7 +102,9 @@ const SignupForm = () => {
           onChange={(e) => setEmail(e.target.value)}
           placeholder={"Enter your email"}
           required
-          className="bg-background-light dark:bg-background-dark border-gray-300 dark:border-gray-600"
+          className="bg-background-light  border-gray-300"
+          applyDark={false}
+          labelDark={false}
         />
 
         <div className="relative">
@@ -102,7 +116,9 @@ const SignupForm = () => {
             onChange={(e) => setPassword(e.target.value)}
             placeholder={"Enter password"}
             required
-            className="pr-10 bg-background-light dark:bg-background-dark border-gray-300 dark:border-gray-600"
+            className="bg-background-light  border-gray-300"
+            applyDark={false}
+            labelDark={false}
           />
           <span
             onClick={() => setShowPassword(!showPassword)}

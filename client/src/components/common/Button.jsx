@@ -15,7 +15,7 @@ const Button = ({
     makes it easier to read & maintain.
     */
     const baseStyle = "px-4 py-2 rounded-md font-medium transition";
-    const activeStyles = disabled ? "bg-primary-light text-white" : "bg-primary-light text-white dark:bg-blend-color hover:opacity-90 hover:cursor-pointer";
+    const activeStyles = disabled ? "bg-primary-light text-white" : "bg-primary-light text-white hover:opacity-90 hover:cursor-pointer";
     const disabledStyles = "opacity-50 cursor-not-allowed";
     return (
         <button onClick={onClick} type={type} className=  {`${baseStyle} ${activeStyles} ${className} ${disabled ? disabledStyles : ""}`} >{children}</button>

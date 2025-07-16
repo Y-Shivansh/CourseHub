@@ -5,16 +5,17 @@ import LandingPage from "../pages/public/LandingPage";
 import CourseDetails from "../pages/public/CourseDetails";
 // import AllCourses from "../pages/public/AllCourses";
 
-// Protected Pages (Dashboard)
-import Dashboard from "../pages/dashboard/Dashboard";
-import UpdateField from "../pages/dashboard/UpdateField";
-
+// : Protected :
 // Teacher Pages
+import TeacherDashboard from '../pages/dashboard/teacher/TeacherDashoard'
+import TeacherUpdateProfile from '../pages/dashboard/teacher/TeacherUpdateProfile';
 import MyCreatedCourses from "../pages/dashboard/teacher/MyCreatedCourses";
 import CreateCourse from "../pages/dashboard/teacher/CreateCourse";
 import CourseUpdate from "../pages/dashboard/teacher/CourseUpdate";
 
 // Student Pages
+import StudentDashboard from '../pages/dashboard/student/StudentDashboard'
+import StudentUpdateProfile from '../pages/dashboard/student/StudentUpdateProfile';
 import MyEnrolledCourses from "../pages/dashboard/student/MyEnrolledCourses";
 import EnrollCourse from "../pages/dashboard/student/EnrollCourse";
 import EnrolledCourse from "../pages/dashboard/student/EnrolledCourse";
@@ -37,15 +38,17 @@ export const AppRoutes = () => {
 
                 {/* Protected Routes */}
                 <Route element={<ProtectedLayout />}>
-                    <Route path='/dashboard' element={<Dashboard />} />
-                    <Route path='/update' element={<UpdateField />} />
 
                     {/* Students */}
+                    <Route path='/dashboard-student' element={<StudentDashboard />} />
+                    <Route path='/update-student' element={<StudentUpdateProfile/>} />
                     <Route path='/courses/:id/enroll' element={<EnrollCourse />} />
-                    <Route path='/my-enrolled-courses/:id' element={<EnrolledCourse />} />
                     <Route path='/my-enrolled-courses' element={<MyEnrolledCourses />} />
+                    <Route path='/my-enrolled-courses/:id' element={<EnrolledCourse />} />
 
                     {/* Teacher */}
+                    <Route path='/dashboard-teacher' element={<TeacherDashboard />} />
+                    <Route path='/update-student' element={<TeacherUpdateProfile />} />
                     <Route path='/create-course' element={<CreateCourse />} />
                     <Route path='/update-course/:id' element={<CourseUpdate />} />
                     <Route path='/my-courses' element={<MyCreatedCourses />} />

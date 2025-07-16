@@ -8,7 +8,7 @@ import User from "../models/user.model.js";
 export const getAllCourses = async (req, res) => {
     try {
         const courses = await Course.find()
-            .select('name duration category thumbnail createdBy')
+            .select('name duration category thumbnail createdBy price')
             .populate('createdBy', 'name'); // creastedBy me ab name bhi ayega
 
         if (!courses || courses.lentgh === 0) {
@@ -31,7 +31,7 @@ export const getAllCourses = async (req, res) => {
 export const getCourseById = async (req, res) => {
     try {
         const courseId = req.params.id;
-        const course = await Course.findById(courseId).populate('createdBy', 'name').select("-enrolledStudents");
+        const course = await Course.findById(courseId).populate('createdBy', 'name bio profile').select("-enrolledStudents");
         // const courses = await Course.findByID(courseId).populate('createdBy', 'name'); // creastedBy me ab name bhi ayega
         if (course.length === 0) {
             return res.status(400).json({ message: "No course is uploaded as of now." });
@@ -47,6 +47,16 @@ export const getCourseById = async (req, res) => {
             error: error.message || error
         })
     }
+}
+
+export const getOtherCoursesByTeacher = async (req, res) => {
+  try {
+    const courses = await Course.find({ createdBy: req.params.id }).select("name thumbnail category");
+    res.status(200).json({ courses });
+  } catch (error) {
+    console.error("Failed to fetch teacher courses", error);
+    res.status(500).json({ message: "Failed to fetch teacher courses" });
+  }
 }
 
 // Teacher Course Routes Controllers Only Teacher Can Access.

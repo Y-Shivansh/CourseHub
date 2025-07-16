@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: "class", // toggle via class
-  content: ["./index.html", "./src/**/*.{js,jsx}"], // Only scan these files for class names like bg-red-500 or dark:bg-black etc. and purge everything else.
+   content: ["./index.html", "./src/**/*.{js,jsx}"], // Only scan these files for class names like bg-red-500 or dark:bg-black etc. and purge everything else.
   theme: {
     extend: {
       colors: {
@@ -16,7 +16,7 @@ export default {
         },
         background: {
           light: "#ffffff", // Pure white — page background (light mode)
-          dark: "#14171c",  // Blackish — base background (dark mode)
+          dark: "#1e2531",  // Blackish — base background (dark mode)
         },
         text: {
           light: "#1C1C1C", // Charcoal black — headings/body (light mode)

@@ -1,7 +1,7 @@
 import express from 'express';
 import verifyUserToken from '../middlewares/user.middleware.js';
 import {
-    getAllCourses, getCourseById,
+    getAllCourses, getCourseById, getOtherCoursesByTeacher,
     createCourse, getCreatedCourses, updateCourse, 
     enrollInCourse, getEnrolledCourses, getEnrolledCourseDetails
 } from "../controllers/courseControllers.js";
@@ -12,6 +12,8 @@ const router = express.Router();
 // Public routes anyone can access.
 router.get("/all", getAllCourses);
 router.get("/:id", getCourseById);
+router.get("/teacher/:id", getOtherCoursesByTeacher);
+
 
 // Only teacher can access. 
 router.use(verifyUserToken);

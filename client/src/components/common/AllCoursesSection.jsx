@@ -37,28 +37,43 @@ const AllCoursesSection = () => {
     };
 
     return (
-        <div className="max-w-7xl mx-auto px-4 py-10 border-t  border-gray-300 dark:border-gray-700">
-            <h2 className="text-2xl font-bold mb-6 text-text-light dark:text-text-dark">
+        <div className="max-w-7xl mx-auto px-4 py-10 border-t  border-gray-300 dark:border-gray-600">
+            <h2 className="text-3xl font-bold mb-6 text-text-light dark:text-text-dark">
                 Explore Courses
             </h2>
 
             {/* Search Courses */}
+            <div className="mb-6 flex items-center">
+                <div className="w-full relative">
+                    <Input
+                        placeholder="Search Courses..."
+                        value={searchCourse}
+                        onChange={(e) => setSearchCourse(e.target.value)}
+                        className="pr-12 dark:bg-secondary-light"
+                        applyDark={false}
+                        labelDark={false}
+                    />
 
-            <div className="w-full mb-6 relative">
-                <Input
-                    placeholder="Search Courses..."
-                    value={searchCourse}
-                    onChange={(e) => setSearchCourse(e.target.value)}
-                    className="pr-12"
-                />
-
-                <button
-                    onClick={handleSearch}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-primary-light dark:text-primary-dark hover:opacity-80 transition"
-                >
-                    <Search />
-                </button>
+                    <button
+                        onClick={handleSearch}
+                        className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 text-primary-light dark:text-primary-dark hover:opacity-80 transition"
+                    >
+                        <Search />
+                    </button>
+                </div>
+                {searchCourse && (
+                    <button onClick={() => {
+                        setSearchCourse("");
+                        setFilteredCourses(courses);
+                        setShowAll(false);
+                    }}
+                        className="cursor-pointer ml-2 text-sm underline text-primary-light dark:text-primary-dark"
+                    >
+                        Clear
+                    </button>
+                )}
             </div>
+
 
             {filteredCourses.length === 0 ? (
                 <p className="text-gray-500">No courses available right now.</p>
@@ -74,9 +89,9 @@ const AllCoursesSection = () => {
                 <div className="text-center mt-8">
                     <button
                         onClick={() => setShowAll(!showAll)}
-                        className="inline-block bg-primary-light dark:bg-primary-dark text-white text-sm px-6 py-2 rounded hover:opacity-90 transition"
+                        className="inline-block text-primary-light dark:text-white underline cursor-pointer text-sm px-3 py-1 rounded-2xl hover:opacity-90 transition"
                     >
-                        {showAll ? "Show Less" : "Show All Courses"}
+                        {showAll ? "Show Less" : "Show All"}
                     </button>
                 </div>
             )}
