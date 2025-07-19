@@ -1,5 +1,5 @@
-// authorizeRoles(...roles) tabhi kaam aata hai:
-// Jab hame ek se zyada roles ko allow karna ho ek route par.
+// authorizeRoles(...roles) needed only when: 
+// we need to allow multiple roles on one route.
 
 export const authorizeRoles = (...roles) => {
     return (req, res, next) => {

@@ -2,17 +2,17 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { publicApi } from "../../services/axios.config";
 import defaultThumbnail from "../../assets/defaultThumbnail.png";
-import defaultprofile from "../../assets/defaultprofile.png";
+import defaultprofile from "../../assets/profileAvatar.svg";
 import Button from "../../components/common/Button";
-import { getUserRoleFromToken } from "../../utils/getUserRoleFromToken";
 import Loader from "../../components/common/Loader";
 
 const CourseDetails = () => {
   const { id } = useParams();
   const [course, setCourse] = useState(null);
   const [otherCourses, setOtherCourses] = useState([]);
-  const token = getUserRoleFromToken();
   const [loading, setLoading] = useState(true);
+  const token = localStorage.getItem("authToken");
+  const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
   (async () => {
@@ -71,9 +71,9 @@ if (loading) return <Loader />;
             {/* ENROLL BUTTON*/}
             {!token ? (
               <Button disabled={true} children="Login to Enroll" />
-            ) : token.role === "teacher" ? (
+            ) : user.role === "teacher" ? (
               <Button disabled={true} children="Teachers can't enroll" />
-            ) : token.role === "student" ? (
+            ) : user.role === "student" ? (
               <Link to={`/courses/${id}/enroll`}>
                 <Button children="Enroll" />
               </Link>

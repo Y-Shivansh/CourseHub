@@ -15,10 +15,9 @@ const SignupForm = () => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const[loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [error, setError] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -31,18 +30,18 @@ const SignupForm = () => {
         localStorage.setItem("authToken", token);
         const role = getUserRoleFromToken();
         toast.success("SignUp Successful");
-        {role === 'student' ? navigate("/dashboard-student") : navigate("/dashboard-teacher")};
+        { role === 'student' ? navigate("/dashboard-student") : navigate("/dashboard-teacher") };
       }
     } catch (error) {
       toast.error("Signup Failed")
       console.error("Signup Failed", error);
       setError(error?.response?.data?.message || "Signup Failed")
     }
-    finally{
+    finally {
       setLoading(false);
     }
   }
-  if(loading) return <Loader/>
+  if (loading) return <Loader />
 
   return (
     <form onSubmit={handleSubmit}
@@ -91,6 +90,9 @@ const SignupForm = () => {
             required
             className="focus:outline-none focus:ring-0 w-full px-4 py-2 rounded-md border border-gray-300  bg-background-light  text-text-light text-sm"
           >
+            <option value="" disabled>
+              Select your role
+            </option>
             <option value="student">Student</option>
             <option value="teacher">Teacher</option>
           </select>
@@ -108,27 +110,19 @@ const SignupForm = () => {
           applyDark={false}
           labelDark={false}
         />
-
-        <div className="relative">
-          <Input
-            label={"Password"}
-            type={showPassword ? "text" : "password"}
-            name={"password"}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder={"Enter password"}
-            required
-            className="bg-background-light  border-gray-300"
-            applyDark={false}
-            labelDark={false}
-          />
-          <span
-            onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-[38px] cursor-pointer text-gray-500 dark:text-gray-300"
-          >
-            {showPassword ? <FiEyeOff /> : <FiEye />}
-          </span>
-        </div>
+        <Input
+          label={"Password"}
+          type={"password"}
+          name={"password"}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder={"Enter password"}
+          required
+          className="bg-background-light  border-gray-300"
+          applyDark={false}
+          labelDark={false}
+          isPassword={true}
+        />
 
         <Button type="submit">Signup</Button>
       </div>

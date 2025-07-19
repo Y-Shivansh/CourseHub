@@ -17,5 +17,5 @@
 
 ## 📌 Note
 
-This project is currently under development.  
+This project is currently under development.   (used framer-motion for smooth transitions, headlessui for dropdowns and collapsibles and react-toastify for toasts & react-modern-drawer for professional side drawer , "lucide-react" for icons)
 Frontend integration, file uploads, and payment features and AI Chat will be added in upcoming phases.

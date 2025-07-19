@@ -40,13 +40,13 @@ export const AppRoutes = () => {
                     {/* Students */}
                     <Route path='/dashboard-student' element={<StudentDashboard />} />
                     <Route path='/update-student' element={<StudentUpdateProfile/>} />
-                    <Route path='/courses/:id/enroll' element={<EnrollCourse />} />
+                    <Route path='/courses/:id/enroll' element={<CourseDetails />} />
                     <Route path='/my-enrolled-courses' element={<MyEnrolledCourses />} />
                     <Route path='/my-enrolled-courses/:id' element={<EnrolledCourse />} />
 
                     {/* Teacher */}
                     <Route path='/dashboard-teacher' element={<TeacherDashboard />} />
-                    <Route path='/update-student' element={<TeacherUpdateProfile />} />
+                    <Route path='/update-teacher' element={<TeacherUpdateProfile />} /> {/* Fixed: was /update-student */}
                     <Route path='/create-course' element={<CreateCourse />} />
                     <Route path='/update-course/:id' element={<CourseUpdate />} />
                     <Route path='/my-courses' element={<MyCreatedCourses />} />

@@ -16,9 +16,7 @@ const ProtectedLayout = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background-light dark:bg-background-dark">
       <Outlet />
-    </div>
   )
 }
 

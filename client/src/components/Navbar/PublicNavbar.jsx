@@ -22,7 +22,7 @@ const PublicNavbar = () => {
                 <Link to={"/signup"} className="hover:text-primary-light dark:hover:text-primary-dark hover:underline">
                     Signup
                 </Link>
-                <ThemeToggle/>
+                <ThemeToggle withText={false} size={16}/>
             </div>
         </nav>
     )

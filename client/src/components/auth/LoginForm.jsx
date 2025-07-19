@@ -13,7 +13,6 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -25,24 +24,24 @@ const LoginForm = () => {
       const token = res.data.token;
 
       if (token) {
-        
+
         localStorage.setItem("authToken", token);
         const role = getUserRoleFromToken();
         toast.success("Logged in successfully")
         // localStorage.setItem("user", JSON.stringify(res.data.user)) 
         // commented out as not sending it back from backend.
-        {role === 'student' ? navigate("/dashboard-student") : navigate("/dashboard-teacher")};
+        { role === 'student' ? navigate("/dashboard-student") : navigate("/dashboard-teacher") };
       }
     } catch (error) {
       console.error("Login failed", error);
       toast.error("Login Failed");
       setError(error?.response?.data?.message || "Login Failed");
-    }finally{
+    } finally {
       setLoading(false);
     }
 
   }
-  if(loading) return <Loader/>
+  if (loading) return <Loader />
 
 
   return (
@@ -66,27 +65,20 @@ const LoginForm = () => {
           applyDark={false}
           labelDark={false}
         />
+        <Input
+          label={"Password"}
+          type={"password"}
+          name={"password"}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder={"Enter password"}
+          required
+          className="pr-10 bg-background-light border-gray-300"
+          applyDark={false}
+          labelDark={false}
+          isPassword={true}
+        />
 
-        <div className="relative">
-          <Input
-            label={"Password"}
-            type={showPassword ? "text" : "password"}
-            name={"password"}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder={"Enter password"}
-            required
-            className="pr-10 bg-background-light border-gray-300"
-            applyDark={false}
-            labelDark={false}
-          />
-          <span
-            onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-[38px] cursor-pointer text-gray-500 "
-          >
-            {showPassword ? <FiEyeOff /> : <FiEye />}
-          </span>
-        </div>
 
         <Button type="submit">Login</Button>
       </div>

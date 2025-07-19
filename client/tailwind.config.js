@@ -32,5 +32,17 @@ export default {
   plugins: [],
   corePlugins: {
     scrollBehavior: true,
-  }
+  },
+   safelist: [
+    'translate-x-full',
+    'translate-x-0',
+    'opacity-0',
+    'opacity-100',
+    'transition',
+    'transform',
+    'ease-in',
+    'ease-out',
+    'duration-300',
+    'duration-200'
+  ]
 };

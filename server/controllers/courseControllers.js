@@ -8,7 +8,7 @@ import User from "../models/user.model.js";
 export const getAllCourses = async (req, res) => {
     try {
         const courses = await Course.find()
-            .select('name duration category thumbnail createdBy price')
+            .select('_id name duration category thumbnail createdBy price')
             .populate('createdBy', 'name'); // creastedBy me ab name bhi ayega
 
         if (!courses || courses.lentgh === 0) {
@@ -50,13 +50,13 @@ export const getCourseById = async (req, res) => {
 }
 
 export const getOtherCoursesByTeacher = async (req, res) => {
-  try {
-    const courses = await Course.find({ createdBy: req.params.id }).select("name thumbnail category");
-    res.status(200).json({ courses });
-  } catch (error) {
-    console.error("Failed to fetch teacher courses", error);
-    res.status(500).json({ message: "Failed to fetch teacher courses" });
-  }
+    try {
+        const courses = await Course.find({ createdBy: req.params.id }).select("name thumbnail category");
+        res.status(200).json({ courses });
+    } catch (error) {
+        console.error("Failed to fetch teacher courses", error);
+        res.status(500).json({ message: "Failed to fetch teacher courses" });
+    }
 }
 
 // Teacher Course Routes Controllers Only Teacher Can Access.
@@ -81,14 +81,14 @@ export const createCourse = async (req, res) => {
             thumbnail: req.body.thumbnail || "",
             createdBy: userId
         })
-        
+
         // Update User Also. (Created Courses)
         let user = await User.findOneAndUpdate(
-            {_id: userId},
-            {$addToSet: {courseCreated: course._id}},
-            {new: true}
+            { _id: userId },
+            { $addToSet: { courseCreated: course._id } },
+            { new: true }
         );
-        if(!user){
+        if (!user) {
             await Course.findByIdAndDelete(course._id);
             console.error("Create Course Error - User Not Found.")
             return res.status(404).json({
@@ -116,7 +116,7 @@ export const getCreatedCourses = async (req, res) => {
     try {
         const courses = await Course.find({ createdBy: req.user.userId })
             .populate('createdBy', 'name')
-            .populate("enrolledStudents", "name email"); 
+            .populate("enrolledStudents", "name email");
 
         if (courses.length === 0) {
             return res.status(404).json({
@@ -233,60 +233,83 @@ export const enrollInCourse = async (req, res) => {
     }
 }
 
-export const getEnrolledCourses = async(req, res) => {
+export const getUnEnrolledCourses = async (req, res) => {
     const userId = req.user.userId;
-    try{
-        const courses = await Course.find({enrolledStudents: userId})
+    try {
+        
+        const user = await User.findById(userId).select("enrolledIn");
+        const allCourses = await Course.find().populate('createdBy', 'name');
+
+        // Ids of enrolled
+        const enrolledIds = user.enrolledIn.map(id => id.toString());
+
+        // Filtering enrolled
+        const unEnrolledCourses = allCourses.filter(
+            course => !enrolledIds.includes(course._id.toString())
+        )
+        return res.status(200).json({ courses: unEnrolledCourses });
+    } catch (error) {
+        console.error("Failed to get unenrolled courses", error);
+        return res.status(500).json({ message: "Server error arha hai" });
+    }
+}
+
+
+export const getEnrolledCourses = async (req, res) => {
+    const userId = req.user.userId;
+    try {
+        const courses = await Course.find({ enrolledStudents: userId })
             .select("name description duration thumbnail category")
-            .populate('createdBy','name');
-        if(!courses || courses.length === 0){
+            .populate('createdBy', 'name');
+        if (!courses || courses.length === 0) {
             console.error("No Courses Found.");
             return res.status(404).json({
-                success: false, 
+                success: false,
                 message: "No Course Found."
             })
         }
         return res.status(200).json({
-             success: true,
+            success: true,
             message: "Courses Fetched.",
             count: courses.length,
             courses
         })
-    }catch(error){
+    } catch (error) {
         console.error("Fetch Enrolled Courses Error");
         res.status(500).json({ success: false, message: "Server Error" });
     }
 }
 
 export const getEnrolledCourseDetails = async (req, res) => {
-  const userId = req.user.userId;
-  const { id } = req.params;
+    const userId = req.user.userId;
+    const { id } = req.params;
 
-  try {
-    const course = await Course.findOne({
-      _id: id,
-      enrolledStudents: userId,})
-        .select("-enrolledStudents")
-        .populate("createdBy", "name");
+    try {
+        const course = await Course.findOne({
+            _id: id,
+            enrolledStudents: userId,
+        })
+            .select("-enrolledStudents")
+            .populate("createdBy", "name");
 
-    if (!course) {
-      return res.status(404).json({
-        success: false,
-        message: "Course not found or you're not enrolled.",
-      });
+        if (!course) {
+            return res.status(404).json({
+                success: false,
+                message: "Course not found or you're not enrolled.",
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Course details fetched.",
+            course,
+        });
+
+    } catch (error) {
+        console.error("getEnrolledCourseDetails Error:", error);
+        res.status(500).json({
+            success: false,
+            message: "Server error while fetching course details.",
+        });
     }
-
-    res.status(200).json({
-      success: true,
-      message: "Course details fetched.",
-      course,
-    });
-
-  } catch (error) {
-    console.error("getEnrolledCourseDetails Error:", error);
-    res.status(500).json({
-      success: false,
-      message: "Server error while fetching course details.",
-    });
-  }
 };

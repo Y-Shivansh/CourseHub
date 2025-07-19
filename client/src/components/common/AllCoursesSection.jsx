@@ -1,29 +1,39 @@
 import { useEffect, useState } from "react";
-import { publicApi } from "../../services/axios.config";
+import { privateApi, publicApi } from "../../services/axios.config";
 import CourseCard from "./CourseCard";
 import Input from "./Input";
 import { Search } from "lucide-react";
+import { toast } from "react-toastify";
 
-const AllCoursesSection = () => {
+const AllCoursesSection = ({ user = null }) => {
 
     const [courses, setCourses] = useState([]);
     const [filteredCourses, setFilteredCourses] = useState([]);
     const [searchCourse, setSearchCourse] = useState("");
     const [showAll, setShowAll] = useState(false);
+    const token = localStorage.getItem("authToken");
 
     useEffect(() => {
         (async () => {
             try {
-                const res = await publicApi.get("/course/all");
-                setCourses(res.data.courses || []);
-                setFilteredCourses(res.data.courses || []);
+                if (user !== null) {
+                    const res = await privateApi.get("/course/unenrolled");
+                    console.log(res.data);
+                    setCourses(res.data.courses || []);
+                    setFilteredCourses(res.data.courses || []);
+                } else {
+                    const res = await publicApi.get("/course/all");
+                    setCourses(res.data.courses || []);
+                    setFilteredCourses(res.data.courses || []);
+                }
             } catch (error) {
+                toast.error("Failed to fetch courses");
                 console.error("Failed to fetch courses", error);
             }
         })(); // IIFE
     }, []);
 
-    const visibleCourses = showAll ? filteredCourses : filteredCourses.slice(0, 4);
+    const visibleCourses = showAll ? filteredCourses : (token ? filteredCourses.slice(0, 6) : filteredCourses.slice(0, 4));
 
     const handleSearch = () => {
         const term = searchCourse.trim().toLowerCase();
@@ -36,10 +46,11 @@ const AllCoursesSection = () => {
         setShowAll(true);
     };
 
+
     return (
         <div className="max-w-7xl mx-auto px-4 py-10 border-t  border-gray-300 dark:border-gray-600">
             <h2 className="text-3xl font-bold mb-6 text-text-light dark:text-text-dark">
-                Explore Courses
+                {token ? "Enroll to any course" : "Explore Courses"}
             </h2>
 
             {/* Search Courses */}
@@ -85,7 +96,7 @@ const AllCoursesSection = () => {
                 </div>
             )}
 
-            {filteredCourses.length > 4 && (
+            {(token ? filteredCourses.length > 6 : filteredCourses.length > 4) && (
                 <div className="text-center mt-8">
                     <button
                         onClick={() => setShowAll(!showAll)}

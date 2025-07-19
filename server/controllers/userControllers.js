@@ -60,12 +60,12 @@ export const loginUser = async (req, res) => {
         if (!user) {
             return res.status(400).json({ message: "User does not exist" });
         }
-        
+
         // Password Check:
         const isValidPassword = await bcrypt.compare(password, user.password);
         if (isValidPassword) {
             const token = generateToken(user._id, user.role);
-            
+
             return res.status(200).json({
                 message: "Signin successful.",
                 token,
@@ -84,7 +84,8 @@ export const loginUser = async (req, res) => {
     } catch (error) {
         console.error("Login error:", error);
         return res.status(500).json({
-            message: "Server Error"
+            message: "Server Error",
+            error
         })
     }
 };
@@ -101,7 +102,7 @@ export const getUserProfile = async (req, res) => {
         const { name, profile, bio, age, email, phone, enrolledIn, courseCreated } = user;
         return res.status(200).json({
             message: "Details Fetched.",
-            user: { name, profile, bio, age, email, phone, role, enrolledIn, courseCreated }
+            user
         })
     } catch (error) {
         console.error("Get User Profile Error", error.message);
@@ -115,10 +116,10 @@ export const getUserProfile = async (req, res) => {
 export const updateUser = async (req, res) => {
     const result = updationSchema.safeParse(req.body);
     if (!result.success) return res.status(400).json({ message: "Validation Failed" });
-    const { name, profile, bio, phone, password } = result.data;
+    const { name, profile, bio, phone, oldPassword, password } = result.data;
     try {
         const user = await User.findById(req.user.userId).select("+password");
-        if (!user){
+        if (!user) {
             console.error("Can not update user details");
             return res.status(404).json({ message: "User not found" });
         }
@@ -129,6 +130,16 @@ export const updateUser = async (req, res) => {
         user.phone = phone?.trim() || user.phone;
 
         if (password) {
+            if (!oldPassword) {
+                return res.status(400).json({ message: "Old password required to update password" });
+            }
+            if (oldPassword === password) {
+                return res.status(400).json({ message: "Both passwords must be different" });
+            }
+            const isMatch = await bcrypt.compare(oldPassword, user.password);
+            if (!isMatch) {
+                return res.status(401).json({ message: "Old password is incorrect" });
+            }
             const salt = await bcrypt.genSalt(10);
             user.password = await bcrypt.hash(password, salt)
         }
@@ -149,26 +160,30 @@ export const updateUser = async (req, res) => {
     } catch (error) {
         console.error("Updation Error", error);
         return res.status(500).json({
-            message: "Server Error"
+            message: "Server Error",
+            error
         })
     }
 };
 
 
-export const deleteUser = async(req, res) => {
+export const deleteUser = async (req, res) => {
     const result = deletionSchema.safeParse(req.body);
-    
-    if(!result.success){
-        return res.status(400).json({message: "Validation Failed"})
+
+    if (!result.success) {
+        return res.status(400).json({ message: "Validation Failed" })
     }
-    const password = result.data.password;
+    const password = req.body?.password;
+    if (!password) {
+        return res.status(400).json({ message: "Password is required" });
+    }
     const userId = req.user.userId;
     try {
         const user = await User.findById(userId).select("+password");
         const isValidPassword = await bcrypt.compare(password, user.password);
-        if(!isValidPassword){
+        if (!isValidPassword) {
             console.error("Delete User Failed.")
-            return res.status(401).json({message: "Incorrect Password"});
+            return res.status(401).json({ message: "Incorrect Password" });
         }
         // Creating Deletion Log
         await DeletionLog.create({
@@ -177,17 +192,17 @@ export const deleteUser = async(req, res) => {
         })
 
         // Use at the time of actual email addresses in the DB.
-        try{
+        try {
             const mailSent = await sendEmail({
                 to: user.email,
                 subject: "Account Deleted",
                 html: `<h1>Hello ${user.name}</h1> <p> your account was deleted from CourseHub.</p>`
             })
-            if(mailSent) console.log(`Mail Sent to ${user.email}`);
-        }catch(err){
-            console.error("An Error Occurred, while sending mail." , err);
+            if (mailSent) console.log(`Mail Sent to ${user.email}`);
+        } catch (err) {
+            console.error("An Error Occurred, while sending mail.", err);
         }
-        
+
         await user.deleteOne();
 
         return res.status(200).json("User deleted.")

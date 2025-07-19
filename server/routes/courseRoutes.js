@@ -3,7 +3,7 @@ import verifyUserToken from '../middlewares/user.middleware.js';
 import {
     getAllCourses, getCourseById, getOtherCoursesByTeacher,
     createCourse, getCreatedCourses, updateCourse, 
-    enrollInCourse, getEnrolledCourses, getEnrolledCourseDetails
+    enrollInCourse, getEnrolledCourses, getEnrolledCourseDetails, getUnEnrolledCourses
 } from "../controllers/courseControllers.js";
 import {authorizeRoles} from "../middlewares/authorizeRoles.js"
 
@@ -11,6 +11,7 @@ const router = express.Router();
 
 // Public routes anyone can access.
 router.get("/all", getAllCourses);
+router.get("/unenrolled", verifyUserToken, authorizeRoles('student'), getUnEnrolledCourses);
 router.get("/:id", getCourseById);
 router.get("/teacher/:id", getOtherCoursesByTeacher);
 
