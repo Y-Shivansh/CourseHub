@@ -9,23 +9,21 @@ import {authorizeRoles} from "../middlewares/authorizeRoles.js"
 
 const router = express.Router();
 
-// Public routes anyone can access.
-router.get("/all", getAllCourses);
-router.get("/unenrolled", verifyUserToken, authorizeRoles('student'), getUnEnrolledCourses);
-router.get("/:id", getCourseById);
-router.get("/teacher/:id", getOtherCoursesByTeacher);
-
 
 // Only teacher can access. 
-router.use(verifyUserToken);
-router.post("/create", authorizeRoles('teacher'), createCourse, );
-router.get("/my-courses", authorizeRoles('teacher'), getCreatedCourses, );
-router.put("/update/:id", authorizeRoles('teacher'), updateCourse, );
+router.post("/create", verifyUserToken, authorizeRoles('teacher'), createCourse, );
+router.get("/my-courses", verifyUserToken, authorizeRoles('teacher'), getCreatedCourses, );
+router.put("/update/:id", verifyUserToken, authorizeRoles('teacher'), updateCourse, );
 
 // Only student can access.
-router.post("/enroll/:id", authorizeRoles('student'), enrollInCourse);
-router.get("/enrolled", authorizeRoles('student'), getEnrolledCourses);
-router.get("/enrolled/:id", authorizeRoles('student'), getEnrolledCourseDetails);
+router.get("/unenrolled", verifyUserToken, authorizeRoles('student'), getUnEnrolledCourses);
+router.post("/enroll/:id", verifyUserToken, authorizeRoles('student'), enrollInCourse);
+router.get("/enrolled", verifyUserToken, authorizeRoles('student'), getEnrolledCourses);
+router.get("/enrolled/:id", verifyUserToken, authorizeRoles('student'), getEnrolledCourseDetails);
 
+// Public routes anyone can access.
+router.get("/all", getAllCourses);
+router.get("/:id", getCourseById);
+router.get("/teacher/:id", getOtherCoursesByTeacher);
 
 export default router;

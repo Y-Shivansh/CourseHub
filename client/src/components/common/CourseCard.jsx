@@ -1,12 +1,11 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import defaultThumbnail from "../../assets/defaultThumbnail.png"
 import { Clock } from "lucide-react";
 import { getCategoryIcon } from '../../utils/getCategoryIcon';
+import { useLocation } from 'react-router-dom';
 
 const CourseCard = ({ course }) => {
-
-
+  const {pathname} = useLocation();
 
   return (
     <div className="hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-background-light dark:bg-secondary-light rounded-xl shadow-md p-4 flex flex-col justify-between">
@@ -42,12 +41,27 @@ const CourseCard = ({ course }) => {
       </p>
 
       {/* View Button */}
-      <Link
-        to={`/course/${course._id}`}
-        className="text-center mt-auto inline-block bg-primary-light  text-white text-sm px-4 py-2 rounded hover:opacity-90 transition"
-      >
-        View Course
-      </Link>
+
+      {pathname === "/my-enrolled-courses" ? (
+        <Link
+          to={`/my-enrolled-courses/${course._id}`}
+          className="text-center mt-auto inline-block bg-primary-light  text-white text-sm px-4 py-2 rounded hover:opacity-90 transition"
+        >
+          View Course
+        </Link>
+      ) : (
+        <Link
+          to={`/course/${course._id}`}
+          className="text-center mt-auto inline-block bg-primary-light  text-white text-sm px-4 py-2 rounded hover:opacity-90 transition"
+        >
+          View Course
+        </Link>
+      )
+      }
+
+
+
+
     </div>
   );
 }

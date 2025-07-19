@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { publicApi } from "../../services/axios.config";
 import defaultThumbnail from "../../assets/defaultThumbnail.png";
 import defaultprofile from "../../assets/profileAvatar.svg";

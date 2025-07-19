@@ -5,8 +5,9 @@ import ThemeToggle from "../../common/ThemeToggle";
 import ProfileCard from "./ProfileCard";
 import SidebarLinks from "./SidebarLinks";
 import AccountSettings from "./AccountSettings";
-import { useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify'
+import LogoutPopup from "../../auth/modals/LogoutPopup";
+// import { useNavigate } from "react-router-dom";
+// import { toast } from 'react-toastify'
 import Loader from "../../common/Loader";
 import UpdatePassPopUp from "../../auth/modals/UpdatePassPopUp";
 import DeleteAccountPopup from "../../auth/modals/DeleteAccountPopup";
@@ -14,26 +15,13 @@ import DeleteAccountPopup from "../../auth/modals/DeleteAccountPopup";
 const Sidebar = ({ isOpen, onClose }) => {
   const [showUpdatePassModal, setShowUpdatePassModal] = useState(false);
   const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  // const [loading, setLoading] = useState(false);
+  // const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user'));
 
-  const handleLogout = () => {
-    try {
-      localStorage.removeItem("authToken");
-      setLoading(true);
-      setTimeout(() => {
-        localStorage.removeItem("user");
-        toast.success("Logged out successfully");
-        navigate("/");
-      }, 500);
-    } catch (err) {
-      console.error(err);
-      toast.success("Logged out successfully");
-    }
-  };
 
-  if (loading) return <Loader />;
+  // if (loading) return <Loader />;
 
   return (
     <Transition show={isOpen} as={Fragment}>
@@ -63,8 +51,8 @@ const Sidebar = ({ isOpen, onClose }) => {
             leaveTo="translate-x-full"
           >
             <DialogPanel
-            as="div"
-            className="w-1/4 h-full bg-background-light dark:bg-background-dark shadow-xl p-4 overflow-y-auto">
+              as="div"
+              className="w-1/4 h-full bg-background-light dark:bg-background-dark shadow-xl p-4 overflow-y-auto">
               <button onClick={onClose} className="cursor-pointer dark:text-text-dark text-xl mb-6">
                 <X />
               </button>
@@ -73,18 +61,25 @@ const Sidebar = ({ isOpen, onClose }) => {
                 <ProfileCard user={user} />
                 <SidebarLinks user={user} />
                 <ThemeToggle withText={true} text="Change Theme" size={20} />
-                <AccountSettings onUpdatePassword={() => setShowUpdatePassModal(true)} 
-                onDeleteAccount={() => setShowDeleteAccountModal(true)} 
+                <AccountSettings
+                  onUpdatePassword={() => setShowUpdatePassModal(true)}
+                  onDeleteAccount={() => setShowDeleteAccountModal(true)}
                 />
+
+                {/* Modals */}
                 {showUpdatePassModal && (
-                  <UpdatePassPopUp isOpen={showUpdatePassModal} onClose={() => setShowUpdatePassModal(false)}/>
+                  <UpdatePassPopUp isOpen={showUpdatePassModal} onClose={() => setShowUpdatePassModal(false)} />
                 )}
                 {showDeleteAccountModal && (
-                  <DeleteAccountPopup isOpen={showDeleteAccountModal} onClose={() => setShowDeleteAccountModal(false)}/>
+                  <DeleteAccountPopup isOpen={showDeleteAccountModal} onClose={() => setShowDeleteAccountModal(false)} />
                 )}
+                {showLogoutModal && (
+                  <LogoutPopup isOpen={showLogoutModal} onClose={() => setShowLogoutModal(false)} />
+                )}
+                {/* Logout Button */}
                 <button
-                  onClick={handleLogout}
-                  className="mt-6 px-4 py-2 text-sm text-white bg-red-500 hover:bg-red-600 rounded"
+                  onClick={() => setShowLogoutModal(true)}
+                  className="mt-6 px-4 py-2 text-sm text-white bg-red-500 hover:bg-red-600 rounded transition"
                 >
                   Logout
                 </button>

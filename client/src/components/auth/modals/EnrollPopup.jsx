@@ -3,9 +3,11 @@ import { toast } from "react-toastify";
 import BaseModal from "../../common/BaseModal";
 import Button from "../../common/Button";
 import { privateApi } from "../../../services/axios.config";
+import { useNavigate } from "react-router-dom";
 
 const EnrollPopup = ({ isOpen, onClose, courseId }) => {
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const handleEnroll = async (e) => {
         e.preventDefault();
@@ -24,6 +26,7 @@ const EnrollPopup = ({ isOpen, onClose, courseId }) => {
             }
             toast.success("Enrolled Successfully")
             onClose();
+            navigate(`/my-enrolled-courses/${courseId}`);
         } catch (err) {
             const errorMsg = err.response?.data?.message || "Can not enroll, something went wrong.";
             toast.error(errorMsg);

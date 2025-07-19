@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom'
-import ThemeToggle from '../common/ThemeToggle'
 import { Menu } from 'lucide-react'
-import SidebarMenu from './sidebar/Sidebar';
 
 const DashboardNavbar = ({onMenuClick}) => {
 

@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 // Public
 import LandingPage from "../pages/public/LandingPage";
 import CourseDetails from "../pages/public/CourseDetails";
-import AllCoursesSection from "../components/common/AllCoursesSection";
 
 // : Protected :
 // Teacher Pages
@@ -17,7 +16,6 @@ import CourseUpdate from "../pages/dashboard/teacher/CourseUpdate";
 import StudentDashboard from '../pages/dashboard/student/StudentDashboard'
 import StudentUpdateProfile from '../pages/dashboard/student/StudentUpdateProfile';
 import MyEnrolledCourses from "../pages/dashboard/student/MyEnrolledCourses";
-import EnrollCourse from "../pages/dashboard/student/EnrollCourse";
 import EnrolledCourse from "../pages/dashboard/student/EnrolledCourse";
 
 // Others
@@ -46,7 +44,7 @@ export const AppRoutes = () => {
 
                     {/* Teacher */}
                     <Route path='/dashboard-teacher' element={<TeacherDashboard />} />
-                    <Route path='/update-teacher' element={<TeacherUpdateProfile />} /> {/* Fixed: was /update-student */}
+                    <Route path='/update-teacher' element={<TeacherUpdateProfile />} />
                     <Route path='/create-course' element={<CreateCourse />} />
                     <Route path='/update-course/:id' element={<CourseUpdate />} />
                     <Route path='/my-courses' element={<MyCreatedCourses />} />
