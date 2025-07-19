@@ -26,7 +26,7 @@ const EnrollPopup = ({ isOpen, onClose, courseId }) => {
             }
             toast.success("Enrolled Successfully")
             onClose();
-            navigate(`/my-enrolled-courses/${courseId}`);
+            navigate(`/my-enrolled-courses/${courseId}`, {replace:true});
         } catch (err) {
             const errorMsg = err.response?.data?.message || "Can not enroll, something went wrong.";
             toast.error(errorMsg);
