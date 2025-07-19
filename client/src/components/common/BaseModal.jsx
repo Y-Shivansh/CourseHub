@@ -43,11 +43,11 @@ const BaseModal = ({ isOpen, onClose, title, children }) => {
                         <DialogPanel className={" w-full max-w-md p-6 rounded-xl bg-white dark:bg-secondary-light shadow-xl transition-all"}>
                             {/* DialogTitle is the title of the modal. */}
                             {title && (
-                                <DialogTitle className="text-lg font-medium text-text-light ">
+                                <DialogTitle className="text-xl font-medium text-center text-text-light ">
                                     {title}
                                 </DialogTitle>
                             )}
-                            <div className="mt-10">{children}</div>
+                            <div className="mt-5">{children}</div>
                         </DialogPanel>
                     </TransitionChild>
                 </div>

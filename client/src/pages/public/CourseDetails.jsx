@@ -5,39 +5,42 @@ import defaultThumbnail from "../../assets/defaultThumbnail.png";
 import defaultprofile from "../../assets/profileAvatar.svg";
 import Button from "../../components/common/Button";
 import Loader from "../../components/common/Loader";
+import EnrollPopup from "../../components/auth/modals/EnrollPopup";
 
 const CourseDetails = () => {
   const { id } = useParams();
   const [course, setCourse] = useState(null);
+  const [showEnrollPopup, setShowEnrollPopup] = useState(false);
   const [otherCourses, setOtherCourses] = useState([]);
   const [loading, setLoading] = useState(true);
+  
   const token = localStorage.getItem("authToken");
   const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
-  (async () => {
-    try {
-      const res1 = await publicApi.get(`/course/${id}`);
-      setCourse(res1.data.course);
+    (async () => {
+      try {
+        const res1 = await publicApi.get(`/course/${id}`);
+        setCourse(res1.data.course);
 
-      const res2 = await publicApi.get(`/course/teacher/${res1.data.course.createdBy._id}`);
-      setOtherCourses(res2.data.courses || []);
-      
-      setLoading(false); // Stop loading
-    } catch (error) {
-      console.error("Error loading course or teacher courses", error);
-    }
-  })();
-}, [id]);
+        const res2 = await publicApi.get(`/course/teacher/${res1.data.course.createdBy._id}`);
+        setOtherCourses(res2.data.courses || []);
 
-if (loading) return <Loader />;
+        setLoading(false);
+      } catch (error) {
+        console.error("Error loading course or teacher courses", error);
+      }
+    })();
+  }, [id]);
+
+  if (loading) return <Loader />;
 
   return (
     <div className="relative bg-background-light dark:bg-background-dark min-h-screen">
-      {/* Background blob layer - you can toggle this via theme */}
+      {/* Background blob layer - can toggle this via theme */}
       <img
         src={`/src/assets/${localStorage.getItem("theme") === "dark" ? "darkBlob.svg" : "lightBlob.svg"}`}
-        alt="bg blob"
+        alt="bg-blob"
         className="absolute top-0 left-0 w-full h-full object-cover opacity-10 -z-10"
       />
 
@@ -74,13 +77,17 @@ if (loading) return <Loader />;
             ) : user.role === "teacher" ? (
               <Button disabled={true} children="Teachers can't enroll" />
             ) : user.role === "student" ? (
-              <Link to={`/courses/${id}/enroll`}>
-                <Button children="Enroll" />
-              </Link>
+              <Button onClick={() => setShowEnrollPopup(true)} children="Enroll" />
             ) : (
               <Button disabled={true} children="Access Denied" />
             )}
           </div>
+          {showEnrollPopup && (
+            <EnrollPopup isOpen={showEnrollPopup}
+              onClose = {() => setShowEnrollPopup(false)}
+              courseId = {id}
+            />
+          )}
 
           {/* RIGHT - Teacher Info + Other Courses */}
           <div className="space-y-6">
