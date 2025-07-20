@@ -6,9 +6,6 @@ import ProfileCard from "./ProfileCard";
 import SidebarLinks from "./SidebarLinks";
 import AccountSettings from "./AccountSettings";
 import LogoutPopup from "../../auth/modals/LogoutPopup";
-// import { useNavigate } from "react-router-dom";
-// import { toast } from 'react-toastify'
-import Loader from "../../common/Loader";
 import UpdatePassPopUp from "../../auth/modals/UpdatePassPopUp";
 import DeleteAccountPopup from "../../auth/modals/DeleteAccountPopup";
 
@@ -16,12 +13,7 @@ const Sidebar = ({ isOpen, onClose }) => {
   const [showUpdatePassModal, setShowUpdatePassModal] = useState(false);
   const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
-  // const [loading, setLoading] = useState(false);
-  // const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user'));
-
-
-  // if (loading) return <Loader />;
 
   return (
     <Transition show={isOpen} as={Fragment}>

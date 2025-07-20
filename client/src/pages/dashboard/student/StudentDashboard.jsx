@@ -6,6 +6,7 @@ import AllCoursesSection from "../../../components/common/AllCoursesSection"
 import BlobBackground from "../../../components/design/BlobBackground"
 import Sidebar from "../../../components/Navbar/sidebar/Sidebar"
 import Loader from "../../../components/common/Loader"
+import Footer from "../../../components/common/Footer"
 
 const StudentDashboard = () => {
 
@@ -20,23 +21,27 @@ const StudentDashboard = () => {
         localStorage.setItem('user', JSON.stringify(res.data.user));
       } catch (error) {
         console.error("User fetch failed", error);
-      }finally{
+      } finally {
         setLoading(false);
       }
     })();
-  },[]);
+  }, []);
 
   if (loading) return <Loader />;
   return (
-    <div className="relative min-h-screen ">
-      <BlobBackground />
+    <>
+      <div className="relative min-h-screen ">
+        <BlobBackground />
 
-      <div className="relative z-10">
-        <DashboardNavbar onMenuClick={() => setIsSideBarOpen(true)} />
-        <Sidebar isOpen={isSideBarOpen} onClose={() => setIsSideBarOpen(false)} />
+        <div className="relative z-10">
+          <DashboardNavbar onMenuClick={() => setIsSideBarOpen(true)} />
+          <Sidebar isOpen={isSideBarOpen} onClose={() => setIsSideBarOpen(false)} />
+        </div>
+        <AllCoursesSection user={JSON.parse(localStorage.getItem('user'))} />
+
       </div>
-      <AllCoursesSection user = {JSON.parse(localStorage.getItem('user'))}/>
-    </div>
+      <Footer />
+    </>
   )
 }
 

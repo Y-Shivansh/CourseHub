@@ -78,7 +78,7 @@ const AllCoursesSection = ({ user = null }) => {
                         setFilteredCourses(courses);
                         setShowAll(false);
                     }}
-                        className="cursor-pointer ml-2 text-sm underline text-primary-light dark:text-primary-dark"
+                        className="cursor-pointer ml-2 text-sm underline text-primary-light dark:text-text-dark"
                     >
                         Clear
                     </button>

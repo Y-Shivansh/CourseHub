@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { privateApi } from '../../../services/axios.config';
+import { privateApi } from '../../services/axios.config';
 import { toast } from 'react-toastify';
-import Loader from '../../../components/common/Loader';
-import BlobBackground from '../../../components/design/BlobBackground';
-import DashboardNavbar from '../../../components/Navbar/DashboardNavbar';
-import Sidebar from '../../../components/Navbar/sidebar/Sidebar';
-import ProfileCard from '../../../components/Navbar/sidebar/ProfileCard';
-import UserDetailsCard from '../../../components/common/UserDetailsCard';
-import UpdateProfileForm from '../../../components/profile/UpdateProfileForm';
+import Loader from '../../components/common/Loader';
+import BlobBackground from '../../components/design/BlobBackground';
+import DashboardNavbar from '../../components/Navbar/DashboardNavbar';
+import Sidebar from '../../components/Navbar/sidebar/Sidebar';
+import ProfileCard from '../../components/Navbar/sidebar/ProfileCard';
+import UserDetailsCard from '../../components/common/UserDetailsCard';
+import UpdateProfileForm from '../../components/profile/UpdateProfileForm';
+import TeacherBlobBackground from '../../components/design/TeacherBlobBackgroung';
 
-const StudentUpdateProfile = () => {
+const UpdateProfile = () => {
   const [user, setUser] = useState(null);
   const [formData, setFormData] = useState({ name: '', profile: '', bio: '', phone: '' });
   const [loading, setLoading] = useState(true);
@@ -18,6 +19,7 @@ const StudentUpdateProfile = () => {
   const [error, setError] = useState('');
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     (async () => {
@@ -52,7 +54,7 @@ const StudentUpdateProfile = () => {
       localStorage.setItem('user', JSON.stringify(updatedUser));
       setUser(updatedUser);
       toast.success('Profile updated successfully');
-      navigate('/dashboard-student');
+      {user.role === 'student' ? navigate('/dashboard-student') : navigate('/dashboard-teacher')}
     } catch (err) {
       setError(err?.response?.data?.message || 'Update failed');
     } finally {
@@ -64,7 +66,9 @@ const StudentUpdateProfile = () => {
 
   return (
     <div className="relative min-h-screen">
-      <BlobBackground />
+
+      {user.role === 'student' ? <BlobBackground /> : <TeacherBlobBackground/>}
+      
       {/* NAV */}
       <div className="relative z-10">
         <DashboardNavbar onMenuClick={() => setIsSideBarOpen(true)} />
@@ -77,8 +81,7 @@ const StudentUpdateProfile = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-6">
             <h2 className="text-2xl font-medium text-text-light dark:text-text-dark text-center">Welcome! {user.name}</h2>
-            <ProfileCard user={user} />
-
+            <ProfileCard user={user}  />
             <UserDetailsCard user={user} />
           </div>
 
@@ -91,7 +94,7 @@ const StudentUpdateProfile = () => {
               updating={updating}
               handleInputChange={handleInputChange}
               handleUserUpdate={handleUserUpdate}
-              handleCancel={() => navigate('/dashboard-student')}
+              handleCancel={() => { user.role === 'student' ? navigate('/dashboard-student') : navigate('/dashboard-teacher')}}
             />
           </div>
         </div>
@@ -100,4 +103,4 @@ const StudentUpdateProfile = () => {
   );
 };
 
-export default StudentUpdateProfile;
+export default UpdateProfile;

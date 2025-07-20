@@ -1,13 +1,13 @@
 import DashboardNavbar from "../../../components/Navbar/DashboardNavbar"
 import { useEffect, useState } from 'react'
 import { privateApi } from '../../../services/axios.config'
-import AllCoursesSection from "../../../components/common/AllCoursesSection"
 
-import BlobBackground from "../../../components/design/BlobBackground"
+import TeacherBlobBackground from "../../../components/design/TeacherBlobBackgroung"
 import Sidebar from "../../../components/Navbar/sidebar/Sidebar"
 import Loader from "../../../components/common/Loader"
+import Footer from "../../../components/common/Footer"
 
-const TeacherDashoard = () => {
+const TeacherDashboard = () => {
 
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -20,24 +20,26 @@ const TeacherDashoard = () => {
         localStorage.setItem('user', JSON.stringify(res.data.user));
       } catch (error) {
         console.error("User fetch failed", error);
-      }finally{
+      } finally {
         setLoading(false);
       }
     })();
-  },[]);
+  }, []);
 
   if (loading) return <Loader />;
   return (
-    <div className="relative min-h-screen ">
-      <BlobBackground />
+    <>
+      <div className="relative min-h-screen">
+        <TeacherBlobBackground />
+        <div className="relative z-10">
+          <DashboardNavbar onMenuClick={() => setIsSideBarOpen(true)} />
+          <Sidebar isOpen={isSideBarOpen} onClose={() => setIsSideBarOpen(false)} />
+        </div>
 
-      <div className="relative z-10">
-        <DashboardNavbar onMenuClick={() => setIsSideBarOpen(true)} />
-        {isSideBarOpen && <Sidebar isOpen={isSideBarOpen} onClose={() => setIsSideBarOpen(false)} />}
       </div>
-      <p className=" text-text-light dark:text-text-dark">Teacher DashBoard next to do!</p>
-    </div>
+      <Footer />
+    </>
   )
 }
 
-export default TeacherDashoard
+export default TeacherDashboard;

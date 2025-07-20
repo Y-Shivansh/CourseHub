@@ -6,7 +6,7 @@ import { Search } from "lucide-react";
 import { toast } from "react-toastify";
 import Loader from "../common/Loader";
 
-const AllEnrolledCourses = () => {
+const AllCreatedCourses = () => {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [searchCourse, setSearchCourse] = useState("");
@@ -18,7 +18,7 @@ const AllEnrolledCourses = () => {
     (async () => {
       try {
         setLoading(true)
-        const res = await privateApi.get("/course/enrolled");
+        const res = await privateApi.get("/course/my-courses");
         setCourses(res.data.courses || []);
         setFilteredCourses(res.data.courses || []);
       } catch (error) {
@@ -109,4 +109,4 @@ const AllEnrolledCourses = () => {
   )
 }
 
-export default AllEnrolledCourses
+export default AllCreatedCourses;

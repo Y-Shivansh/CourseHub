@@ -7,14 +7,13 @@ import CourseDetails from "../pages/public/CourseDetails";
 // : Protected :
 // Teacher Pages
 import TeacherDashboard from '../pages/dashboard/teacher/TeacherDashoard'
-import TeacherUpdateProfile from '../pages/dashboard/teacher/TeacherUpdateProfile';
 import MyCreatedCourses from "../pages/dashboard/teacher/MyCreatedCourses";
 import CreateCourse from "../pages/dashboard/teacher/CreateCourse";
 import CourseUpdate from "../pages/dashboard/teacher/CourseUpdate";
 
 // Student Pages
 import StudentDashboard from '../pages/dashboard/student/StudentDashboard'
-import StudentUpdateProfile from '../pages/dashboard/student/StudentUpdateProfile';
+import UpdateProfile from '../pages/dashboard/UpdateProfile';
 import MyEnrolledCourses from "../pages/dashboard/student/MyEnrolledCourses";
 import EnrolledCourse from "../pages/dashboard/student/EnrolledCourse";
 
@@ -37,14 +36,14 @@ export const AppRoutes = () => {
 
                     {/* Students */}
                     <Route path='/dashboard-student' element={<StudentDashboard />} />
-                    <Route path='/update-student' element={<StudentUpdateProfile/>} />
+                    <Route path='/update-student' element={<UpdateProfile/>} />
                     <Route path='/courses/:id/enroll' element={<CourseDetails />} />
                     <Route path='/my-enrolled-courses' element={<MyEnrolledCourses />} />
                     <Route path='/my-enrolled-courses/:id' element={<EnrolledCourse />} />
 
                     {/* Teacher */}
                     <Route path='/dashboard-teacher' element={<TeacherDashboard />} />
-                    <Route path='/update-teacher' element={<TeacherUpdateProfile />} />
+                    <Route path='/update-teacher' element={<UpdateProfile />} />
                     <Route path='/create-course' element={<CreateCourse />} />
                     <Route path='/update-course/:id' element={<CourseUpdate />} />
                     <Route path='/my-courses' element={<MyCreatedCourses />} />

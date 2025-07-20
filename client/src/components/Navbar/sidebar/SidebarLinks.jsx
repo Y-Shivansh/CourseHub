@@ -1,6 +1,6 @@
 //Enrolled for students and created For Teachers
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react"
-import { ChevronDown, ChevronUp, CornerDownLeft } from "lucide-react"
+import { BadgePlus, ChevronDown, ChevronUp, CornerDownLeft } from "lucide-react"
 import { Link } from "react-router-dom"
 
 const SidebarLinks = ({ user }) => {
@@ -28,13 +28,19 @@ const SidebarLinks = ({ user }) => {
             {user.role === "student" ? (<Link to="/my-enrolled-courses" className={`${commonLinksStyles}`}>
               Enrolled Courses <CornerDownLeft size={18} />
             </Link>)
-            :
-            (<Link to="/my-courses" className={`${commonLinksStyles}`}>
-              Created Courses <CornerDownLeft size={18} />
-            </Link>)
-            
+              :
+              (<div className="flex flex-col gap-6">
+                <Link to="/create-course" className={`${commonLinksStyles}`}>
+                  Create Course <BadgePlus size={18}/>
+                </Link>
+                <Link to="/my-courses" className={`${commonLinksStyles}`}>
+                  My Courses <CornerDownLeft size={18} />
+                </Link>
+              </div>
+              )
             }
-            
+
+
           </div>
         )}
 

@@ -29,25 +29,31 @@ export const getAllCourses = async (req, res) => {
 }
 
 export const getCourseById = async (req, res) => {
-    try {
-        const courseId = req.params.id;
-        const course = await Course.findById(courseId).populate('createdBy', 'name bio profile').select("-enrolledStudents");
-        // const courses = await Course.findByID(courseId).populate('createdBy', 'name'); // creastedBy me ab name bhi ayega
-        if (course.length === 0) {
-            return res.status(400).json({ message: "No course is uploaded as of now." });
-        }
-        return res.status(200).json({
-            message: "Course Fetched",
-            course
-        })
-    } catch (error) {
-        console.error("All Courses Error", error.message);
-        res.status(500).json({
-            message: "Server Error",
-            error: error.message || error
-        })
+  try {
+    const courseId = req.params.id;
+
+    const course = await Course.findById(courseId)
+      .populate('createdBy', 'name bio profile') // populate only safe fields
+      .select('-enrolledStudents'); // exclude enrolledStudents from response
+
+    if (!course) {
+      return res.status(404).json({ message: "Course not found." });
     }
-}
+
+    return res.status(200).json({
+      message: "Course fetched successfully",
+      course,
+    });
+
+  } catch (error) {
+    console.error("Get Course By ID Error:", error.message);
+    return res.status(500).json({
+      message: "Server error",
+      error: error.message || error
+    });
+  }
+};
+
 
 export const getOtherCoursesByTeacher = async (req, res) => {
     try {
@@ -65,7 +71,7 @@ export const createCourse = async (req, res) => {
     if (!result.success) {
         return res.status(400).json({ message: "Validation Failed" })
     }
-    const { name, duration, description, category } = result.data;
+    const { name, duration, description, category, price } = result.data;
     const userId = req.user.userId;
     try {
         // Add Course
@@ -77,7 +83,7 @@ export const createCourse = async (req, res) => {
             return res.status(400).json({ message: "You already created a course with this name." });
         }
         course = new Course({
-            name, duration, description, category,
+            name, duration, description, category, price,
             thumbnail: req.body.thumbnail || "",
             createdBy: userId
         })
