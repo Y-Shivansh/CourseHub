@@ -39,7 +39,7 @@ const CreateCourse = () => {
 
     try {
       setSubmitting(true);
-      const res = await privateApi.post("/course/create", formData);
+      await privateApi.post("/course/create", formData);
       toast.success("Course created successfully!");
       navigate(`/dashboard-teacher`);
     } catch (err) {
