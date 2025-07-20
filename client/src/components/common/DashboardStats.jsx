@@ -16,7 +16,7 @@ const DashboardStats = ({ userRole }) => {
       curve: 'smooth',
       width: 3
     },
-    colors: ['#ffffff', '#60C3AD'],
+    colors: ['#c7c7c7', '#60C3AD'],
     xaxis: {
       categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
       labels: {
@@ -33,7 +33,7 @@ const DashboardStats = ({ userRole }) => {
       }
     },
     grid: {
-      borderColor: '#e2e8f0'
+      borderColor: '#64748B'
     },
     legend: {
       labels: {
@@ -47,8 +47,8 @@ const DashboardStats = ({ userRole }) => {
       type: 'donut',
       height: 300
     },
-    colors: ['#54AD99', '#60C3AD', '#84D7C7', '#A8E4D6'],
-    labels: ['Development', 'AI/ML', 'Designing', 'Academic'],
+    colors: ['#ea7373', '#fffccf', '#84D7C7', '#8cf385', '#e5e5e5'],
+    labels: ['Development', 'AI/ML', 'Designing', 'Academic', 'Marketing'],
     legend: {
       position: 'bottom',
       labels: {
@@ -82,7 +82,6 @@ const DashboardStats = ({ userRole }) => {
       { name: 'Courses Completed', data: [1, 2, 1, 3, 2, 4] }
     ],
     donutData: [5, 3, 2, 2], // Courses by category
-    barData: [{ name: 'Study Hours', data: [4, 6, 8, 5, 7, 3, 2] }]
   }
 
   const teacherStats = {
@@ -96,8 +95,7 @@ const DashboardStats = ({ userRole }) => {
       { name: 'New Enrollments', data: [15, 25, 35, 28, 45, 55] },
       { name: 'Course Views', data: [120, 180, 220, 190, 280, 320] }
     ],
-    donutData: [8, 6, 5, 6], // Courses by category
-    barData: [{ name: 'Daily Enrollments', data: [5, 8, 12, 7, 15, 10, 6] }]
+    donutData: [5, 6, 4, 6, 4], // Courses by category
   }
 
   const currentStats = userRole === 'student' ? studentStats : teacherStats
