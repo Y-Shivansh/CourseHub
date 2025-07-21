@@ -19,3 +19,29 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+## Additional Terms for CourseHub
+
+### Educational Use
+This software is designed primarily for educational purposes and learning management. 
+
+### Commercial Use
+While commercial use is permitted under the MIT License, users are encouraged to:
+- Contribute back to the open-source community
+- Provide attribution when using substantial portions of the codebase
+- Consider supporting the original project through stars, contributions, or feedback
+
+### Third-Party Services
+This project integrates with various third-party services (Cloudinary, MongoDB, etc.). 
+Users are responsible for complying with the terms of service of these providers.
+
+### Data Privacy
+Users implementing this software are responsible for ensuring compliance with 
+applicable data protection regulations (GDPR, CCPA, etc.) when handling user data.
+
+---
+
+**CourseHub** - Empowering Education Through Technology
+Created with ❤️ by Shivansh Sharma
