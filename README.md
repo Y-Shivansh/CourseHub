@@ -167,7 +167,6 @@ CourseHub/
 - **Razorpay API** for seamless course enrollment payments
 - **Multiple Payment Methods** support
 - **Transaction History** and receipt generation
-- **Refund Management** system
 
 ### 🔐 Enhanced Authentication
 - **OAuth 2.0 Integration** for Google and GitHub login
@@ -176,22 +175,15 @@ CourseHub/
 
 ### 🐳 DevOps & Scalability
 - **Docker Containerization** for easy deployment
-- **Kubernetes** orchestration for large-scale deployments
-- **CI/CD Pipeline** with GitHub Actions
-- **Load Balancing** for high availability
 - **Microservices Architecture** as the platform grows
 
 ### 📹 Content Management (Long-term)
 - **Video Lecture Upload** and streaming
-- **Interactive Quizzes** and assessments
 - **Progress Tracking** with completion certificates
 - **Discussion Forums** for student-teacher interaction
-- **Live Streaming** capabilities for real-time classes
 
 ### 📱 Platform Extensions
 - **Mobile Application** (React Native)
-- **Progressive Web App** (PWA) features
-- **Offline Content Access** for downloaded materials
 - **Push Notifications** for course updates
 
 ---
