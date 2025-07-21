@@ -163,11 +163,6 @@ CourseHub/
 - **AI-powered Course Recommendations** based on student preferences
 - **Intelligent Content Analysis** for course quality assessment
 
-### 💳 Payment Integration
-- **Razorpay API** for seamless course enrollment payments
-- **Multiple Payment Methods** support
-- **Transaction History** and receipt generation
-
 ### 🔐 Enhanced Authentication
 - **OAuth 2.0 Integration** for Google and GitHub login
 - **Multi-factor Authentication** for enhanced security

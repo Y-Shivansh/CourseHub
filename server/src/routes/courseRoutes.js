@@ -3,7 +3,7 @@ import verifyUserToken from '../middlewares/user.middleware.js';
 import {
     getAllCourses, getCourseById, getOtherCoursesByTeacher,
     createCourse, getCreatedCourses, updateCourse, 
-    enrollInCourse, getEnrolledCourses, getEnrolledCourseDetails, getUnEnrolledCourses
+    getEnrolledCourses, getEnrolledCourseDetails, getUnEnrolledCourses
 } from "../controllers/courseControllers.js";
 import {authorizeRoles} from "../middlewares/authorizeRoles.js"
 import {upload} from '../middlewares/multer.middleware.js'
@@ -18,7 +18,6 @@ router.put("/update/:id", verifyUserToken, authorizeRoles('teacher'), upload.sin
 
 // Only student can access.
 router.get("/unenrolled", verifyUserToken, authorizeRoles('student'), getUnEnrolledCourses);
-router.post("/enroll/:id", verifyUserToken, authorizeRoles('student'), enrollInCourse);
 router.get("/enrolled", verifyUserToken, authorizeRoles('student'), getEnrolledCourses);
 router.get("/enrolled/:id", verifyUserToken, authorizeRoles('student'), getEnrolledCourseDetails);
 

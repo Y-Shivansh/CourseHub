@@ -22,7 +22,9 @@ const AllEnrolledCourses = () => {
         setCourses(res.data.courses || []);
         setFilteredCourses(res.data.courses || []);
       } catch (error) {
-        toast.error("Failed to fetch courses");
+        toast.error("No Courses fetched", {
+          toastId: "fetchcourseId"
+        });
         console.error("Failed to fetch courses", error);
       }finally{
         setLoading(false)

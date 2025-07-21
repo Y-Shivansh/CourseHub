@@ -201,7 +201,7 @@ export const updateCourse = async (req, res) => {
             }
             course.thumbnail = cloudinaryRes.secure_url;
         }
-        
+
         await course.save();
 
         return res.status(200).json({
@@ -212,55 +212,6 @@ export const updateCourse = async (req, res) => {
         })
     } catch (error) {
         console.error("Updating Course Error.", error);
-        return res.status(500).json({
-            message: "Server Error",
-            error: error.message || error
-        });
-    }
-}
-
-// Student Course Routes Controllers Only Student Can Access.
-export const enrollInCourse = async (req, res) => {
-    const userId = req.user.userId;
-    try {
-        const courseId = req.params.id;
-
-        // updating course enrollment
-        let course = await Course.findOneAndUpdate(
-            { _id: courseId },
-            // $set is used to replace the entire value at a path.
-            // $addToSet ensures no duplicates
-            // $push blindly adds
-            { $addToSet: { enrolledStudents: userId } },
-            { new: true }
-        );
-        if (!course) {
-            console.error("Enroll Course Error - Course not found");
-            return res.status(400).json({
-                message: "Course not found or enrollment failed."
-            })
-        }
-
-        // Updating User(student) DB, field -> Enrolled Courses 
-        let user = await User.findOneAndUpdate(
-            { _id: userId },
-            { $addToSet: { enrolledIn: courseId } },
-            { new: true },
-        );
-        if (!user) {
-            console.error("Enroll Course Error - User not found");
-            return res.status(400).json({
-                message: "User not found or enrollment failed."
-            })
-        }
-
-        return res.status(200).json({
-            message: "Enrolled successfully.",
-            courseId,
-            studentId: userId
-        });
-    } catch (error) {
-        console.error("Enroll To A Course Error.", error);
         return res.status(500).json({
             message: "Server Error",
             error: error.message || error

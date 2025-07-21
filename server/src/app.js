@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import userRoutes from './routes/userRoutes.js';
 import courseRoutes from './routes/courseRoutes.js'
+import paymentRoutes from './routes/payment.routes.js'
+
 const app = express();
 // const corsOption = {
 //     origin: [],
@@ -19,5 +21,6 @@ app.get('/health', (req, res)=> {
 
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/course', courseRoutes);
+app.use('/api/v1/payment', paymentRoutes);
 
 export default app;
