@@ -43,7 +43,7 @@ const StudentDashboard = () => {
         <div className="relative z-10 max-w-7xl mx-auto px-4 py-8">
           <div className="mb-8">
             <h1 className="text-2xl font-semibold text-text-light dark:text-text-dark mb-2">
-              Welcome back! {JSON.parse(localStorage.getItem('user')).name}👋 
+              Welcome back! <span className="text-2xl font-bold bg-gradient-to-r from-primary-dark to-green-400 bg-clip-text text-transparent">{JSON.parse(localStorage.getItem('user')).name}</span> 👋 
             </h1>
             <p className="text-text-light font-light dark:text-text-dark">
               Here's your learning overview

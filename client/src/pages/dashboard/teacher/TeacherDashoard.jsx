@@ -38,7 +38,7 @@ const TeacherDashboard = () => {
         </div>
 
         {/* Dashboard Stats */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 py-8">
+        <div className="relative -z-10 max-w-7xl mx-auto px-4 py-8">
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-text-light dark:text-text-dark mb-2">
               Teacher Dashboard 📚

@@ -19,7 +19,7 @@ const UpdateProfile = () => {
   const [error, setError] = useState('');
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const navigate = useNavigate();
-  
+
 
   useEffect(() => {
     (async () => {
@@ -38,23 +38,39 @@ const UpdateProfile = () => {
   }, []);
 
   const handleInputChange = (field) => (e) => {
-    setFormData((prev) => ({ ...prev, [field]: e.target.value }));
+    if (field === 'profile') {
+      setFormData((prev) => ({ ...prev, profile: e.target.files[0] }));
+    } else {
+      setFormData((prev) => ({ ...prev, [field]: e.target.value }));
+    }
     setError('');
   };
 
   const handleUserUpdate = async (e) => {
     e.preventDefault();
-    const hasChanges = Object.keys(formData).some((key) => formData[key] !== (user[key] || ''));
-    if (!hasChanges) return toast.info('No changes to update');
+    const formPayload = new FormData(); // FormData() is a JS-native way to send multipart/form-data content (required for file uploads).
+
+    formPayload.append('name', formData.name);
+    formPayload.append('bio', formData.bio);
+    formPayload.append('phone', formData.phone);
+
+    if (formData.profile && typeof formData.profile !== 'string') {
+      formPayload.append('profile', formData.profile); // image file
+    }
 
     try {
       setUpdating(true);
-      const res = await privateApi.put('/user/update', formData);
+      const res = await privateApi.put('/user/update', formPayload, {
+        headers: {
+          'Content-Type': 'multipart/form-data' // for multer
+        }
+      });
+
       const updatedUser = { ...user, ...res.data.user };
       localStorage.setItem('user', JSON.stringify(updatedUser));
       setUser(updatedUser);
       toast.success('Profile updated successfully');
-      {user.role === 'student' ? navigate('/dashboard-student') : navigate('/dashboard-teacher')}
+      user.role === 'student' ? navigate('/dashboard-student') : navigate('/dashboard-teacher');
     } catch (err) {
       setError(err?.response?.data?.message || 'Update failed');
     } finally {
@@ -62,13 +78,14 @@ const UpdateProfile = () => {
     }
   };
 
+
   if (loading) return <Loader />;
 
   return (
     <div className="relative min-h-screen">
 
-      {user.role === 'student' ? <BlobBackground /> : <TeacherBlobBackground/>}
-      
+      {user.role === 'student' ? <BlobBackground /> : <TeacherBlobBackground />}
+
       {/* NAV */}
       <div className="relative z-10">
         <DashboardNavbar onMenuClick={() => setIsSideBarOpen(true)} />
@@ -81,7 +98,7 @@ const UpdateProfile = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-6">
             <h2 className="text-2xl font-medium text-text-light dark:text-text-dark text-center">Welcome! {user.name}</h2>
-            <ProfileCard user={user}  />
+            <ProfileCard user={user} />
             <UserDetailsCard user={user} />
           </div>
 
@@ -94,7 +111,7 @@ const UpdateProfile = () => {
               updating={updating}
               handleInputChange={handleInputChange}
               handleUserUpdate={handleUserUpdate}
-              handleCancel={() => { user.role === 'student' ? navigate('/dashboard-student') : navigate('/dashboard-teacher')}}
+              handleCancel={() => { user.role === 'student' ? navigate('/dashboard-student') : navigate('/dashboard-teacher') }}
             />
           </div>
         </div>

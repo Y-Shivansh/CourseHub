@@ -6,14 +6,15 @@ import {
     enrollInCourse, getEnrolledCourses, getEnrolledCourseDetails, getUnEnrolledCourses
 } from "../controllers/courseControllers.js";
 import {authorizeRoles} from "../middlewares/authorizeRoles.js"
+import {upload} from '../middlewares/multer.middleware.js'
 
 const router = express.Router();
 
 
 // Only teacher can access. 
-router.post("/create", verifyUserToken, authorizeRoles('teacher'), createCourse, );
+router.post("/create", verifyUserToken, authorizeRoles('teacher'), upload.single('thumbnail'), createCourse, );
 router.get("/my-courses", verifyUserToken, authorizeRoles('teacher'), getCreatedCourses, );
-router.put("/update/:id", verifyUserToken, authorizeRoles('teacher'), updateCourse, );
+router.put("/update/:id", verifyUserToken, authorizeRoles('teacher'), upload.single('thumbnail'),updateCourse, );
 
 // Only student can access.
 router.get("/unenrolled", verifyUserToken, authorizeRoles('student'), getUnEnrolledCourses);

@@ -2,6 +2,8 @@ import { generateToken } from "../utils/generateToken.js";
 import { createCourseSchema, updateCourseSchema } from "../schemas/course.schema.js";
 import Course from "../models/Course.model.js";
 import User from "../models/user.model.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import fs from 'fs'
 
 
 // Public routes controllers anyone can access.
@@ -29,29 +31,29 @@ export const getAllCourses = async (req, res) => {
 }
 
 export const getCourseById = async (req, res) => {
-  try {
-    const courseId = req.params.id;
+    try {
+        const courseId = req.params.id;
 
-    const course = await Course.findById(courseId)
-      .populate('createdBy', 'name bio profile') // populate only safe fields
-      .select('-enrolledStudents'); // exclude enrolledStudents from response
+        const course = await Course.findById(courseId)
+            .populate('createdBy', 'name bio profile') // populate only safe fields
+            .select('-enrolledStudents'); // exclude enrolledStudents from response
 
-    if (!course) {
-      return res.status(404).json({ message: "Course not found." });
+        if (!course) {
+            return res.status(404).json({ message: "Course not found." });
+        }
+
+        return res.status(200).json({
+            message: "Course fetched successfully",
+            course,
+        });
+
+    } catch (error) {
+        console.error("Get Course By ID Error:", error.message);
+        return res.status(500).json({
+            message: "Server error",
+            error: error.message || error
+        });
     }
-
-    return res.status(200).json({
-      message: "Course fetched successfully",
-      course,
-    });
-
-  } catch (error) {
-    console.error("Get Course By ID Error:", error.message);
-    return res.status(500).json({
-      message: "Server error",
-      error: error.message || error
-    });
-  }
 };
 
 
@@ -82,11 +84,25 @@ export const createCourse = async (req, res) => {
         if (course) {
             return res.status(400).json({ message: "You already created a course with this name." });
         }
+
         course = new Course({
             name, duration, description, category, price,
-            thumbnail: req.body.thumbnail || "",
+            thumbnail: "",
             createdBy: userId
         })
+        if (req.file) {
+            const localFilePath = req.file.path;
+            const cloudinaryRes = await uploadOnCloudinary(localFilePath);
+
+            if (fs.existsSync(localFilePath)) {
+                fs.unlinkSync(localFilePath);
+            }
+
+            if (!cloudinaryRes) {
+                return res.status(500).json({ message: "Cloudinary upload failed" });
+            }
+            course.thumbnail = cloudinaryRes.secure_url;
+        }
 
         // Update User Also. (Created Courses)
         let user = await User.findOneAndUpdate(
@@ -170,9 +186,22 @@ export const updateCourse = async (req, res) => {
         course.name = name?.trim() || course.name;
         course.duration = duration?.trim() || course.duration;
         course.description = description?.trim() || course.description;
-        course.thumbnail = thumbnail?.trim() ?? course.thumbnail;
         course.category = category?.trim() || course.category;
 
+        if (req.file) {
+            const localFilePath = req.file.path;
+            const cloudinaryRes = await uploadOnCloudinary(localFilePath);
+
+            if (fs.existsSync(localFilePath)) {
+                fs.unlinkSync(localFilePath);
+            }
+
+            if (!cloudinaryRes) {
+                return res.status(500).json({ message: "Cloudinary upload failed" });
+            }
+            course.thumbnail = cloudinaryRes.secure_url;
+        }
+        
         await course.save();
 
         return res.status(200).json({
@@ -242,7 +271,7 @@ export const enrollInCourse = async (req, res) => {
 export const getUnEnrolledCourses = async (req, res) => {
     const userId = req.user.userId;
     try {
-        
+
         const user = await User.findById(userId).select("enrolledIn");
         const allCourses = await Course.find().populate('createdBy', 'name');
 

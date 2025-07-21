@@ -9,13 +9,7 @@ import { toast } from "react-toastify";
 const EditCourseDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    name: "",
-    duration: "",
-    description: "",
-    thumbnail: "",
-    category: "",
-  });
+  const [formData, setFormData] = useState({ name: "", duration: "", description: "", thumbnail: "", category: "" });
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
 
@@ -43,17 +37,38 @@ const EditCourseDetails = () => {
   }, [id, navigate]);
 
   const handleChange = (field) => (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: e.target.value,
-    }));
+    if (field === 'thumbnail') {
+      setFormData((prev) => ({ ...prev, [field]: e.target.files[0] }));
+    } else {
+      setFormData((prev) => ({ ...prev, [field]: e.target.value }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (formData.description.length < 30) {
+      toast.error("Description must be at least 30 characters.");
+      return;
+    }
+
+    const formPayload = new FormData();
+    formPayload.append('name', formData.name);
+    formPayload.append('duration', formData.duration);
+    formPayload.append('description', formData.description);
+    formPayload.append('category', formData.category);
+    formPayload.append('price', formData.price);
+
+    if (formData.thumbnail && typeof formData.thumbnail != 'string') {
+      formPayload.append('thumbnail', formData.thumbnail);
+    }
+
     try {
       setUpdating(true);
-      await privateApi.put(`/course/update/${id}`, formData);
+      await privateApi.put(`/course/update/${id}`, formData, {
+        headers:{
+          'Content-Type': 'multipart/form-data'
+        }
+      });
       toast.success("Course updated successfully!");
       navigate("/my-courses");
     } catch (err) {
@@ -87,12 +102,16 @@ const EditCourseDetails = () => {
         onChange={handleChange("duration")}
         placeholder="e.g. 6 weeks"
       />
-      <Input
-        label="Thumbnail URL"
-        value={formData.thumbnail}
-        onChange={handleChange("thumbnail")}
-        placeholder="http://..."
-      />
+      {/* CLOUDINARY FILE UPLOAD */}
+      <div className="flex flex-col gap-1">
+        <label className="text-text-light dark:text-text-dark text-sm font-medium">Thumbnail</label>
+        <input type="file"
+          accept="image/*"
+          onChange={(e) => handleChange('thumbnail')(e)}
+          className="w-full text-sm border py-3 px-4 rounded-md text-gray-700 dark:text-gray-300"
+        />
+      </div>
+
       <div className="flex flex-col gap-1">
         <label className="text-sm font-medium text-gray-700  dark:text-gray-200">
           Category

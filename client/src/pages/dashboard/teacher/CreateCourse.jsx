@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { privateApi } from "../../../services/axios.config";
 import { toast } from "react-toastify";
-
 import DashboardNavbar from "../../../components/Navbar/DashboardNavbar";
 import Sidebar from "../../../components/Navbar/sidebar/Sidebar";
 import TeacherBlobBackground from "../../../components/design/TeacherBlobBackgroung";
@@ -10,24 +9,17 @@ import Input from "../../../components/common/Input";
 import Button from "../../../components/common/Button";
 
 const CreateCourse = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    duration: "",
-    description: "",
-    thumbnail: "",
-    category: "",
-    price:""
-  });
-
+  const [formData, setFormData] = useState({ name: "", duration: "", description: "", thumbnail: "", category: "", price: "" });
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (field) => (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: e.target.value,
-    }));
+    if (field === 'thumbnail') {
+      setFormData((prev) => ({...prev, [field]:e.target.files[0]}));
+    } else {
+      setFormData((prev) => ({...prev, [field]: e.target.value }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -37,9 +29,24 @@ const CreateCourse = () => {
       return;
     }
 
+    const formPayload = new FormData();
+    formPayload.append('name', formData.name);
+    formPayload.append('duration', formData.duration);
+    formPayload.append('description', formData.description);
+    formPayload.append('category', formData.category);
+    formPayload.append('price', formData.price);
+
+    if(formData.thumbnail && typeof formData.thumbnail != 'string'){
+      formPayload.append('thumbnail', formData.thumbnail);
+    }
+    
     try {
       setSubmitting(true);
-      await privateApi.post("/course/create", formData);
+      await privateApi.post("/course/create", formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
       toast.success("Course created successfully!");
       navigate(`/dashboard-teacher`);
     } catch (err) {
@@ -98,12 +105,15 @@ const CreateCourse = () => {
             placeholder="₹ 0000"
           />
 
-          <Input
-            label="Thumbnail URL"
-            value={formData.thumbnail}
-            onChange={handleChange("thumbnail")}
-            placeholder="http://image-url.com"
-          />
+          {/* CLOUDINARY FILE UPLOAD */}
+          <div className="flex flex-col gap-1">
+            <label className="text-text-light dark:text-text-dark text-sm font-medium">Thumbnail</label>
+            <input type="file"
+              accept="image/*"
+              onChange={(e) => handleChange('thumbnail')(e)}
+              className="w-full text-sm border py-3 px-4 rounded-md text-gray-700 dark:text-gray-300"
+            />
+          </div>
 
           <div className="space-y-1">
             <label className="text-sm font-medium text-gray-700 dark:text-gray-200">Description</label>

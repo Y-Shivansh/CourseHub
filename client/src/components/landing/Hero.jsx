@@ -3,7 +3,6 @@ import HeroImage from "../../assets/hero.svg"
 import { useLocation } from 'react-router-dom'
 import LoginForm from "../auth/LoginForm"
 import SignupForm from "../auth/SignupForm"
-import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 
 

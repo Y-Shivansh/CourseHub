@@ -12,7 +12,17 @@ const UpdateProfileForm = ({
   return (
     <form onSubmit={handleUserUpdate} className="bg-secondary-light dark:bg-secondary-dark rounded-xl p-6 shadow space-y-6">
       <Input label="Name" name="name" value={formData.name} onChange={handleInputChange('name')} />
-      <Input label="Profile Image URL" name="profile" value={formData.profile} onChange={handleInputChange('profile')} />
+      
+      {/* CLOUDINARY FILE UPLOAD */}
+      <div className="flex flex-col gap-1">
+        <label className="text-text-light dark:text-text-dark text-sm font-medium">Upload Profile Picture</label>
+        <input type="file"
+          accept="image/*"
+          onChange={(e) => handleInputChange('profile')(e)}
+          className="w-full text-sm border py-3 px-4 rounded-md text-gray-700 dark:text-gray-300"
+        />
+      </div>
+
       <div className="space-y-2">
         <label className="text-text-light dark:text-text-dark text-sm font-medium">Bio</label>
         <textarea

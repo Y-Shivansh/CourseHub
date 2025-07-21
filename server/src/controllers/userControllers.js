@@ -1,10 +1,11 @@
 import bcrypt from 'bcrypt';
 import { generateToken } from "../utils/generateToken.js";
-
 import User from '../models/user.model.js';
 import DeletionLog from "../models/DeletionLog.js"
 import { registerSchema, loginSchema, updationSchema, deletionSchema } from '../schemas/user.schema.js';
 import { sendEmail } from '../utils/sendEmail.js';
+import { uploadOnCloudinary } from '../utils/cloudinary.js';
+import fs from 'fs'
 
 
 export const registerUser = async (req, res) => {
@@ -116,7 +117,7 @@ export const getUserProfile = async (req, res) => {
 export const updateUser = async (req, res) => {
     const result = updationSchema.safeParse(req.body);
     if (!result.success) return res.status(400).json({ message: "Validation Failed" });
-    const { name, profile, bio, phone, oldPassword, password } = result.data;
+    const { name, bio, phone, oldPassword, password } = result.data;
     try {
         const user = await User.findById(req.user.userId).select("+password");
         if (!user) {
@@ -125,10 +126,26 @@ export const updateUser = async (req, res) => {
         }
 
         user.name = name?.trim() || user.name; // If name is not undefined or null, then run .trim() on it (safe optional chaining)
-        user.profile = profile?.trim() || user.profile;
         user.bio = bio?.trim() || user.bio;
         user.phone = phone?.trim() || user.phone;
 
+        // *Upload profile picture if exists*
+        if (req.file) {
+            const localFilePath = req.file.path;
+            const cloudinaryRes = await uploadOnCloudinary(localFilePath);
+
+            if (fs.existsSync(localFilePath)) {
+                fs.unlinkSync(localFilePath); // delete locally save file
+            }
+
+            if (!cloudinaryRes) {
+                return res.status(500).json({ message: "Cloudinary upload failed" });
+            }
+
+            user.profile = cloudinaryRes.secure_url;
+        }
+
+        // Password Update
         if (password) {
             if (!oldPassword) {
                 return res.status(400).json({ message: "Old password required to update password" });
@@ -143,6 +160,7 @@ export const updateUser = async (req, res) => {
             const salt = await bcrypt.genSalt(10);
             user.password = await bcrypt.hash(password, salt)
         }
+
         await user.save();
 
         return res.status(200).json({

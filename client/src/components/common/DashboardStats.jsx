@@ -47,7 +47,7 @@ const DashboardStats = ({ userRole }) => {
       type: 'donut',
       height: 300
     },
-    colors: ['#ea7373', '#fffccf', '#84D7C7', '#8cf385', '#e5e5e5'],
+    colors: ['#1C3144', '#596F62', '#7EA16B', '#70161E', '#C3D898'],
     labels: ['Development', 'AI/ML', 'Designing', 'Academic', 'Marketing'],
     legend: {
       position: 'bottom',
@@ -112,8 +112,8 @@ const DashboardStats = ({ userRole }) => {
       {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Line Chart */}
-        <div className="bg-secondary-light dark:bg-secondary-dark rounded-xl p-6 shadow-md">
-          <h3 className="text-lg font-semibold text-text-light dark:text-text-dark mb-4">
+        <div className="bg-secondary-light  rounded-xl p-6 shadow-md">
+          <h3 className="text-lg font-semibold text-text-light mb-4">
             {userRole === 'student' ? 'Learning Progress' : 'Growth Analytics'}
           </h3>
           <Chart
@@ -125,8 +125,8 @@ const DashboardStats = ({ userRole }) => {
         </div>
 
         {/* Donut Chart */}
-        <div className="bg-secondary-light dark:bg-secondary-dark rounded-xl p-6 shadow-md">
-          <h3 className="text-lg font-semibold text-text-light dark:text-text-dark mb-4">
+        <div className="bg-secondary-light  rounded-xl p-6 shadow-md">
+          <h3 className="text-lg font-semibold text-text-light  mb-4">
             {userRole === 'student' ? 'Courses by Category' : 'Course Distribution'}
           </h3>
           <Chart
