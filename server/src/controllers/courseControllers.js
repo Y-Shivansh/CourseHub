@@ -1,7 +1,7 @@
 import { generateToken } from "../utils/generateToken.js";
 import { createCourseSchema, updateCourseSchema } from "../schemas/course.schema.js";
 import Course from "../models/Course.model.js";
-import User from "../models/user.model.js";
+import User from "../models/User.model.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import fs from 'fs'
 

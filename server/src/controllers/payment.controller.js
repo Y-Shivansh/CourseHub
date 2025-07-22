@@ -5,7 +5,7 @@ import { nanoid } from "nanoid"
 // Models
 import Payment from "../models/Payment.model.js"
 import Course from "../models/Course.model.js"
-import User from "../models/user.model.js"
+import User from "../models/User.model.js"
 
 // Controller which actually enrolls student to a course.
 import { enrollUserToCourse } from "../services/enrollUserToCourse.js"
