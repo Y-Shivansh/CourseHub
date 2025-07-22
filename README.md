@@ -2,6 +2,12 @@
 
 **CourseHub** is a comprehensive full-stack learning platform built with React.js and Node.js, enabling teachers to create and manage courses while students can discover, enroll, and access learning materials with an intuitive dashboard experience.
 
+## 🌐 Live Preview
+🚀 **[View Live Demo](https://coursehub-xi.vercel.app/)**
+
+[![CourseHub Preview](https://api.microlink.io/?url=https://coursehub-xi.vercel.app/&screenshot=true&meta=false&embed=screenshot.url)](https://coursehub-xi.vercel.app/)
+
+
 ---
 
 ## 🎯 Current Features (Fully Implemented)
