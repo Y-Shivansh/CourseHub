@@ -23,7 +23,7 @@ export const registerUser = async (req, res) => {
 
         if (user) {
             const errorField = user.email === email ? "Email" : "Phone";
-            return res.status(400).json({ msg: `${errorField} already in use` })
+            return res.status(400).json({ message: `${errorField} already in use` })
         }
         user = new User({
             name, email, password, phone, role,
