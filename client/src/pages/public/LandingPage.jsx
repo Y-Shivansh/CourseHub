@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PublicNavbar from "../../components/Navbar/PublicNavbar";
 import Footer from "../../components/common/Footer";
-import Hero from '../../components/Landing/Hero';
+import Hero from '../../components/landing/Hero';
 import { getUserRoleFromToken } from '../../utils/getUserRoleFromToken';
 import AllCoursesSection from '../../components/common/AllCoursesSection';
 import BlobBackground from '../../components/design/BlobBackground'
