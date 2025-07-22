@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Github, Twitter, Linkedin } from 'lucide-react';
+import logo from '../../assets/logo.png';
 
 
 const Footer = () => {
@@ -12,7 +13,7 @@ const Footer = () => {
 
                 {/* Logo + Name */}
                 <div className="flex flex-col items-center md:items-start gap-2 text-center md:text-left">
-                    <img src="/src/assets/logo.png" alt="logo" className="w-16 h-16 object-contain rounded-lg" />
+                    <img src={logo} alt="logo" className="w-16 h-16 object-contain rounded-lg" />
                     <div className="text-xl font-semibold">CourseHub | Learn Smart</div>
                     <p className="text-xs sm:text-sm text-text-muted">Empowering modern education with smart technology.</p>
                 </div>

@@ -68,7 +68,6 @@ const DashboardStats = ({ userRole }) => {
     }]
   }
 
-
   // Sample data - can be replaced with real data later
   const studentStats = {
     cards: [
