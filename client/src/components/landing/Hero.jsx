@@ -18,31 +18,22 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
         >
-            <section className='flex md:flex-row flex-col justify-between items-center gap-8 px-4 py-12 mx-32'>
+            <section className='flex flex-col md:flex-row justify-between items-center gap-8 px-4 sm:px-8 md:px-16 py-8 sm:py-12 max-w-6xl mx-auto w-full'>
 
                 {/* Left Side */}
-                <div className=" flex flex-col items-center justify-center mb-8 md:mb-0">
-                    {/* <img src={HeroImage} alt="hero" className="w-full max-w-md mx-auto" /> */}
-
-                    <img src={HeroImage} alt="hero" className="w-full max-w-md mx-auto" />
-                    <h1 className="text-4xl font-bold bg-gradient-to-r from-primary-light to-green-400 bg-clip-text text-transparent">
+                <div className="flex flex-col items-center md:items-start justify-center mb-8 md:mb-0 w-full md:w-1/2">
+                    <img src={HeroImage} alt="hero" className="w-40 sm:w-64 md:w-full max-w-md mx-auto mb-4" />
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary-light to-green-400 bg-clip-text text-transparent text-center md:text-left">
                         Learn Smarter. Grow Faster.
                     </h1>
-                    <p className="text-text-muted text-center md:text-left mt-2">
+                    <p className="text-text-muted text-center md:text-left mt-2 text-sm sm:text-base md:text-lg">
                         Discover high-quality courses curated by top educators.
                     </p>
-
                 </div>
 
                 {/* Right Side */}
-                <div className=" max-w-md w-full">
+                <div className="w-full max-w-xs sm:max-w-sm md:max-w-md flex-shrink-0">
                     {isSignup ? <SignupForm /> : <LoginForm />}
-                    {/* <Link
-                    to="/"
-                    className="mt-1 block text-center text-primary-dark dark:text-white py-1 px-4 hover:text-primary-light dark:hover:text-text-muted transition"
-                >
-                    Explore Courses
-                </Link> */}
                 </div>
             </section>
         </motion.div>

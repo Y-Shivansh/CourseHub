@@ -91,21 +91,21 @@ const EnrollPopup = ({ isOpen, onClose, courseId }) => {
 
     return (
         <BaseModal isOpen={isOpen} onClose={onClose} title={"Confirm Enroll"}>
-            <div className="flex flex-col items-center justify-center">
-                <div className="flex flex-col text-center mb-6 gap-2">
-                    <p className="text-primary-light font-semibold">Are you sure you want to enroll in this course?</p>
-                    <p className="text-text-muted">Once enrolled, you'll have access to all course materials and can start learning immediately.</p>
+            <div className="flex flex-col items-center justify-center px-2 sm:px-0">
+                <div className="flex flex-col text-center mb-4 sm:mb-6 gap-1 sm:gap-2">
+                    <p className="text-primary-light font-semibold text-sm sm:text-base">Are you sure you want to enroll in this course?</p>
+                    <p className="text-text-muted text-xs sm:text-sm">Once enrolled, you'll have access to all course materials and can start learning immediately.</p>
                 </div>
-                <div className="flex justify-around w-full">
+                <div className="flex flex-col sm:flex-row justify-around w-full gap-2 sm:gap-0">
                     <Button
-                        className="w-1/3 bg-text-muted"
+                        className="w-full sm:w-1/3 bg-text-muted"
                         onClick={onClose}
                         disabled={loading}
                     >
                         Cancel
                     </Button>
                     <Button
-                        className="w-1/3"
+                        className="w-full sm:w-1/3"
                         onClick={handleEnroll}
                         disabled={loading}
                     >

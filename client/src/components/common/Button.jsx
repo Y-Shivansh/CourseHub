@@ -14,7 +14,7 @@ const Button = ({
 
     makes it easier to read & maintain.
     */
-    const baseStyle = "px-4 py-2 rounded-md font-medium transition";
+    const baseStyle = "px-4 sm:px-6 py-2 sm:py-3 rounded-md font-medium transition text-sm sm:text-base";
     const activeStyles = disabled ? "bg-primary-light text-white" : "bg-primary-light text-white hover:opacity-90 hover:cursor-pointer";
     const disabledStyles = "opacity-50 cursor-not-allowed";
     return (

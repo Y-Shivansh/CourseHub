@@ -101,19 +101,19 @@ const DashboardStats = ({ userRole }) => {
   const currentStats = userRole === 'student' ? studentStats : teacherStats
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Stats Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {currentStats.cards.map((stat, index) => (
           <StatsCard key={index} {...stat} />
         ))}
       </div>
 
       {/* Charts Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
         {/* Line Chart */}
-        <div className="bg-secondary-light  rounded-xl p-6 shadow-md">
-          <h3 className="text-lg font-semibold text-text-light mb-4">
+        <div className="bg-secondary-light rounded-xl p-4 sm:p-6 shadow-md">
+          <h3 className="text-base sm:text-lg font-semibold text-text-light mb-2 sm:mb-4">
             {userRole === 'student' ? 'Learning Progress' : 'Growth Analytics'}
           </h3>
           <Chart
@@ -125,8 +125,8 @@ const DashboardStats = ({ userRole }) => {
         </div>
 
         {/* Donut Chart */}
-        <div className="bg-secondary-light  rounded-xl p-6 shadow-md">
-          <h3 className="text-lg font-semibold text-text-light  mb-4">
+        <div className="flex justify-content flex-col items-center bg-secondary-light rounded-xl p-4 sm:p-6 shadow-md">
+          <h3 className="text-base sm:text-lg font-semibold text-text-light mb-2 sm:mb-4">
             {userRole === 'student' ? 'Courses by Category' : 'Course Distribution'}
           </h3>
           <Chart
@@ -137,7 +137,6 @@ const DashboardStats = ({ userRole }) => {
           />
         </div>
       </div>
-
     </div>
   )
 }

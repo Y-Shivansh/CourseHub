@@ -47,10 +47,10 @@ const LoginForm = () => {
   return (
     <form
       onSubmit={handleLogin}
-      className="w-full max-w-md mx-auto border border-gray-200 rounded-2xl px-6 py-8 dark:bg-secondary-light bg-background-light  shadow-sm transition"
+      className="w-full max-w-md mx-auto border border-gray-200 rounded-2xl px-4 sm:px-6 py-6 sm:py-8 dark:bg-secondary-light bg-background-light shadow-sm transition"
     >
-      <div className="grid gap-5">
-        <h1 className="text-2xl text-center font-semibold text-text-light ">
+      <div className="grid gap-4 sm:gap-5">
+        <h1 className="text-xl sm:text-2xl text-center font-semibold text-text-light ">
           Login to CourseHub
         </h1>
 
@@ -84,14 +84,14 @@ const LoginForm = () => {
       </div>
 
       {/* :Error Side: */}
-      {error && <p className=' text-red-500 text-center text-sm mt-4'>{error}</p>}
+      {error && <p className='text-red-500 text-center text-xs sm:text-sm mt-3 sm:mt-4'>{error}</p>}
 
       {/* Signup line */}
-      <p className="text-sm text-center text-text-muted mt-6">
+      <p className="text-xs sm:text-sm text-center text-text-muted mt-4 sm:mt-6">
         New here?{" "}
         <Link
           to="/signup"
-          className="text-primary-light  hover:underline"
+          className="text-primary-light hover:underline"
         >
           Create an account
         </Link>

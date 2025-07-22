@@ -1,6 +1,6 @@
 import React from 'react'
 import Chart from 'react-apexcharts'
-import { TrendingUp, TrendingDown, Users, BookOpen, Award, Clock } from 'lucide-react'
+import { TrendingUp, TrendingDown } from 'lucide-react'
 
 const StatsCard = ({ title, value, change, changeType, icon: Icon, color = "primary" }) => {
   const colorClasses = {
@@ -12,11 +12,11 @@ const StatsCard = ({ title, value, change, changeType, icon: Icon, color = "prim
   }
 
   return (
-    <div className="bg-secondary-light  rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
+    <div className="bg-secondary-light rounded-xl p-4 sm:p-6 shadow-md hover:shadow-lg transition-shadow">
       <div className="flex items-center justify-between">
         <div className="flex-1">
-          <p className="text-text-muted text-sm font-medium">{title}</p>
-          <p className="text-2xl font-bold text-text-light  mt-1">{value}</p>
+          <p className="text-xs sm:text-sm text-text-muted font-medium">{title}</p>
+          <p className="text-lg sm:text-2xl font-bold text-text-light mt-1">{value}</p>
           
           {change && (
             <div className={`flex items-center gap-1 mt-2 ${changeType === 'increase' ? 'text-green-600' : 'text-red-600'}`}>
