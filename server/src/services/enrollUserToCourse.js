@@ -1,4 +1,4 @@
-import User from "../models/user.model.js";
+import User from "../models/User.model.js";
 import Course from "../models/Course.model.js";
 
 export const enrollUserToCourse = async (userId, courseId) => {
