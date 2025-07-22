@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Menu } from 'lucide-react'
 import DefaultProfile from '../../assets/profileAvatar.svg'
+import courseHubLogo from '../../assets/logo.png'
 
 const DashboardNavbar = ({ onMenuClick }) => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -11,7 +12,7 @@ const DashboardNavbar = ({ onMenuClick }) => {
 
       {/* Logo and Name */}
       <Link to="/" className="flex items-center gap-2 text-lg font-medium">
-        <img src="/src/assets/logo.png" alt="logo" className="w-10 h-10 object-contain rounded-md" />
+        <img src={courseHubLogo} alt="logo" className="w-10 h-10 object-contain rounded-md" />
         CourseHub
       </Link>
 

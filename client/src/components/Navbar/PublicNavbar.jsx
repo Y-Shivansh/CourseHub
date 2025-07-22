@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import ThemeToggle from "../common/ThemeToggle"
+import courseHubLogo from '../../assets/logo.png'
 
 const PublicNavbar = () => {
     return (
@@ -7,7 +8,7 @@ const PublicNavbar = () => {
 
             {/*Logo and Name */}
             <Link to="/" className="flex items-center gap-2 text-lg font-medium text-text-light dark:text-text-dark" >
-                <img src="/src/assets/logo.png" alt="logo" className="w-10 h-10 object-contain rounded-md" />
+                <img src={courseHubLogo} alt="logo" className="w-10 h-10 object-contain rounded-md" />
                 CourseHub
             </Link>
 
