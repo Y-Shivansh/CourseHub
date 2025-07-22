@@ -5,15 +5,15 @@ import courseRoutes from './routes/courseRoutes.js'
 import paymentRoutes from './routes/payment.routes.js'
 
 const app = express();
-// const corsOption = {
-//     origin: ["http://localhost:5173", "https://coursehub-xi.vercel.app"],
-//     credentials: true
-// }
+const corsOption = {
+    origin: ["http://localhost:5173", "https://coursehub-xi.vercel.app"],
+    credentials: true
+}
 
 
 app.use(express.json());
-// app.use(cors(corsOption));
-app.use(cors());
+app.use(cors(corsOption));
+// app.use(cors());
 
 // Status Api
 app.get('/health', (req, res)=> {
