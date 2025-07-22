@@ -2,7 +2,7 @@ import { useState } from "react";
 import BlobBackground from "../../../components/design/BlobBackground"
 import DashboardNavbar from "../../../components/Navbar/DashboardNavbar"
 import Sidebar from "../../../components/Navbar/sidebar/Sidebar";
-import AllEnrolledCourses from "../../../components/profile/AllEnrolledCOurses";
+import AllEnrolledCourses from "../../../components/profile/AllEnrolledCourses";
 
 
 const MyEnrolledCourses = () => {
