@@ -383,7 +383,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👨‍💻 Author
 
 **Shivansh Sharma**
-- GitHub: [@shivanshsharma8834](https://github.com/Y-Shivansh)
+- GitHub: [@Y-Shivansh](https://github.com/Y-Shivansh)
 - Email: sharma.shivansh1305@gmail.com
 
 ---
