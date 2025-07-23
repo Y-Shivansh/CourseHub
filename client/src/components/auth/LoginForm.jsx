@@ -7,7 +7,7 @@ import { publicApi } from "../../services/axios.config"
 import Loader from '../common/Loader';
 import { toast } from "react-toastify";
 import { getUserRoleFromToken } from '../../utils/getUserRoleFromToken';
-import OAuthButton from './OAuthButton';
+import OAuthButton from './OauthButton';
 
 
 const LoginForm = () => {
@@ -97,8 +97,6 @@ const LoginForm = () => {
           Create an account
         </Link>
       </p>
-      <div className="my-4 text-center text-sm text-gray-400"> - or - </div>
-        <OAuthButton/>
     </form>
 
   )
