@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 // Public
 import LandingPage from "../pages/public/LandingPage";
 import CourseDetails from "../pages/public/CourseDetails";
+import OauthRoleSelection from '../pages/public/OauthRoleSelection';
 
 // : Protected :
 // Teacher Pages
@@ -30,6 +31,7 @@ export const AppRoutes = () => {
                 <Route path='/' element={<LandingPage />} />
                 <Route path='/signup' element={<LandingPage />} />
                 <Route path='/course/:id' element={<CourseDetails />} />
+                <Route path='/oauth/choose-role' element={<OauthRoleSelection />} />
 
                 {/* Protected Routes */}
                 <Route element={<ProtectedLayout />}>

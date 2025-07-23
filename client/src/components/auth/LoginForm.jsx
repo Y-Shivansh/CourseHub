@@ -7,7 +7,7 @@ import { publicApi } from "../../services/axios.config"
 import Loader from '../common/Loader';
 import { toast } from "react-toastify";
 import { getUserRoleFromToken } from '../../utils/getUserRoleFromToken';
-import OAuthButton from './OauthButton';
+import OAuthButton from './oAuth/OAuthButton';
 
 
 const LoginForm = () => {
@@ -55,34 +55,34 @@ const LoginForm = () => {
           Login to CourseHub
         </h1>
 
-          <Input
-            label={"Email"}
-            name={"email"}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder={"Enter your email"}
-            required
-            className="bg-background-light border-gray-300"
-            applyDark={false}
-            labelDark={false}
-          />
-          <Input
-            label={"Password"}
-            type={"password"}
-            name={"password"}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder={"Enter password"}
-            required
-            className="pr-10 bg-background-light border-gray-300"
-            applyDark={false}
-            labelDark={false}
-            isPassword={true}
-          />
+        <Input
+          label={"Email"}
+          name={"email"}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder={"Enter your email"}
+          required
+          className="bg-background-light border-gray-300"
+          applyDark={false}
+          labelDark={false}
+        />
+        <Input
+          label={"Password"}
+          type={"password"}
+          name={"password"}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder={"Enter password"}
+          required
+          className="pr-10 bg-background-light border-gray-300"
+          applyDark={false}
+          labelDark={false}
+          isPassword={true}
+        />
 
 
-          <Button type="submit">Login</Button>
-        </div>
+        <Button type="submit">Login</Button>
+      </div>
 
       {/* :Error Side: */}
       {error && <p className='text-red-500 text-center text-xs sm:text-sm mt-3 sm:mt-4'>{error}</p>}
@@ -97,6 +97,8 @@ const LoginForm = () => {
           Create an account
         </Link>
       </p>
+      <div className="my-3 text-center text-sm text-gray-400">or</div>
+      <OAuthButton />
     </form>
 
   )

@@ -235,13 +235,21 @@ export const deleteUser = async (req, res) => {
 
 // OAuth Controller:
 export const registerOauthUser = async (req, res) => {
+    const { email } = req.body;
+    let existingUser = await User.findOne({ email });
+    if (existingUser) {
+        const token = generateToken(existingUser._id, existingUser.role);
+        return res.status(200).json({
+            message: "User already exists, login successful.",
+            token
+        });
+    }
     const result = oauthRegisterSchema.safeParse(req.body);
     if (!result.success) {
         return res.status(400).json({ message: "Validation Failed", errors: result.error })
     }
 
-    const { name, email, role, profile, authId } = result.data;
-
+    const { name, role, profile, authId } = result.data;
     try {
         // checking if new or old user
         let existingUser = await User.findOne({ email });

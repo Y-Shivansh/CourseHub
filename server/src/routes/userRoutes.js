@@ -6,7 +6,7 @@ import {upload} from '../middlewares/multer.middleware.js';
 
 const router = express.Router();
 router.post("/signup", registerUser);
-router.post("/oauth-register", registerOauthUser)
+router.post("/oauth-login", registerOauthUser)
 router.post("/signin", loginUser);
 router.get("/me", verifyUserToken, getUserProfile);
 router.put("/update", verifyUserToken, upload.single('profile') ,updateUser);

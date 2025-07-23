@@ -27,7 +27,9 @@ const AllCoursesSection = ({ user = null }) => {
                     setFilteredCourses(res.data.courses || []);
                 }
             } catch (error) {
-                toast.error("Failed to fetch courses");
+                toast.error("Failed to fetch courses", {
+                    toastId: "course fetch error",
+                });
                 console.error("Failed to fetch courses", error);
             }
         })(); // IIFE
