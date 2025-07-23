@@ -40,12 +40,12 @@ const StudentDashboard = () => {
         </div>
 
         {/* Dashboard Stats */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 py-8">
-          <div className="mb-8">
-            <h1 className="text-2xl font-semibold text-text-light dark:text-text-dark mb-2">
-              Welcome back! <span className="text-2xl font-bold bg-gradient-to-r from-primary-dark to-green-400 bg-clip-text text-transparent">{JSON.parse(localStorage.getItem('user')).name}</span> 👋 
+        <div className="relative z-10 max-w-7xl mx-auto px-2 sm:px-4 py-6 sm:py-8">
+          <div className="mb-6 sm:mb-8">
+            <h1 className="text-xl sm:text-2xl font-semibold text-text-light dark:text-text-dark mb-1 sm:mb-2">
+              Welcome back! <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-primary-dark to-green-400 bg-clip-text text-transparent">{JSON.parse(localStorage.getItem('user')).name}</span> 👋 
             </h1>
-            <p className="text-text-light font-light dark:text-text-dark">
+            <p className="text-text-light font-light dark:text-text-dark text-sm sm:text-base">
               Here's your learning overview
             </p>
           </div>
@@ -53,7 +53,7 @@ const StudentDashboard = () => {
         </div>
 
         {/* Available Courses */}
-        <div className="relative z-10">
+        <div className="relative z-10" id="enroll-courses">
           <AllCoursesSection user={JSON.parse(localStorage.getItem('user'))} />
         </div>
       </div>

@@ -39,7 +39,7 @@ const UpdatePassPopUp = ({ isOpen, onClose }) => {
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose} title={"Update Password"}>
-      <form className='flex flex-col gap-4' onSubmit={hanndleUpdate}>
+      <form className='flex flex-col gap-3 sm:gap-4 px-2 sm:px-0' onSubmit={hanndleUpdate}>
         <Input
           label={"Old Password"}
           type={'password'}
@@ -65,8 +65,8 @@ const UpdatePassPopUp = ({ isOpen, onClose }) => {
           isPassword={true}
         />
         {/* :Error Side: */}
-        {error && <p className=' text-red-500 text-center text-sm mt-4'>{error}</p>}
-        <Button type="submit" className="mt-4 w-full">Update Password</Button>
+        {error && <p className='text-red-500 text-center text-xs sm:text-sm mt-3 sm:mt-4'>{error}</p>}
+        <Button type="submit" className="mt-3 sm:mt-4 w-full">Update Password</Button>
       </form>
     </BaseModal>
   )

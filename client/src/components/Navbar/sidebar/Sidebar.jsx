@@ -44,7 +44,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           >
             <DialogPanel
               as="div"
-              className="w-1/4 h-full bg-background-light dark:bg-background-dark shadow-xl p-4 overflow-y-auto">
+              className="w-full sm:w-3/4 md:w-1/2 lg:w-1/3 h-full bg-background-light dark:bg-background-dark shadow-xl p-4 overflow-y-auto max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xs">
               <button onClick={onClose} className="cursor-pointer dark:text-text-dark text-xl mb-6">
                 <X />
               </button>

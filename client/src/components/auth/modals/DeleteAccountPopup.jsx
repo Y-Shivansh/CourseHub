@@ -36,9 +36,9 @@ const DeleteAccountPopup = ({ isOpen, onClose }) => {
   
   return (
     <BaseModal isOpen={isOpen} onClose={onClose} title={"Delete Account"}>
-      <form onSubmit={handleDelete}>
-        <h2 className="text-xl font-semibold mb-2 text-red-500">Confirm Deletion</h2>
-        <p className="text-sm text-text-muted mb-4">
+      <form onSubmit={handleDelete} className="px-2 sm:px-0">
+        <h2 className="text-lg sm:text-xl font-semibold mb-2 text-red-500">Confirm Deletion</h2>
+        <p className="text-xs sm:text-sm text-text-muted mb-3 sm:mb-4">
           Are you sure you want to delete your account? This action cannot be undone.
         </p>
         <Input
@@ -54,8 +54,8 @@ const DeleteAccountPopup = ({ isOpen, onClose }) => {
           isPassword={true}
         />
         {/* :Error Side: */}
-        {error && <p className=' text-red-500 text-center text-sm mt-4'>{error}</p>}
-        <Button type="submit" className="mt-4 w-full">Delete</Button>
+        {error && <p className='text-red-500 text-center text-xs sm:text-sm mt-3 sm:mt-4'>{error}</p>}
+        <Button type="submit" className="mt-3 sm:mt-4 w-full">Delete</Button>
       </form>
     </BaseModal>
   )

@@ -19,7 +19,7 @@ const Input = ({
     const [showPassword, setShowPassword] = useState(false);
     const inputType = isPassword ? (showPassword ? "text" : "password") : type
 
-    const baseStyles = "w-full px-4 py-2 rounded-md border outline-none transition text-sm";
+    const baseStyles = "w-full px-4 py-2 rounded-md border outline-none transition text-sm sm:text-base";
 
     const activeStyles = disabled
         ? "bg-secondary-light text-text-muted cursor-not-allowed"
@@ -31,7 +31,7 @@ const Input = ({
 
     return (
         <div className='relative'>
-            <label className={`${labelStyle}`} htmlFor={name}>{label}</label>
+            <label className={`${labelStyle} text-sm sm:text-base`} htmlFor={name}>{label}</label>
             <input
                 id={name}
                 name={name}

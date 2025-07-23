@@ -48,13 +48,13 @@ const AllCoursesSection = ({ user = null }) => {
 
 
     return (
-        <div className="max-w-7xl mx-auto px-4 py-10 border-t  border-gray-300 dark:border-gray-600">
-            <h2 className="text-3xl font-bold mb-6 text-text-light dark:text-text-dark">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 py-8 sm:py-10 border-t border-gray-300 dark:border-gray-600">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-text-light dark:text-text-dark">
                 {token ? "Enroll to any course" : "Explore Courses"}
             </h2>
 
             {/* Search Courses */}
-            <div className="mb-6 flex items-center">
+            <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
                 <div className="w-full relative">
                     <Input
                         placeholder="Search Courses..."
@@ -89,7 +89,7 @@ const AllCoursesSection = ({ user = null }) => {
             {filteredCourses.length === 0 ? (
                 <p className="text-gray-500">No courses available right now.</p>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
                     {visibleCourses.map((course) => (
                         <CourseCard key={course._id} course={course} /> // key is a special prop that helps React identify which list items have changed, added, or removed.
                     ))}
@@ -97,7 +97,7 @@ const AllCoursesSection = ({ user = null }) => {
             )}
 
             {(token ? filteredCourses.length > 6 : filteredCourses.length > 4) && (
-                <div className="text-center mt-8">
+                <div className="text-center mt-6 sm:mt-8">
                     <button
                         onClick={() => setShowAll(!showAll)}
                         className="inline-block text-primary-light dark:text-white underline cursor-pointer text-sm px-3 py-1 rounded-2xl hover:opacity-90 transition"

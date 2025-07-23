@@ -1,10 +1,10 @@
 const UserDetailsCard = ({ user }) => {
   return (
-    <div className="bg-secondary-light dark:bg-secondary-dark rounded-xl p-6 shadow">
-      <h3 className="text-lg font-semibold mb-4 text-text-light dark:text-text-dark">
+    <div className="bg-secondary-light dark:bg-secondary-dark rounded-xl p-4 sm:p-6 shadow">
+      <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-text-light dark:text-text-dark">
         Account Details
       </h3>
-      <div className="space-y-3 text-sm">
+      <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
         <div className="flex justify-between">
           <span className="text-text-muted">Email:</span>
           <span className="text-text-light dark:text-text-dark">{user?.email}</span>
