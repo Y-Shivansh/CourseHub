@@ -3,7 +3,7 @@ import { Disclosure, DisclosurePanel, DisclosureButton } from "@headlessui/react
 import { ChevronDown, ChevronUp } from "lucide-react"
 import { Link } from "react-router-dom"
 
-const AccountSettings = ({onUpdatePassword, onDeleteAccount}) => {
+const AccountSettings = ({ onUpdatePassword, onDeleteAccount, userType }) => {
   return (
     <Disclosure as={'div'}>
       {({ open }) => (
@@ -13,12 +13,13 @@ const AccountSettings = ({onUpdatePassword, onDeleteAccount}) => {
             {open ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
           </DisclosureButton>
           <DisclosurePanel className="pl-4 mt-1 space-y-3 text-sm">
-            <button
+            {userType === 'local' && <button
               onClick={onUpdatePassword}
               className="block hover:underline text-primary-light"
             >
               Update Password
-            </button>
+            </button>}
+
             <button
               onClick={onDeleteAccount}
               className="block hover:underline text-red-500"

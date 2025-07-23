@@ -186,30 +186,32 @@ export const updateUser = async (req, res) => {
 
 
 export const deleteUser = async (req, res) => {
-    const result = deletionSchema.safeParse(req.body);
-
-    if (!result.success) {
-        return res.status(400).json({ message: "Validation Failed" })
-    }
     const password = req.body?.password;
-    if (!password) {
-        return res.status(400).json({ message: "Password is required" });
-    }
     const userId = req.user.userId;
+
     try {
         const user = await User.findById(userId).select("+password");
-        const isValidPassword = await bcrypt.compare(password, user.password);
-        if (!isValidPassword) {
-            console.error("Delete User Failed.")
-            return res.status(401).json({ message: "Incorrect Password" });
+
+        if (user.password) {
+            if (!password) {
+                return res.status(400).json({ message: "Password is required" });
+            }
+            const isValidPassword = await bcrypt.compare(password, user.password);
+            if (!isValidPassword) {
+                return res.status(401).json({ message: "Incorrect Password" });
+            }
         }
-        // Creating Deletion Log
+
+        // For OAuth user — skipping password validation
+        // No extra handling needed here
+
+        // Deletion Log
         await DeletionLog.create({
             userId: user._id,
             email: user.email,
         })
 
-        // Use at the time of actual email addresses in the DB.
+       // email confirmation
         try {
             const mailSent = await sendEmail({
                 to: user.email,

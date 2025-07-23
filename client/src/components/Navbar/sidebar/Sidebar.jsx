@@ -14,6 +14,7 @@ const Sidebar = ({ isOpen, onClose }) => {
   const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const user = JSON.parse(localStorage.getItem('user'));
+  const userType = user.authProvider;
 
   return (
     <Transition show={isOpen} as={Fragment}>
@@ -53,7 +54,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                 <ProfileCard user={user} />
                 <SidebarLinks user={user} />
                 <ThemeToggle withText={true} text="Change Theme" size={20} />
-                <AccountSettings
+                <AccountSettings userType={userType}
                   onUpdatePassword={() => setShowUpdatePassModal(true)}
                   onDeleteAccount={() => setShowDeleteAccountModal(true)}
                 />
@@ -63,7 +64,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                   <UpdatePassPopUp isOpen={showUpdatePassModal} onClose={() => setShowUpdatePassModal(false)} />
                 )}
                 {showDeleteAccountModal && (
-                  <DeleteAccountPopup isOpen={showDeleteAccountModal} onClose={() => setShowDeleteAccountModal(false)} />
+                  <DeleteAccountPopup userType={userType} isOpen={showDeleteAccountModal} onClose={() => setShowDeleteAccountModal(false)} />
                 )}
                 {showLogoutModal && (
                   <LogoutPopup isOpen={showLogoutModal} onClose={() => setShowLogoutModal(false)} />
