@@ -10,6 +10,14 @@ export const registerSchema = z.object({
     }),
 });
 
+export const oauthRegisterSchema = z.object({
+    name: z.string().min(3, "Name must be at least 3 characters"),
+    email: z.email({ message: "Invalid Email Address" }),
+    role: z.enum(["student", "teacher"]),
+    authId: z.string(), // a unique identifier for the OAuth user
+    profile: z.string().optional(), // Auth0 can send picture aswell.
+})
+
 export const loginSchema = z.object({
     // email: z.string().email("Invalid Email Address"),
     email: z.email({ message: "Invalid Email Address" }),

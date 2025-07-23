@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import { generateToken } from "../utils/generateToken.js";
 import User from '../models/User.model.js';
 import DeletionLog from "../models/DeletionLog.js"
-import { registerSchema, loginSchema, updationSchema, deletionSchema } from '../schemas/user.schema.js';
+import { registerSchema, loginSchema, updationSchema, deletionSchema, oauthRegisterSchema } from '../schemas/user.schema.js';
 import { sendEmail } from '../utils/sendEmail.js';
 import { uploadOnCloudinary } from '../utils/cloudinary.js';
 import fs from 'fs'
@@ -232,3 +232,45 @@ export const deleteUser = async (req, res) => {
         })
     }
 };
+
+// OAuth Controller:
+export const registerOauthUser = async (req, res) => {
+    const result = oauthRegisterSchema.safeParse(req.body);
+    if (!result.success) {
+        return res.status(400).json({ message: "Validation Failed", errors: result.error })
+    }
+
+    const { name, email, role, profile, authId } = result.data;
+
+    try {
+        // checking if new or old user
+        let existingUser = await User.findOne({ email });
+        if (existingUser) {
+            const token = generateToken(existingUser._id, existingUser.role);
+            return res.status(200).json({
+                message: "User already exists, login successful.",
+                token
+            });
+        }
+
+        // if not, creating new
+        const user = new User({
+            name, email, role, authId,
+            authProvider: 'google',
+            profile: profile || ""
+        })
+
+        await user.save();
+
+        // generateToken
+        const token = generateToken(user._id, user.role);
+        return res.status(201).json({
+            message: "OAuth user registered successfully.",
+            token
+        });
+
+    } catch (error) {
+        console.error(error.message);
+        return res.status(500).send("Server Error", error.message);
+    }
+}

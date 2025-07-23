@@ -55,8 +55,7 @@ export const getCourseById = async (req, res) => {
         });
     }
 };
-
-
+ 
 export const getOtherCoursesByTeacher = async (req, res) => {
     try {
         const courses = await Course.find({ createdBy: req.params.id }).select("name thumbnail category");
@@ -239,7 +238,6 @@ export const getUnEnrolledCourses = async (req, res) => {
         return res.status(500).json({ message: "Server error arha hai" });
     }
 }
-
 
 export const getEnrolledCourses = async (req, res) => {
     const userId = req.user.userId;

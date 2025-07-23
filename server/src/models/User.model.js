@@ -24,18 +24,32 @@ const userSchema = new mongoose.Schema(
         password: {
             type: String,
             minLength: 6,
-            required: true,
+            required: function () {
+                return this.authProvider === 'local';  // required is true for local users not for Oauth
+            },
             select: false // MongoDB will not send password, unless explicitly asked. 
-            /* const user = await user.findById({userId}).select("+password") */ // like this.
         },
         phone: {
             type: String,
             unique: true,
+            sparse: true, // allows null for google users.
         },
         role: {
             type: String,
             enum: ['student', 'teacher'],
             default: 'student',
+        },
+
+        // OAuth related addons. 
+        authProvider: {  // defines if local user or OAuth user.
+            type: String,
+            enum: ['local', 'google'],
+            default: 'local',
+        },
+        authId:{
+            type: String,
+            unique: true,
+            sparse: true, // allows null for local users.
         },
 
         // enrolled in (For Students) an array, as students may enroll in multiple courses.
