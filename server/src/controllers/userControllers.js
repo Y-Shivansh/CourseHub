@@ -246,6 +246,8 @@ export const registerOauthUser = async (req, res) => {
             token
         });
     }
+    console.log("Trying New");
+    
     const result = oauthRegisterSchema.safeParse(req.body);
     if (!result.success) {
         return res.status(400).json({ message: "Validation Failed", errors: result.error })
@@ -253,17 +255,6 @@ export const registerOauthUser = async (req, res) => {
 
     const { name, role, profile, authId } = result.data;
     try {
-        // checking if new or old user
-        let existingUser = await User.findOne({ email });
-        if (existingUser) {
-            const token = generateToken(existingUser._id, existingUser.role);
-            return res.status(200).json({
-                message: "User already exists, login successful.",
-                token
-            });
-        }
-
-        // if not, creating new
         const user = new User({
             name, email, role, authId,
             authProvider: 'google',

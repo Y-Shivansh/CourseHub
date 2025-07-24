@@ -1,12 +1,24 @@
 import {
     Code, Briefcase, Palette, Brain, BarChart,
-    Megaphone, BookOpen
+    Megaphone, BookOpen, Camera, Braces, DatabaseBackup, Binary, Users, GraduationCap
 } from "lucide-react";
 
 export const getCategoryIcon = (category) => {
     switch (category) {
-        case "Development":
+        case ("Frontend Development"):
+            return <Braces size={16} />;
+        case ('Backend Development'):
+            return <DatabaseBackup size={16} />;
+        case ('Full Stack Development'):
             return <Code size={16} />;
+        case ('DSA'):
+            return <Binary size={16} />;
+        case ('JEE/NEET'):
+            return <GraduationCap size={16} />;
+        case ('Competitive'):
+            return <Users size={16} />;
+        case ('Photography'):
+            return <Camera size={16} />;
         case "Business":
             return <Briefcase size={16} />;
         case "Designing":

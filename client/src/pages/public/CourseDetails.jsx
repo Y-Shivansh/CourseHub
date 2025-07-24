@@ -6,6 +6,9 @@ import defaultprofile from "../../assets/profileAvatar.svg";
 import Button from "../../components/common/Button";
 import Loader from "../../components/common/Loader";
 import EnrollPopup from "../../components/auth/modals/EnrollPopup";
+import BlobBackground from "../../components/design/BlobBackground";
+import DashboardNavbar from "../../components/Navbar/DashboardNavbar";
+import Sidebar from "../../components/Navbar/sidebar/Sidebar";
 
 const CourseDetails = () => {
   const { id } = useParams();
@@ -13,7 +16,8 @@ const CourseDetails = () => {
   const [showEnrollPopup, setShowEnrollPopup] = useState(false);
   const [otherCourses, setOtherCourses] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+
   const token = localStorage.getItem("authToken");
   const user = JSON.parse(localStorage.getItem('user'));
 
@@ -38,11 +42,12 @@ const CourseDetails = () => {
   return (
     <div className="relative bg-background-light dark:bg-background-dark min-h-screen">
       {/* Background blob layer - can toggle this via theme */}
-      <img
-        src={`/src/assets/${localStorage.getItem("theme") === "dark" ? "darkBlob.svg" : "lightBlob.svg"}`}
-        alt="bg-blob"
-        className="absolute top-0 left-0 w-full h-full object-cover opacity-10 -z-10"
-      />
+      <BlobBackground />
+      {user && <div className="relative z-10">
+        <DashboardNavbar onMenuClick={() => setIsSideBarOpen(true)} />
+        <Sidebar isOpen={isSideBarOpen} onClose={() => setIsSideBarOpen(false)} />
+      </div>}
+
 
       <div className="max-w-6xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -84,8 +89,8 @@ const CourseDetails = () => {
           </div>
           {showEnrollPopup && (
             <EnrollPopup isOpen={showEnrollPopup}
-              onClose = {() => setShowEnrollPopup(false)}
-              courseId = {id}
+              onClose={() => setShowEnrollPopup(false)}
+              courseId={id}
             />
           )}
 

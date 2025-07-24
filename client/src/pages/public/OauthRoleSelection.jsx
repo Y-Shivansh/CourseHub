@@ -42,6 +42,7 @@ const OauthRoleSelection = () => {
         autoLoginForExistingUser();
     }, [isLoading, isAuthenticated, user]);
 
+    
     const handleSubmit = async () => {
         if (!selectedRole) return toast.error("Please select a role", { toastId: "Selection Error" });
         try {

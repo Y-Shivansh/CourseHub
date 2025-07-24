@@ -122,11 +122,19 @@ const EditCourseDetails = () => {
           className="focus:outline-none focus:ring-0 w-full px-4 py-2 rounded-md border bg-white dark:bg-gray-800 border-gray-300 dark:text-white text-sm"
         >
           <option value="" disabled>Select category</option>
-          <option value="Development">Development</option>
-          <option value="Designing">Designing</option>
-          <option value="AI/ML">AI/ML</option>
-          <option value="Data Analysis">Data Analysis</option>
-          <option value="Academic">Academic</option>
+          <option value="Development">Frontend Development</option>
+              <option value="Development">Backend Development</option>
+              <option value="Development">Full Stack Development</option>
+              <option value="Development">DSA</option>
+              <option value="Business">Business</option>  
+              <option value="Designing">Designing</option>
+              <option value="AI/ML">AI/ML</option>
+              <option value="Data Analysis">Data Analysis</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Academic">Academic</option>
+              <option value="JEE/NEET">JEE/NEET</option>
+              <option value="Competitive">Competitive</option>
+              <option value="Photography">Photography</option>
         </select>
       </div>
 

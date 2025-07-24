@@ -4,12 +4,16 @@ import { publicApi } from "../../../services/axios.config";
 import defaultThumbnail from "../../../assets/defaultThumbnail.png";
 import defaultprofile from "../../../assets/profileAvatar.svg";
 import Loader from "../../../components/common/Loader";
+import BlobBackground from "../../../components/design/BlobBackground";
+import DashboardNavbar from "../../../components/Navbar/DashboardNavbar";
+import Sidebar from "../../../components/Navbar/sidebar/Sidebar";
 
 const EnrolledCourse = () => {
   const { id } = useParams();
   const [course, setCourse] = useState(null);
   const [otherCourses, setOtherCourses] = useState([]);
   const [loading, setLoading] = useState(true); 
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -32,11 +36,12 @@ const EnrolledCourse = () => {
   return (
     <div className="relative bg-background-light dark:bg-background-dark min-h-screen">
       {/* Background blob layer - can toggle this via theme */}
-      <img
-        src={`/src/assets/${localStorage.getItem("theme") === "dark" ? "darkBlob.svg" : "lightBlob.svg"}`}
-        alt="bg-blob"
-        className="absolute top-0 left-0 w-full h-full object-cover opacity-10 -z-10"
-      />
+      <BlobBackground/>
+
+      <div className="relative z-10">
+        <DashboardNavbar onMenuClick={() => setIsSideBarOpen(true)} />
+        <Sidebar isOpen={isSideBarOpen} onClose={() => setIsSideBarOpen(false)} />
+      </div>
 
       <div className="max-w-6xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">

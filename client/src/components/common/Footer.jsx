@@ -20,7 +20,7 @@ const Footer = () => {
                 
 
                 {/* Quick Links and Social Links Row for not-logged-in users */}
-                <div className="w-full flex flex-row justify-between items-center gap-2 sm:gap-8 mt-4 sm:mt-0">
+                <div className="w-full flex flex-row md:justify-end justify-between items-center gap-2 sm:gap-8 mt-4 sm:mt-0">
                   {/* Quick Links (only if not logged in) */}
                   {!token && (
                     <div className="flex flex-col items-start gap-2 sm:gap-4 text-xs sm:text-sm text-left">

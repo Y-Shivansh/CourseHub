@@ -2,10 +2,11 @@ import { Link } from 'react-router-dom'
 import { Menu } from 'lucide-react'
 import DefaultProfile from '../../assets/profileAvatar.svg'
 import courseHubLogo from '../../assets/logo.png'
+import { useLocation } from 'react-router-dom'
 
 const DashboardNavbar = ({ onMenuClick }) => {
   const user = JSON.parse(localStorage.getItem('user'));
-
+  const currentPathName = useLocation().pathname;
 
   return (
     <>
@@ -17,7 +18,7 @@ const DashboardNavbar = ({ onMenuClick }) => {
           CourseHub
         </Link>
         {/* Enroll to Course link for students only (desktop) */}
-        {user?.role === 'student' && (
+        {(user?.role === 'student' && currentPathName === '/dashboard-student') && (
           <a href="#enroll-courses" className="hidden sm:inline-block px-3 py-1 rounded text-primary-light font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-primary-light transition text-sm">Enroll to Course</a>
         )}
         {/* Right Side */}
@@ -38,7 +39,7 @@ const DashboardNavbar = ({ onMenuClick }) => {
         </div>
       </nav>
       {/* Enroll to Course button for students only (mobile) */}
-      {user?.role === 'student' && (
+      {(user?.role === 'student' && currentPathName === '/dashboard-student') && (
         <a href="#enroll-courses" className="flex justify-center mx-2 px-3 rounded-full items-center bg-black dark:bg-white sm:hidden text-center text-xs py-1 my-2 text-text-dark dark:text-text-light font-light ">Enroll to Course</a>
       )}
     </>
