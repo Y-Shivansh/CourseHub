@@ -13,5 +13,5 @@ export const updateCourseSchema = z.object({
     duration: z.string().optional(),
     description: z.string().min(30).optional(),
     thumbnail: z.string().optional(),
-    category: z.enum(['Development', 'Designing', 'AI/ML', 'Data Analysis', 'Academic']).optional()
+    category: z.enum(['Frontend Development', 'Backend Development', 'Full Stack Development', 'DSA', 'Business', 'Designing', 'AI/ML', 'Data Analysis', 'Marketing', 'Academic', 'JEE/NEET', 'Competitive', 'Photography']).optional()
 })
