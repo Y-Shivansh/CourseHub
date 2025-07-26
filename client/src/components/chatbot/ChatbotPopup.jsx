@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import ChatbotUI from "./ChatbotUi";
+import ChatbotUI from "./ChatbotUI"
 import BaseModal from "../common/BaseModal";
 
 const ChatbotPopup = ({ isOpen, onClose, courseId }) => {

@@ -1,5 +1,3 @@
-
-
 const MessageBubble = ({message, role}) => {
     const isUser = role === 'user';
 
