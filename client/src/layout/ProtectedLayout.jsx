@@ -40,7 +40,8 @@ const ProtectedLayout = () => {
   const isStudentRoute = location.pathname.startsWith('/dashboard-student')
     || location.pathname.startsWith('/update-student')
     || location.pathname.startsWith('/my-enrolled-courses')
-    || location.pathname.includes('/enroll');
+    || location.pathname.includes('/enroll')
+    || location.pathname.includes('/ai');
 
   // Redirecting if role mismatch
   if (isTeacherRoute && role !== 'teacher') {

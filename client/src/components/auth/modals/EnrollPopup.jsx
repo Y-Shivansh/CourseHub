@@ -90,7 +90,7 @@ const EnrollPopup = ({ isOpen, onClose, courseId }) => {
     }
 
     return (
-        <BaseModal isOpen={isOpen} onClose={onClose} title={"Confirm Enroll"}>
+        <BaseModal position={'center'} isOpen={isOpen} onClose={onClose} title={"Confirm Enroll"}>
             <div className="flex flex-col items-center justify-center px-2 sm:px-0">
                 <div className="flex flex-col text-center mb-4 sm:mb-6 gap-1 sm:gap-2">
                     <p className="text-primary-light font-semibold text-sm sm:text-base">Are you sure you want to enroll in this course?</p>

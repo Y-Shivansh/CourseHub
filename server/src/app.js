@@ -3,6 +3,7 @@ import cors from 'cors';
 import userRoutes from './routes/userRoutes.js';
 import courseRoutes from './routes/courseRoutes.js'
 import paymentRoutes from './routes/payment.routes.js'
+import geminiRoutes from './routes/ai/gemini.routes.js'
 
 const app = express();
 const corsOption = {
@@ -23,5 +24,6 @@ app.get('/health', (req, res)=> {
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/course', courseRoutes);
 app.use('/api/v1/payment', paymentRoutes);
+app.use('/api/v1/ai', geminiRoutes);
 
 export default app;

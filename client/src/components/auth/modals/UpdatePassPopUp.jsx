@@ -38,7 +38,7 @@ const UpdatePassPopUp = ({ isOpen, onClose }) => {
   if (loading) return <Loader />;
 
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose} title={"Update Password"}>
+    <BaseModal position={'center'} isOpen={isOpen} onClose={onClose} title={"Update Password"}>
       <form className='flex flex-col gap-3 sm:gap-4 px-2 sm:px-0' onSubmit={hanndleUpdate}>
         <Input
           label={"Old Password"}

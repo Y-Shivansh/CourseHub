@@ -36,7 +36,7 @@ const DeleteAccountPopup = ({ isOpen, onClose, userType}) => {
   if (loading) return <Loader />;
 
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose} title={"Delete Account"}>
+    <BaseModal position={'center'} isOpen={isOpen} onClose={onClose} title={"Delete Account"}>
       <form onSubmit={handleDelete} className="px-2 sm:px-0">
         <h2 className="text-lg sm:text-xl font-semibold mb-2 text-red-500">Confirm Deletion</h2>
         <p className="text-xs sm:text-sm text-text-muted mb-3 sm:mb-4">

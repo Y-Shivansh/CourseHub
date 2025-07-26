@@ -32,7 +32,7 @@ const LogoutPopup = ({ isOpen, onClose }) => {
     if (loading) return <Loader />
 
     return (
-        <BaseModal isOpen={isOpen} onClose={onClose} title={"Confirm Logout"}>
+        <BaseModal position={'center'} isOpen={isOpen} onClose={onClose} title={"Confirm Logout"}>
             <div className="flex flex-col items-center justify-center px-2 sm:px-0">
                 <div className="flex flex-col text-center mb-4 sm:mb-6 gap-1 sm:gap-2">
                     <p className="text-red-500 font-semibold text-sm sm:text-base">Are you sure you want to logout?</p>

@@ -14,9 +14,10 @@ router.put("/update", verifyUserToken, upload.single('profile') ,updateUser);
 router.delete("/delete", verifyUserToken, deleteUser);
 
 
-// router.get("/sync-indexes", async (req, res) => {
-//     await User.syncIndexes();
-//     res.send("done");
-//   });
+// For Syncing index of Schema.
+router.get("/sync-indexes", async (req, res) => {
+    await User.syncIndexes();
+    res.send("done");
+  });
 
 export default router;

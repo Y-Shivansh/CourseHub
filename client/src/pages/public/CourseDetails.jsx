@@ -9,12 +9,15 @@ import EnrollPopup from "../../components/auth/modals/EnrollPopup";
 import BlobBackground from "../../components/design/BlobBackground";
 import DashboardNavbar from "../../components/Navbar/DashboardNavbar";
 import Sidebar from "../../components/Navbar/sidebar/Sidebar";
+import ChatbotPopup from "../../components/chatbot/ChatbotPopup";
+import { BotMessageSquare } from "lucide-react";
 
 const CourseDetails = () => {
   const { id } = useParams();
   const [course, setCourse] = useState(null);
   const [showEnrollPopup, setShowEnrollPopup] = useState(false);
   const [otherCourses, setOtherCourses] = useState([]);
+  const [showChatbot, setShowChatbot] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
 
@@ -136,6 +139,25 @@ const CourseDetails = () => {
             )}
           </div>
         </div>
+        {(user && user.role === 'student') &&
+          <div className="flex justify-end items-end">
+
+            <Button 
+              className="flex gap-3 bg-transparent border-2 border-red-700 text-red-700 rounded-full"
+              onClick={() => setShowChatbot(true)}
+            >
+              Ask Assistant <BotMessageSquare />
+            </Button>
+
+            {showChatbot && (
+              <ChatbotPopup
+                isOpen={showChatbot}
+                onClose={() => setShowChatbot(false)}
+                courseId={id}
+              />
+            )}
+          </div>
+        }
       </div>
     </div>
   );
