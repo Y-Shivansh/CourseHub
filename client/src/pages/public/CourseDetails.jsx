@@ -143,7 +143,7 @@ const CourseDetails = () => {
           <div className="flex justify-end items-end">
 
             <Button 
-              className="flex gap-3 bg-transparent border-2 border-red-700 text-red-700 rounded-full"
+              className="flex gap-3 bg-red-900 rounded-full"
               onClick={() => setShowChatbot(true)}
             >
               Ask Assistant <BotMessageSquare />
