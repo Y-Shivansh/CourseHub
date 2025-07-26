@@ -44,14 +44,13 @@ export const geminiChat = async (req, res) => {
             Here is the previous conversation:
             ${formattedPreviousMessages}
 
-            If user says hello or hi or anything like greeting then greet them in friendly manner.
+            If user greets you first then only you greet the not in every response.
 
             Now, user ${user.name} asked:
             "${userInput}"
 
             Please reply with a clear, short, and friendly explanation and feel free to use analogies and adding emojis if needed.
 
-            Also, do not greet every time but do when they greets you and use their name while greeting.
             If the question is off-topic, politely say you can only help with this course and use very small response for the thing user asked and do not shift to that topic.
         `.trim();
 
