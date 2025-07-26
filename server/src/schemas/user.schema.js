@@ -28,7 +28,7 @@ export const updationSchema = z.object({
     name: z.string().optional(),
     // profile: z.string().optional(), // it is not validated using zod as handled by multer and cloudinary.
     bio: z.string().optional(),
-    phone: z.string().optional(),
+    phone: z.string().length(10).optional(),
     password: z.string().min(6).optional(),
     oldPassword: z.string().min(6).optional(),
 });

@@ -83,10 +83,10 @@ const CreateCourse = () => {
               className="w-full px-4 py-2 text-sm border rounded-md bg-white dark:bg-gray-800 dark:text-white"
             >
               <option value="" disabled>Select category</option>
-              <option value="Development">Frontend Development</option>
-              <option value="Development">Backend Development</option>
-              <option value="Development">Full Stack Development</option>
-              <option value="Development">DSA</option>
+              <option value="Frontend Development">Frontend Development</option>
+              <option value="Backend Development">Backend Development</option>
+              <option value="Full Stack Development">Full Stack Development</option>
+              <option value="DSA">DSA</option>
               <option value="Business">Business</option>  
               <option value="Designing">Designing</option>
               <option value="AI/ML">AI/ML</option>
