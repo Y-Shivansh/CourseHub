@@ -137,27 +137,31 @@ const CourseDetails = () => {
                 </div>
               </div>
             )}
+
+
+
+            {(user && user.role === 'student') &&
+              <div className="flex justify-end items-end">
+
+                <Button
+                  className="flex gap-3 bg-red-900 rounded-full"
+                  onClick={() => setShowChatbot(true)}
+                >
+                  Ask Assistant <BotMessageSquare />
+                </Button>
+
+                {showChatbot && (
+                  <ChatbotPopup
+                    isOpen={showChatbot}
+                    onClose={() => setShowChatbot(false)}
+                    courseId={id}
+                  />
+                )}
+              </div>
+            }
+
           </div>
         </div>
-        {(user && user.role === 'student') &&
-          <div className="flex justify-end items-end">
-
-            <Button 
-              className="flex gap-3 bg-red-900 rounded-full"
-              onClick={() => setShowChatbot(true)}
-            >
-              Ask Assistant <BotMessageSquare />
-            </Button>
-
-            {showChatbot && (
-              <ChatbotPopup
-                isOpen={showChatbot}
-                onClose={() => setShowChatbot(false)}
-                courseId={id}
-              />
-            )}
-          </div>
-        }
       </div>
     </div>
   );

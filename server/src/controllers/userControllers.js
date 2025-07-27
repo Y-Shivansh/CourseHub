@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import { generateToken } from "../utils/generateToken.js";
 import User from '../models/User.model.js';
+import Course from '../models/Course.model.js'; // Add this import
 import DeletionLog from "../models/DeletionLog.js"
 import { registerSchema, loginSchema, updationSchema, deletionSchema, oauthRegisterSchema } from '../schemas/user.schema.js';
 import { sendEmail } from '../utils/sendEmail.js';
@@ -202,8 +203,44 @@ export const deleteUser = async (req, res) => {
             }
         }
 
-        // For OAuth user — skipping password validation
-        // No extra handling needed here
+        // Delete courses created by the user (if they're a teacher)
+        if (user.role === 'teacher' && user.courseCreated && user.courseCreated.length > 0) {
+            try {
+                // Storing the course IDs before deleting them
+                const courseIdsToDelete = user.courseCreated;
+
+                // Deleting all courses created by this user
+                const deleteResult = await Course.deleteMany({ createdBy: userId });
+                console.log(`Successfully deleted ${deleteResult.deletedCount} courses for user ${userId}`);
+
+                // Removing these deleted course IDs from ALL students' enrolledIn arrays
+                if(courseIdsToDelete.length > 0){
+                    const updateResult = await User.updateMany(
+                        { enrolledIn: { $in: courseIdsToDelete } },
+                        { $pull: { enrolledIn:  {$in: courseIdsToDelete } } }
+                    );
+                    console.log(`Removed deleted course IDs from ${updateResult.modifiedCount} students' enrolledIn arrays`);
+                }
+
+            } catch (courseDeleteError) {
+                console.error("Error deleting user's courses:", courseDeleteError);
+                return res.status(500).json({
+                    message: "Failed to delete user's courses. Please try again."
+                });
+            }
+        }
+
+        // Removing user from enrolledStudents arrays in all courses
+        try {
+            const updateResult = await Course.updateMany(
+                { enrolledStudents: userId },
+                { $pull: { enrolledStudents: userId } }
+            );
+            console.log(`Removed user ${userId} from ${updateResult.modifiedCount} enrolled courses`);
+        } catch (enrollmentError) {
+            console.error("Error removing user from enrolled courses:", enrollmentError);
+            
+        }
 
         // Deletion Log
         await DeletionLog.create({
@@ -211,7 +248,7 @@ export const deleteUser = async (req, res) => {
             email: user.email,
         })
 
-       // email confirmation
+        // email confirmation
         try {
             const mailSent = await sendEmail({
                 to: user.email,
@@ -247,7 +284,7 @@ export const registerOauthUser = async (req, res) => {
         });
     }
     console.log("Trying New");
-    
+
     const result = oauthRegisterSchema.safeParse(req.body);
     if (!result.success) {
         return res.status(400).json({ message: "Validation Failed", errors: result.error })
