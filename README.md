@@ -1,3 +1,6 @@
+
+
+```markdown:README.md
 # 📚 CourseHub - Complete Learning Management System
 
 **CourseHub** is a comprehensive full-stack learning platform built with React.js and Node.js, enabling teachers to create and manage courses while students can discover, enroll, and access learning materials with an intuitive dashboard experience. Now featuring **AI-powered course assistance** for enhanced learning!
@@ -5,11 +8,13 @@
 ## 🌐 Live Preview
 🚀 **[View Live Demo](https://coursehub-xi.vercel.app/)**
 
-[![CourseHub Preview](https://api.microlink.io/?url=https://coursehub-xi.vercel.app/&screenshot=true&meta=false&embed=screenshot.url)](https://coursehub-xi.vercel.app/)
+[![CourseHub Logo](https://coursehub-xi.vercel.app/assets/logo.png)](https://coursehub-xi.vercel.app/)
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-CourseHub-blue?style=for-the-badge&logo=vercel)](https://coursehub-xi.vercel.app/)
 
 ---
 
-## 🎯 Current Features (Fully Implemented)
+##  Current Features (Fully Implemented)
 
 ### 🔐 Authentication & Authorization
 - **User Registration & Login** with JWT authentication
@@ -22,7 +27,7 @@
 - **Secure logout** with token cleanup
 - **OAuth Integration** with Google and GitHub (Auth0)
 
-### 👨‍🏫 Teacher Features
+### 👨‍ Teacher Features
 - **Course Creation** with rich descriptions, thumbnails, and categories
 - **Course Management** - Edit, update, and delete courses
 - **Student Analytics** - View enrolled students per course
@@ -31,7 +36,7 @@
 - **Course Update Interface** with live preview and enrolled students display
 - **Image Upload** for course thumbnails via Cloudinary
 
-### 👨‍🎓 Student Features
+### 👨‍ Student Features
 - **Course Discovery** - Browse all available courses with search/filter
 - **Course Enrollment** with Razorpay payment integration
 - **Learning Dashboard** with comprehensive stats and charts
@@ -74,7 +79,7 @@
 - **Dashboard Stats** - Role-based comprehensive metrics
 - **Recent Activity Feed** for both user types
 
-### 🛠 Technical Features
+###  Technical Features
 - **RESTful API** with Express.js backend
 - **MongoDB** with Mongoose ODM
 - **Data Integrity Management** - Complete cleanup of orphaned references
@@ -131,9 +136,13 @@ CourseHub/
 │   │   ├── assets/                  # Images, SVGs, static files
 │   │   │   ├── logo.png
 │   │   │   ├── defaultThumbnail.png
+│   │   │   ├── defaultProfile.png
 │   │   │   ├── profileAvatar.svg
+│   │   │   ├── hero.svg
 │   │   │   ├── lightBlob.svg
-│   │   │   └── darkBlob.svg
+│   │   │   ├── darkBlob.svg
+│   │   │   ├── teacher-lightBlob.svg
+│   │   │   └── teacher-darkBlob.svg
 │   │   ├── components/              # Reusable UI components
 │   │   │   ├── auth/                # Authentication components
 │   │   │   │   ├── LoginForm.jsx
@@ -164,7 +173,7 @@ CourseHub/
 │   │   │   │   └── DashboardStats.jsx
 │   │   │   ├── design/              # Design components
 │   │   │   │   ├── BlobBackground.jsx
-│   │   │   │   └── TeacherBlobBackgroung.jsx
+│   │   │   │   └── TeacherBlobBackground.jsx
 │   │   │   ├── landing/             # Landing page components
 │   │   │   │   └── Hero.jsx
 │   │   │   ├── Navbar/              # Navigation components
@@ -175,13 +184,15 @@ CourseHub/
 │   │   │   │       ├── ProfileCard.jsx
 │   │   │   │       ├── SidebarLinks.jsx
 │   │   │   │       └── AccountSettings.jsx
-│   │   │   └── profile/             # Profile management
-│   │   │       ├── AllEnrolledCourses.jsx
-│   │   │       ├── UpdateProfileForm.jsx
-│   │   │       ├── AllCreatedCourses.jsx
-│   │   │       └── teacher/         # Teacher-specific components
-│   │   │           ├── MyCreatedCourseDetail.jsx
-│   │   │           └── EditCourseDetails.jsx
+│   │   │   ├── profile/             # Profile management
+│   │   │   │   ├── AllEnrolledCourses.jsx
+│   │   │   │   ├── UpdateProfileForm.jsx
+│   │   │   │   ├── AllCreatedCourses.jsx
+│   │   │   │   └── teacher/         # Teacher-specific components
+│   │   │   │       ├── MyCreatedCourseDetail.jsx
+│   │   │   │       └── EditCourseDetails.jsx
+│   │   │   └── layout/              # Layout components
+│   │   │       └── DashboardLayout.jsx
 │   │   ├── context/                 # React Context
 │   │   │   └── themeContext.js
 │   │   ├── hooks/                   # Custom React hooks
@@ -193,8 +204,7 @@ CourseHub/
 │   │   │   │   ├── student/         # Student pages
 │   │   │   │   │   ├── StudentDashboard.jsx
 │   │   │   │   │   ├── MyEnrolledCourses.jsx
-│   │   │   │   │   ├── EnrolledCourse.jsx
-│   │   │   │   │   └── EnrollCourse.jsx
+│   │   │   │   │   └── EnrolledCourse.jsx
 │   │   │   │   └── teacher/         # Teacher pages
 │   │   │   │       ├── TeacherDashboard.jsx
 │   │   │   │       ├── CreateCourse.jsx
@@ -365,7 +375,7 @@ CourseHub/
 - **Screen Recording** for course creation
 - **Content Versioning** for course updates
 
-### 📊 Advanced Analytics & Insights
+###  Advanced Analytics & Insights
 - **Learning Analytics** with detailed progress tracking
 - **Predictive Analytics** for student success
 - **Heat Maps** for course engagement
@@ -408,15 +418,17 @@ CourseHub/
 
 ---
 
-## 🛠 API Endpoints
+##  API Endpoints
 
 ### Authentication Routes (`/api/v1/user/`)
 ```
 POST   /signup          - Register new user
 POST   /signin          - User login
+POST   /oauth-login     - OAuth user registration/login
 GET    /me              - Get current user (Protected)
 PUT    /update          - Update user profile (Protected)
-DELETE /delete          - Delete user account (Protected)
+DELETE /delete          - Delete user account with complete data cleanup (Protected)
+GET    /sync-indexes    - Database index synchronization (Development)
 ```
 
 ### Course Routes (`/api/v1/course/`)
@@ -473,16 +485,18 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 👨‍💻 Author
+## 👨‍ Author
 
 **Shivansh Sharma**
-- GitHub: [@Y-Shivansh](https://github.com/Y-Shivansh)
-- Email: sharma.shivansh1305@gmail.com
-- LinkedIn: [Shivansh Sharma](https://www.linkedin.com/in/shivansh-sharma-73270724b/)
+- **GitHub**: [@Y-Shivansh](https://github.com/Y-Shivansh/CourseHub)
+- **Email**: sharma.shivansh1305@gmail.com
+- **LinkedIn**: [Shivansh Sharma](https://www.linkedin.com/in/shivansh-sharma-73270724b/)
+- **Twitter**: [@shivansh_Zz](https://x.com/shivansh_Zz)
+- **Phone**: +91 6398799630
 
 ---
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - **React.js Community** for the robust frontend framework
 - **Node.js & Express** for the powerful backend foundation
@@ -497,11 +511,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 📈 Project Statistics
+##  Project Statistics
 
 - **⭐ Stars**: Growing daily
 - **🔄 Forks**: Contributing to the community
-- **🐛 Issues**: Actively maintained
+- ** Issues**: Actively maintained
 - **📦 Downloads**: Increasing adoption
 - **🌍 Users**: Global reach
 
@@ -510,3 +524,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **⭐ Star this repository if you find it helpful!**
 
 **🚀 Ready to revolutionize online learning? Start building with CourseHub today!**
+```
