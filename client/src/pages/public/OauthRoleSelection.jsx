@@ -41,7 +41,7 @@ const OauthRoleSelection = () => {
             }
         }
         autoLoginForExistingUser();
-    }, [isLoading, isAuthenticated, user]);
+    }, [isLoading, isAuthenticated, user, navigate]);
 
     
     const handleSubmit = async () => {
@@ -72,7 +72,7 @@ const OauthRoleSelection = () => {
         if (!isLoading && !isAuthenticated) {
             navigate('/');
         }
-    }, [isLoading, isAuthenticated]);
+    }, [isLoading, isAuthenticated, navigate]);
 
     if (isLoading) return <Loader />
 
