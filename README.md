@@ -1,4 +1,3 @@
-```markdown
 # 📚 CourseHub - Complete Learning Management System
 
 **CourseHub** is a comprehensive full-stack learning platform built with React.js and Node.js, enabling teachers to create and manage courses while students can discover, enroll, and access learning materials with an intuitive dashboard experience. Now featuring **AI-powered course assistance** for enhanced learning!
@@ -522,4 +521,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **⭐ Star this repository if you find it helpful!**
 
 **🚀 Ready to revolutionize online learning? Start building with CourseHub today!**
-```
