@@ -5,9 +5,7 @@
 ## 🌐 Live Preview
 🚀 **[View Live Demo](https://coursehub-xi.vercel.app/)**
 
-[![CourseHub Logo](https://coursehub-xi.vercel.app/assets/logo.png)](https://coursehub-xi.vercel.app/)
-
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-CourseHub-blue?style=for-the-badge&logo=vercel)](https://coursehub-xi.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-CourseHub-green?style=for-the-badge&logo=vercel)](https://coursehub-xi.vercel.app/)
 
 ---
 
