@@ -16,7 +16,8 @@ const OauthRoleSelection = () => {
     // Attemot auto login if user exists.
     useEffect(() => {
         const autoLoginForExistingUser = async () => {
-            if (isLoading || !isAuthenticated || !user) return; // Don't run anything below this line until Auth0 is done loading AND the user is logged in AND we have the user details.
+            if (isLoading || !isAuthenticated || !user) return; 
+            // Don't run anything below this line until Auth0 is done loading AND the user is logged in AND we have the user details.
 
             try {
                 const res = await publicApi.post("/user/oauth-login", {

@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema(
             required: function () {
                 return this.authProvider === 'local';  // required is true for local users not for Oauth
             },
-            select: false // MongoDB will not send password, unless explicitly asked. 
+            select: false,
         },
         phone: {
             type: String,

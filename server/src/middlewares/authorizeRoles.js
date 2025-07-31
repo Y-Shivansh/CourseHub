@@ -3,8 +3,7 @@
 
 export const authorizeRoles = (...roles) => {
     return (req, res, next) => {
-        // user role comes from verifyUserToken, which decoded JWT
-        const userRole = req.user.role;
+        const userRole = req.user.role; // decoded jwt token
         
         if(!roles.includes(userRole)){
             return res.status(403).json({

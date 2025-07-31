@@ -14,7 +14,7 @@ const EnrollPopup = ({ isOpen, onClose, courseId }) => {
         e.preventDefault();
         setLoading(true);
         try {
-            // create order
+            // create order for razorpay
             const orderRes = await privateApi.post("/payment/create-order", {
                 courseId: courseId
             })
@@ -61,7 +61,7 @@ const EnrollPopup = ({ isOpen, onClose, courseId }) => {
                         toast.success("Payment successful! Redirecting...");
                         setTimeout(() => {
                             navigate("/dashboard-student", { replace: true });
-                        }, 1200);
+                        }, 1000);
                     } catch (verifyErr) {
                         console.error("Payment verification failed:", verifyErr);
                         toast.error("Payment verification failed.");

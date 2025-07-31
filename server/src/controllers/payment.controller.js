@@ -14,7 +14,6 @@ import { enrollUserToCourse } from "../services/enrollUserToCourse.js"
 /*
 POST /api/v1/payment/create-order
     ➤ Creates a razorpay order for given course.
-    ➤ User just befor launching the razorpay checkout.
 */
 export const createOrder = async (req, res) => {
     try {
@@ -37,7 +36,8 @@ export const createOrder = async (req, res) => {
 
         // create order using the options
         const order = await razorpayInstance.orders.create(options);
-
+        console.log(order);
+        
         //send order details to frontend.
         res.status(200).json({
             success: true,
@@ -105,7 +105,7 @@ export const verifyPayment = async (req, res) => {
         }
 
         // Enroll user to course if valid
-        await enrollUserToCourse(userId, courseId)
+        await enrollUserToCourse(userId, courseId);
 
         // Store payment details
         const payment = await Payment.create({
