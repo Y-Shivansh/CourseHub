@@ -5,11 +5,11 @@
 ## 🌐 Live Preview
 🚀 **[View Live Demo](https://coursehub-xi.vercel.app/)**
 
-[![CourseHub Preview](https://api.microlink.io/?url=https://coursehub-xi.vercel.app/&screenshot=true&meta=false&embed=screenshot.url)](https://coursehub-xi.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-CourseHub-green?style=for-the-badge&logo=vercel)](https://coursehub-xi.vercel.app/)
 
 ---
 
-## 🎯 Current Features (Fully Implemented)
+##  Current Features (Fully Implemented)
 
 ### 🔐 Authentication & Authorization
 - **User Registration & Login** with JWT authentication
@@ -19,26 +19,21 @@
 - **Password Update & Account Deletion** with comprehensive data cleanup
 - **Complete Data Integrity** - Removes all user references from courses and enrollments
 - **Orphaned Reference Prevention** - Cleans up course enrollments and student lists
-- **Secure logout** with token cleanup
-- **OAuth Integration** with Google and GitHub (Auth0)
+- **OAuth Integration** with Google (Auth0)
 
-### 👨‍🏫 Teacher Features
+### 👨‍ Teacher Features
 - **Course Creation** with rich descriptions, thumbnails, and categories
-- **Course Management** - Edit, update, and delete courses
-- **Student Analytics** - View enrolled students per course
-- **Dashboard with Stats** - ApexCharts integration for analytics
+- **Course Management** - Edit, update.
+- **Dashboard with Stats** - ApexCharts integration for analytics (hard coded as of now)
 - **Created Courses Overview** with search functionality
-- **Course Update Interface** with live preview and enrolled students display
 - **Image Upload** for course thumbnails via Cloudinary
 
-### 👨‍🎓 Student Features
-- **Course Discovery** - Browse all available courses with search/filter
+### 👨‍ Student Features
+- **Course Discovery** - Browse all available courses with search
 - **Course Enrollment** with Razorpay payment integration
-- **Learning Dashboard** with comprehensive stats and charts
-- **Enrolled Courses Management** - Access and track progress
+- **Learning Dashboard** with comprehensive stats and charts (hard coded as of now)
 - **Course Details** with instructor information
-- **Payment History** and enrollment tracking
-- **🤖 AI Course Assistant** - Get instant help with course-related questions
+- **AI Course Assistant** - Get instant help with course-related questions
 
 ### 🤖 AI-Powered Features (NEW!)
 - **Google Gemini AI Integration** for intelligent course assistance
@@ -52,9 +47,8 @@
 ### 💳 Payment Integration
 - **Razorpay Payment Gateway** for secure transactions
 - **Order Creation** and verification system
-- **Payment Status Tracking** with database logging
 - **Automatic Enrollment** upon successful payment
-- **Payment Receipts** with unique identifiers
+- **Payment Receipts** will be created in future with unique identifiers 
 
 ### 🎨 UI/UX Features
 - **Dark/Light Theme Toggle** with persistent storage
@@ -68,13 +62,10 @@
 - **Beautiful Blob Backgrounds** for enhanced visual appeal
 
 ### 📊 Analytics & Visualization
-- **ApexCharts Integration** - Line, Bar, and Donut charts
-- **Student Progress Tracking** with visual metrics
-- **Teacher Analytics** - Course views, enrollments, growth
-- **Dashboard Stats** - Role-based comprehensive metrics
-- **Recent Activity Feed** for both user types
+- **ApexCharts Integration** - Line and Donut charts
+- **Dashboard Stats** - Role-based comprehensive metrics (hard coded)
 
-### 🛠 Technical Features
+###  Technical Features
 - **RESTful API** with Express.js backend
 - **MongoDB** with Mongoose ODM
 - **Data Integrity Management** - Complete cleanup of orphaned references
@@ -103,7 +94,6 @@
 - **Lucide React** for modern icons
 - **React Toastify** for notifications
 - **JWT Decode** for token management
-- **React Modern Drawer** for mobile navigation
 
 ### Backend
 - **Node.js** with Express.js framework
@@ -120,154 +110,44 @@
 
 ---
 
-## 📁 Updated Project Structure
+## 📁 Project Structure
 
 ```
 CourseHub/
-├── client/                          # React Frontend (Vite)
-│   ├── public/
-│   │   └── favicon.ico
-│   ├── src/
-│   │   ├── assets/                  # Images, SVGs, static files
-│   │   │   ├── logo.png
-│   │   │   ├── defaultThumbnail.png
-│   │   │   ├── profileAvatar.svg
-│   │   │   ├── lightBlob.svg
-│   │   │   └── darkBlob.svg
-│   │   ├── components/              # Reusable UI components
-│   │   │   ├── auth/                # Authentication components
-│   │   │   │   ├── LoginForm.jsx
-│   │   │   │   ├── SignupForm.jsx
-│   │   │   │   ├── modals/          # Authentication modals
-│   │   │   │   │   ├── EnrollPopup.jsx
-│   │   │   │   │   ├── UpdatePassPopUp.jsx
-│   │   │   │   │   ├── DeleteAccountPopup.jsx
-│   │   │   │   │   └── LogoutPopup.jsx
-│   │   │   │   └── oAuth/           # OAuth components
-│   │   │   │       └── OAuthButton.jsx
-│   │   │   ├── chatbot/             # AI Chatbot components (NEW!)
-│   │   │   │   ├── ChatbotPopup.jsx
-│   │   │   │   ├── ChatbotUI.jsx
-│   │   │   │   ├── ChatInput.jsx
-│   │   │   │   └── MessageBubble.jsx
-│   │   │   ├── common/              # Shared UI components
-│   │   │   │   ├── AllCoursesSection.jsx
-│   │   │   │   ├── Button.jsx
-│   │   │   │   ├── CourseCard.jsx
-│   │   │   │   ├── Footer.jsx
-│   │   │   │   ├── Input.jsx
-│   │   │   │   ├── Loader.jsx
-│   │   │   │   ├── BaseModal.jsx
-│   │   │   │   ├── ThemeToggle.jsx
-│   │   │   │   ├── UserDetailsCard.jsx
-│   │   │   │   ├── StatsCard.jsx
-│   │   │   │   └── DashboardStats.jsx
-│   │   │   ├── design/              # Design components
-│   │   │   │   ├── BlobBackground.jsx
-│   │   │   │   └── TeacherBlobBackgroung.jsx
-│   │   │   ├── landing/             # Landing page components
-│   │   │   │   └── Hero.jsx
-│   │   │   ├── Navbar/              # Navigation components
-│   │   │   │   ├── DashboardNavbar.jsx
-│   │   │   │   ├── PublicNavbar.jsx
-│   │   │   │   └── sidebar/         # Sidebar components
-│   │   │   │       ├── Sidebar.jsx
-│   │   │   │       ├── ProfileCard.jsx
-│   │   │   │       ├── SidebarLinks.jsx
-│   │   │   │       └── AccountSettings.jsx
-│   │   │   └── profile/             # Profile management
-│   │   │       ├── AllEnrolledCourses.jsx
-│   │   │       ├── UpdateProfileForm.jsx
-│   │   │       ├── AllCreatedCourses.jsx
-│   │   │       └── teacher/         # Teacher-specific components
-│   │   │           ├── MyCreatedCourseDetail.jsx
-│   │   │           └── EditCourseDetails.jsx
-│   │   ├── context/                 # React Context
-│   │   │   └── themeContext.js
-│   │   ├── hooks/                   # Custom React hooks
-│   │   │   └── useTheme.js
-│   │   ├── layout/                  # Route layouts
-│   │   │   └── ProtectedLayout.jsx
-│   │   ├── pages/                   # Page components
-│   │   │   ├── dashboard/           # Dashboard pages
-│   │   │   │   ├── student/         # Student pages
-│   │   │   │   │   ├── StudentDashboard.jsx
-│   │   │   │   │   ├── MyEnrolledCourses.jsx
-│   │   │   │   │   ├── EnrolledCourse.jsx
-│   │   │   │   │   └── EnrollCourse.jsx
-│   │   │   │   └── teacher/         # Teacher pages
-│   │   │   │       ├── TeacherDashboard.jsx
-│   │   │   │       ├── CreateCourse.jsx
-│   │   │   │       ├── CourseUpdate.jsx
-│   │   │   │       └── MyCreatedCourses.jsx
-│   │   │   ├── public/              # Public pages
-│   │   │   │   ├── LandingPage.jsx
-│   │   │   │   ├── CourseDetails.jsx
-│   │   │   │   └── OauthRoleSelection.jsx
-│   │   │   └── UpdateProfile.jsx    # Shared profile update
-│   │   ├── providers/               # Context providers
-│   │   │   └── ThemeProvider.jsx
-│   │   ├── router/                  # Routing configuration
-│   │   │   └── AppRoutes.jsx
-│   │   ├── services/                # API services
-│   │   │   └── axios.config.js
-│   │   ├── utils/                   # Utility functions
-│   │   │   ├── getCategoryIcon.jsx
-│   │   │   └── getUserRoleFromToken.js
-│   │   ├── App.jsx                  # Main App component
-│   │   ├── main.jsx                 # App entry point
-│   │   └── index.css                # Global styles
-│   ├── .env                         # Environment variables
-│   ├── package.json                 # Dependencies & scripts
-│   ├── tailwind.config.js           # Tailwind configuration
-│   ├── vite.config.js               # Vite build configuration
-│   ├── eslint.config.js             # ESLint configuration
-│   └── vercel.json                  # Vercel deployment config
+├── 📁 client/                          # React Frontend
+│   ├── 📁 public/
+│   ├── 📁 src/
+│   │   ├── 📁 assets/                  # Images & SVGs
+│   │   ├── 📁 components/              # UI Components
+│   │   ├── 📁 context/                 # React Context
+│   │   ├── 📁 hooks/                   # Custom Hooks
+│   │   ├── 📁 layout/                  # Route Layouts
+│   │   ├── 📁 pages/                   # Page Components
+│   │   ├── 📁 providers/               # Context Providers
+│   │   ├── 📁 router/                  # Routing
+│   │   ├── 📁 services/                # API Services
+│   │   ├── 📁 utils/                   # Utilities
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── index.css
+│   ├── package.json
+│   └── vite.config.js
 │
-└── server/                          # Node.js Backend
-    ├── public/                      # Static files
-    │   └── temp/                    # Temporary file storage
-    ├── src/
-    │   ├── controllers/             # Request handlers
-    │   │   ├── userControllers.js
-    │   │   ├── courseControllers.js
-    │   │   ├── payment.controller.js
-    │   │   └── aiController.js      # AI Chatbot controller (NEW!)
-    │   ├── middlewares/             # Custom middlewares
-    │   │   ├── user.middleware.js
-    │   │   ├── authorizeRoles.js
-    │   │   └── multer.middleware.js
-    │   ├── models/                  # Database schemas
-    │   │   ├── User.model.js
-    │   │   ├── Course.model.js
-    │   │   ├── Payment.model.js
-    │   │   ├── DeletionLog.js
-    │   │   └── ChatMessage.model.js # Chat messages model (NEW!)
-    │   ├── routes/                  # API route definitions
-    │   │   ├── userRoutes.js
-    │   │   ├── courseRoutes.js
-    │   │   ├── payment.routes.js
-    │   │   └── ai/                  # AI routes (NEW!)
-    │   │       └── gemini.routes.js
-    │   ├── schemas/                 # Zod validation schemas
-    │   │   ├── user.schema.js
-    │   │   └── course.schema.js
-    │   ├── services/                # Business logic services
-    │   │   ├── enrollUserToCourse.js
-    │   │   └── geminiService.js     # Gemini AI service (NEW!)
-    │   ├── utils/                   # Server utilities
-    │   │   ├── generateToken.js
-    │   │   ├── sendEmail.js
-    │   │   ├── cloudinary.js
-    │   │   └── razorpay.js
-    │   ├── config/                  # Configuration files
-    │   │   ├── db.config.js
-    │   │   └── jwt.config.js
-    │   ├── app.js                   # Express app configuration
-    │   └── server.js                # Server entry point
-    ├── .env                         # Environment variables
-    ├── package.json                 # Dependencies & scripts
-    └── eslint.config.mjs            # ESLint configuration
+└── 📁 server/                          # Node.js Backend
+    ├── 📁 public/
+    ├── 📁 src/
+    │   ├── 📁 controllers/             # Request Handlers
+    │   ├── 📁 middlewares/             # Custom Middlewares
+    │   ├── 📁 models/                  # Database Schemas
+    │   ├── 📁 routes/                  # API Routes
+    │   ├── 📁 schemas/                 # Validation Schemas
+    │   ├── 📁 services/                # Business Logic
+    │   ├── 📁 utils/                   # Server Utilities
+    │   ├── 📁 config/                  # Configuration
+    │   ├── app.js
+    │   └── server.js
+    ├── package.json
+    └── eslint.config.mjs
 ```
 
 ---
@@ -333,90 +213,46 @@ CourseHub/
 
 ### 🤖 Advanced AI Integration
 - **Multi-Modal AI Support** - Image and document analysis
-- **Personalized Learning Paths** based on AI analysis
 - **Automated Course Summaries** and key points extraction
-- **AI-powered Course Recommendations** with advanced algorithms
+- **AI-powered Course Recommendations** 
 - **Intelligent Content Analysis** for course quality assessment
 - **Voice-based AI Assistant** for hands-free learning
-- **AI-generated Practice Questions** and quizzes
 
 ### 💳 Enhanced Payment Features
-- **Multiple Payment Gateways** (Stripe, PayPal, Apple Pay)
+- **Multiple Payment Gateways** (Stripe, PayPal)
 - **Subscription Models** for premium courses and features
-- **Discount Coupons** and promotional codes system
 - **Refund Management** with automated processing
-- **Split Payments** for expensive courses
-- **International Payment Support** with currency conversion
-
-### 🔐 Enhanced Authentication & Security
-- **Multi-factor Authentication** (SMS, Email, Authenticator apps)
-- **Biometric Authentication** for mobile devices
-- **Social Login** with profile synchronization
-- **Advanced Role Management** with custom permissions
-- **Session Management** with device tracking
-- **GDPR Compliance** tools and data export
 
 ### 📹 Advanced Content Management
 - **Video Lecture Upload** with streaming capabilities
-- **Interactive Quizzes** with real-time feedback
 - **Progress Tracking** with completion certificates
-- **Discussion Forums** with moderation tools
-- **Live Streaming** for real-time classes
-- **Screen Recording** for course creation
-- **Content Versioning** for course updates
+- **Video Streaming** for lecture classes
 
-### 📊 Advanced Analytics & Insights
-- **Learning Analytics** with detailed progress tracking
-- **Predictive Analytics** for student success
-- **Heat Maps** for course engagement
-- **A/B Testing** for course optimization
-- **Real-time Analytics Dashboard** for teachers
-- **Student Performance Reports** with actionable insights
 
 ### 🐳 DevOps & Scalability
 - **Docker Containerization** for easy deployment
-- **Kubernetes Orchestration** for large-scale deployments
 - **CI/CD Pipeline** with GitHub Actions
 - **Load Balancing** and auto-scaling
 - **Microservices Architecture** as the platform grows
-- **CDN Integration** for global content delivery
-- **Database Sharding** for performance optimization
 
 ### 📱 Platform Extensions
 - **Mobile Application** (React Native/Flutter)
-- **Progressive Web App** (PWA) with offline capabilities
-- **Desktop Application** (Electron)
-- **Smart TV App** for living room learning
-- **Wearable Integration** for learning reminders
-- **Voice Assistant Integration** (Alexa, Google Assistant)
-
-### 🎮 Gamification & Engagement
-- **Achievement System** with badges and certificates
-- **Leaderboards** for competitive learning
-- **Learning Streaks** and daily challenges
-- **Virtual Rewards** and points system
-- **Social Learning** with study groups
-- **Mentorship Programs** with AI matching
-
-### 🔗 Integrations & APIs
-- **LMS Integration** (Canvas, Moodle, Blackboard)
-- **Calendar Integration** (Google Calendar, Outlook)
-- **Communication Tools** (Slack, Discord, Teams)
-- **Cloud Storage** (Google Drive, Dropbox, OneDrive)
-- **Video Conferencing** (Zoom, Teams, Meet)
-- **Third-party APIs** for additional features
+- **Voice Assistant Integration** (Alexa or Google Assistant)
 
 ---
 
-## 🛠 API Endpoints
+##  API Endpoints
 
 ### Authentication Routes (`/api/v1/user/`)
 ```
 POST   /signup          - Register new user
 POST   /signin          - User login
+POST   /oauth-login     - OAuth user registration/login
 GET    /me              - Get current user (Protected)
 PUT    /update          - Update user profile (Protected)
-DELETE /delete          - Delete user account (Protected)
+DELETE /delete          - Delete user account with complete data 
+
+GET    /sync-indexes    - Database index synchronization (Development) (not always active)
 ```
 
 ### Course Routes (`/api/v1/course/`)
@@ -473,16 +309,17 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 👨‍💻 Author
+## 👨‍ Author
 
-**Shivansh Sharma**
-- GitHub: [@Y-Shivansh](https://github.com/Y-Shivansh)
-- Email: sharma.shivansh1305@gmail.com
-- LinkedIn: [Shivansh Sharma](https://www.linkedin.com/in/shivansh-sharma-73270724b/)
+**Shivansh Sharma - Reach me at:**
+- **GitHub**: [@Y-Shivansh](https://github.com/Y-Shivansh)
+- **Email**: sharma.shivansh1305@gmail.com
+- **LinkedIn**: [Shivansh Sharma](https://www.linkedin.com/in/shivansh-sharma-73270724b/)
+- **Twitter**: [@shivansh_Zz](https://x.com/shivansh_Zz)
 
 ---
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - **React.js Community** for the robust frontend framework
 - **Node.js & Express** for the powerful backend foundation
@@ -493,16 +330,14 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Razorpay** for secure payment processing
 - **Google Gemini AI** for intelligent assistance capabilities
 - **Vercel** for seamless deployment and hosting
-- **Open Source Community** for continuous inspiration and support
 
 ---
 
-## 📈 Project Statistics
+##  Project Statistics
 
 - **⭐ Stars**: Growing daily
 - **🔄 Forks**: Contributing to the community
-- **🐛 Issues**: Actively maintained
-- **📦 Downloads**: Increasing adoption
+- ** Issues**: Actively maintained
 - **🌍 Users**: Global reach
 
 ---
