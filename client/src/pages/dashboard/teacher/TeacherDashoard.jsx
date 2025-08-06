@@ -17,7 +17,7 @@ const TeacherDashboard = () => {
     (async () => {
       try {
         const res = await privateApi.get('/user/me');
-        localStorage.setItem('user', JSON.stringify(res.data.user));
+        localStorage.setItem('coursehub_user', JSON.stringify(res.data.user));
       } catch (error) {
         console.error("User fetch failed", error);
       } finally {

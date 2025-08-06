@@ -28,7 +28,7 @@ const UpdateProfile = () => {
         const userData = res.data.user;
         setUser(userData);
         setFormData({ name: userData.name || '', profile: userData.profile || '', bio: userData.bio || '', phone: userData.phone || '' });
-        localStorage.setItem('user', JSON.stringify(userData));
+        localStorage.setItem('coursehub_user', JSON.stringify(userData));
       } catch {
         toast.error('Failed to fetch user data');
       } finally {
@@ -67,7 +67,7 @@ const UpdateProfile = () => {
       });
 
       const updatedUser = { ...user, ...res.data.user };
-      localStorage.setItem('user', JSON.stringify(updatedUser));
+      localStorage.setItem('coursehub_user', JSON.stringify(updatedUser));
       setUser(updatedUser);
       toast.success('Profile updated successfully');
       user.role === 'student' ? navigate('/dashboard-student') : navigate('/dashboard-teacher');

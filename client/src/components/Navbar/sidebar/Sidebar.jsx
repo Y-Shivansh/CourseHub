@@ -13,7 +13,7 @@ const Sidebar = ({ isOpen, onClose }) => {
   const [showUpdatePassModal, setShowUpdatePassModal] = useState(false);
   const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('coursehub_user'));
   const userType = user.authProvider;
 
   return (

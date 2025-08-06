@@ -12,7 +12,7 @@ const AllEnrolledCourses = () => {
   const [searchCourse, setSearchCourse] = useState("");
   const [showAll, setShowAll] = useState(false);
   const [loading, setLoading] = useState(false);
-  const token = localStorage.getItem("authToken");
+  const token = localStorage.getItem("coursehub_authToken");
 
   useEffect(() => {
     (async () => {

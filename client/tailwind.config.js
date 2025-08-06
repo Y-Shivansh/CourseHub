@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: "class", // toggle via class
-   content: ["./index.html", "./src/**/*.{js,jsx}"], // Only scan these files for class names like bg-red-500 or dark:bg-black etc. and purge everything else.
+  content: ["./index.html", "./src/**/*.{js,jsx}"], // Only scan these files for class names like bg-red-500 or dark:bg-black etc. and purge everything else.
   theme: {
     extend: {
       colors: {

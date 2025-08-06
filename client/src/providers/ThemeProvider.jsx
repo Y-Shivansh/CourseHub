@@ -10,14 +10,14 @@ This gives your entire React tree access to theme and toggle function via contex
 export const ThemeProvider = ({children}) => { // children is a special prop that represents whatever you wrap inside the component.
     // Initial state set: dark or light — check localStorage
     const [theme, setTheme] = useState(() => {
-        return localStorage.getItem("theme") || "light";
+        return localStorage.getItem("coursehub_theme") || "light";
     });
 
     // Toggle theme function — change state + update localStorage
     const toggleTheme = () => {
         setTheme((prev) => {
             const nextTheme = prev === "dark" ? "light" : "dark";
-            localStorage.setItem("theme", nextTheme);
+            localStorage.setItem("coursehub_theme", nextTheme);
             return nextTheme;
         });
     }

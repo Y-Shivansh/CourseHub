@@ -11,7 +11,7 @@ const AllCoursesSection = ({ user = null }) => {
     const [filteredCourses, setFilteredCourses] = useState([]);
     const [searchCourse, setSearchCourse] = useState("");
     const [showAll, setShowAll] = useState(false);
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem("coursehub_authToken");
 
     useEffect(() => {
         (async () => {

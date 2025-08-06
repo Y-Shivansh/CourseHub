@@ -6,7 +6,7 @@ import Loader from '../components/common/Loader';
 
 const ProtectedLayout = () => {
   const location = useLocation();
-  const token = localStorage.getItem('authToken');
+  const token = localStorage.getItem('coursehub_authToken');
 
   const [role, setRole] = useState(null);
   const [loading, setLoading] = useState(true);
