@@ -5,6 +5,7 @@ import Input from "../common/Input";
 import { Search } from "lucide-react";
 import { toast } from "react-toastify";
 import Loader from "../common/Loader";
+import { useNavigate } from "react-router-dom";
 
 const AllEnrolledCourses = () => {
   const [courses, setCourses] = useState([]);
@@ -13,6 +14,7 @@ const AllEnrolledCourses = () => {
   const [showAll, setShowAll] = useState(false);
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("coursehub_authToken");
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -26,15 +28,15 @@ const AllEnrolledCourses = () => {
           toastId: "fetchcourseId"
         });
         console.error("Failed to fetch courses", error);
-      }finally{
+      } finally {
         setLoading(false)
       }
     })(); // IIFE
   }, []);
 
-  if(loading) return <Loader/>
+  if (loading) return <Loader />
 
-  const visibleCourses = showAll ? filteredCourses : (token ? filteredCourses.slice(0, 6) : filteredCourses.slice(0, 4));
+  const visibleCourses = showAll ? filteredCourses : filteredCourses.slice(0, 4);
 
   const handleSearch = () => {
     const term = searchCourse.trim().toLowerCase();
@@ -49,7 +51,15 @@ const AllEnrolledCourses = () => {
 
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10 border-t  border-gray-300 dark:border-gray-600">
+    <div className="max-w-7xl mx-auto px-4 py-10 border-gray-300 dark:border-gray-600">
+      {/* Go Back */}
+      <button
+        className="dark:text-text-dark font-light cursor-pointer hover:underline dark:hover:text-gray-400 hover:text-gray-700 duration-150 transition text-lg "
+        onClick={() => navigate('/dashboard-student')}
+      >
+        ← Go Back
+      </button>
+
       <h2 className="text-3xl font-bold mb-6 text-text-light dark:text-text-dark">
         Your Courses
       </h2>
@@ -61,6 +71,12 @@ const AllEnrolledCourses = () => {
             placeholder="Search Courses..."
             value={searchCourse}
             onChange={(e) => setSearchCourse(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSearch();
+              }
+            }}
+
             className="pr-12 dark:bg-secondary-light"
             applyDark={false}
             labelDark={false}

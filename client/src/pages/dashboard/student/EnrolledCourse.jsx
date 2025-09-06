@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { publicApi } from "../../../services/axios.config";
 import defaultThumbnail from "../../../assets/defaultThumbnail.png";
 import defaultprofile from "../../../assets/profileAvatar.svg";
@@ -15,9 +15,10 @@ const EnrolledCourse = () => {
   const { id } = useParams();
   const [course, setCourse] = useState(null);
   const [otherCourses, setOtherCourses] = useState([]);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
   const [showChatbot, setShowChatbot] = useState(false);
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -40,21 +41,28 @@ const EnrolledCourse = () => {
   return (
     <div className="relative bg-background-light dark:bg-background-dark min-h-screen">
       {/* Background blob layer - can toggle this via theme */}
-      <BlobBackground/>
-
+      <BlobBackground />
       <div className="relative z-10">
         <DashboardNavbar onMenuClick={() => setIsSideBarOpen(true)} />
         <Sidebar isOpen={isSideBarOpen} onClose={() => setIsSideBarOpen(false)} />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 py-12">
+
+        {/* Go Back */}
+        <button
+          className="dark:text-text-dark font-light cursor-pointer hover:underline dark:hover:text-gray-400 hover:text-gray-700 duration-150 transition text-lg mb-2 "
+          onClick={() => navigate('/my-enrolled-courses')}
+        >
+          ← Go Back
+        </button>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* LEFT - Course Content */}
           <div className="md:col-span-2 space-y-6">
             <img
               src={course.thumbnail || defaultThumbnail}
               alt={course.name}
-              className="w-full h-64 object-cover rounded-lg shadow-md"
+              className="object-contain rounded-lg shadow-md"
             />
 
             <h1 className="text-3xl font-bold text-text-light dark:text-text-dark">
@@ -73,9 +81,9 @@ const EnrolledCourse = () => {
             <p className="text-text-light dark:text-text-dark text-lg leading-relaxed">
               {course.description}
             </p>
-           
+
           </div>
-          
+
 
           {/* RIGHT - Teacher Info + Other Courses */}
           <div className="space-y-6">
@@ -119,20 +127,20 @@ const EnrolledCourse = () => {
             )}
 
             <div>
-            <Button 
-              className="flex gap-3 bg-red-900 rounded-full"
-              onClick={() => setShowChatbot(true)}
-            >
-              Ask Assistant <BotMessageSquare />
-            </Button>
+              <Button
+                className="flex gap-3 bg-red-900 rounded-full"
+                onClick={() => setShowChatbot(true)}
+              >
+                Ask Assistant <BotMessageSquare />
+              </Button>
 
-            {showChatbot && (
-              <ChatbotPopup
-                isOpen={showChatbot}
-                onClose={() => setShowChatbot(false)}
-                courseId={id}
-              />
-            )}
+              {showChatbot && (
+                <ChatbotPopup
+                  isOpen={showChatbot}
+                  onClose={() => setShowChatbot(false)}
+                  courseId={id}
+                />
+              )}
             </div>
           </div>
         </div>
