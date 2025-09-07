@@ -13,7 +13,8 @@ const Input = ({
     className = "",
     applyDark = true,
     labelDark = true,
-    isPassword = false
+    isPassword = false,
+    onKeyDown
 
 }) => {
     const [showPassword, setShowPassword] = useState(false);
@@ -41,6 +42,7 @@ const Input = ({
                 placeholder={placeholder}
                 required={required}
                 disabled={disabled}
+                onKeyDown={onKeyDown}
                 className={`${baseStyles} ${activeStyles} ${className} ${darkStyles} pr-10`}
             />
             {isPassword && (

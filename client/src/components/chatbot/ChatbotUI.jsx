@@ -41,7 +41,7 @@ const ChatbotUI = ({courseId}) => {
     }
 
     return (
-        <div>
+        <div className="overflow-auto max-h-[60vh]">
         {/* Showing all messages */}
         {messages.map((msg, i) => (
           <MessageBubble key={i} role={msg.role} message={msg.message} />

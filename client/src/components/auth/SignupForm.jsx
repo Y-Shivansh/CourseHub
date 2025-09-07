@@ -29,7 +29,7 @@ const SignupForm = () => {
       const res = await publicApi.post("/user/signup", { name, email, phone, password, role });
       const token = res.data.token;
       if (token) {
-        localStorage.setItem("authToken", token);
+        localStorage.setItem("coursehub_authToken", token);
         const role = getUserRoleFromToken();
         toast.success("SignUp Successful");
         { role === 'student' ? navigate("/dashboard-student") : navigate("/dashboard-teacher") };

@@ -14,7 +14,7 @@ const CourseCard = ({ course }) => {
       <img
         src={course.thumbnail || defaultThumbnail}
         alt={course.name}
-        className="line-clamp-2 w-full h-40 object-cover rounded-md mb-4"
+        className="line-clamp-2 w-full h-40 object-contain rounded-md mb-4"
       />
 
       {/* Course Info */}

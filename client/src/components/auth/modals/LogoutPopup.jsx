@@ -14,8 +14,8 @@ const LogoutPopup = ({ isOpen, onClose }) => {
         try {
             setLoading(true);
 
-            localStorage.removeItem("authToken");
-            localStorage.removeItem("user");
+            localStorage.removeItem("coursehub_authToken");
+            localStorage.removeItem("coursehub_user");
             toast.success("Logged out successfully");
             onClose();
             navigate("/");

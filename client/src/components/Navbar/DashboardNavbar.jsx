@@ -5,7 +5,7 @@ import courseHubLogo from '../../assets/logo.png'
 import { useLocation } from 'react-router-dom'
 
 const DashboardNavbar = ({ onMenuClick }) => {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('coursehub_user'));
   const currentPathName = useLocation().pathname;
 
   return (

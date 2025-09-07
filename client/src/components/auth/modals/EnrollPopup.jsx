@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const EnrollPopup = ({ isOpen, onClose, courseId }) => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('coursehub_user'));
 
     const handleEnroll = async (e) => {
         e.preventDefault();
@@ -55,7 +55,7 @@ const EnrollPopup = ({ isOpen, onClose, courseId }) => {
                             if (!user.enrolledIn.includes(courseId)) {
                                 user.enrolledIn.push(courseId);
                             }
-                            localStorage.setItem('user', JSON.stringify(user));
+                            localStorage.setItem('coursehub_user', JSON.stringify(user));
                         }
                         onClose();
                         toast.success("Payment successful! Redirecting...");

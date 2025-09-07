@@ -21,8 +21,8 @@ const CourseDetails = () => {
   const [loading, setLoading] = useState(true);
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
 
-  const token = localStorage.getItem("authToken");
-  const user = JSON.parse(localStorage.getItem('user'));
+  const token = localStorage.getItem("coursehub_authToken");
+  const user = JSON.parse(localStorage.getItem('coursehub_user'));
 
   useEffect(() => {
     (async () => {

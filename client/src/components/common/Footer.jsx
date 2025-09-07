@@ -5,7 +5,7 @@ import logo from '../../assets/logo.png';
 
 
 const Footer = () => {
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem("coursehub_authToken");
 
     return (
         <footer className="bg-background-light text-text-light dark:bg-background-dark dark:text-text-dark border-t border-gray-300 dark:border-gray-700">

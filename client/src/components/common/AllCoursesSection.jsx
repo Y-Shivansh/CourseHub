@@ -11,7 +11,7 @@ const AllCoursesSection = ({ user = null }) => {
     const [filteredCourses, setFilteredCourses] = useState([]);
     const [searchCourse, setSearchCourse] = useState("");
     const [showAll, setShowAll] = useState(false);
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem("coursehub_authToken");
 
     useEffect(() => {
         (async () => {
@@ -33,9 +33,9 @@ const AllCoursesSection = ({ user = null }) => {
                 console.error("Failed to fetch courses", error);
             }
         })(); // IIFE
-    }, []);
+    }, [user]);
 
-    const visibleCourses = showAll ? filteredCourses : (token ? filteredCourses.slice(0, 6) : filteredCourses.slice(0, 4));
+    const visibleCourses = showAll ? filteredCourses : filteredCourses.slice(0, 4);
 
     const handleSearch = () => {
         const term = searchCourse.trim().toLowerCase();
@@ -62,6 +62,7 @@ const AllCoursesSection = ({ user = null }) => {
                         placeholder="Search Courses..."
                         value={searchCourse}
                         onChange={(e) => setSearchCourse(e.target.value)}
+                        onKeyDown={(e) => e.key === "Enter" && handleSearch}
                         className="pr-12 dark:bg-secondary-light"
                         applyDark={false}
                         labelDark={false}
@@ -88,8 +89,9 @@ const AllCoursesSection = ({ user = null }) => {
             </div>
 
 
-            {filteredCourses.length === 0 ? (
-                <p className="text-gray-500">No courses available right now.</p>
+            {filteredCourses.length === 0 ? (user 
+                ? <p className="text-gray-500">You have enrolled to all courses.</p>
+                : <p className="text-gray-500">No courses available right now.</p>
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
                     {visibleCourses.map((course) => (

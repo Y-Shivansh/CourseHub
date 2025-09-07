@@ -10,7 +10,7 @@ export const privateApi = axios.create({
 
 // this config is provided by axios and before every req, it is asking if you want to add anything or i send it as it is.
 privateApi.interceptors.request.use((config) => {
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem('coursehub_authToken');
 
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;

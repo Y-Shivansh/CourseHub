@@ -27,7 +27,7 @@ const OauthRoleSelection = () => {
                     authId: user.sub,
                 });
 
-                localStorage.setItem("authToken", res.data.token);
+                localStorage.setItem("coursehub_authToken", res.data.token);
                 const role = getUserRoleFromToken();
                 console.log(role);
                 
@@ -55,7 +55,7 @@ const OauthRoleSelection = () => {
                 role: selectedRole,
             });
 
-            localStorage.setItem("authToken", res.data.token);
+            localStorage.setItem("coursehub_authToken", res.data.token);
             toast.success("Login successful");
 
             navigate(

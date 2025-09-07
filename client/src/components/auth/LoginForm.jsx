@@ -26,10 +26,10 @@ const LoginForm = () => {
 
       if (token) {
 
-        localStorage.setItem("authToken", token);
+        localStorage.setItem("coursehub_authToken", token);
         const role = getUserRoleFromToken();
         toast.success("Logged in successfully")
-        // localStorage.setItem("user", JSON.stringify(res.data.user)) 
+        // localStorage.setItem("coursehub_user", JSON.stringify(res.data.user)) 
         // commented out as not sending it back from backend.
         { role === 'student' ? navigate("/dashboard-student") : navigate("/dashboard-teacher") };
       }

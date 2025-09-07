@@ -1,7 +1,7 @@
 import {jwtDecode} from 'jwt-decode'
 
 export const getUserRoleFromToken = () => {
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem("coursehub_authToken");
     if (!token) return null;
 
     try{
