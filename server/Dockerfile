@@ -13,7 +13,7 @@ RUN adduser -S nodejs -u 1001
 COPY package*.json ./
 
 # Install only production dependencies
-RUN npm install --only=production && npm cache clean --force
+RUN npm ci --only=production && npm cache clean --force
 
 #   . (first) - Local machine's current folder = server/
 #   . (second) - Container’s current folder = /app/ (from WORKDIR)  {Copy everything from local server/ folder into /app/ inside Docker container}
