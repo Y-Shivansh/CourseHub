@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema(
         phone: {
             type: String,
             unique: true,
-            sparse: true, // allows null for google users.
+            sparse: true, // allowing null for google users.
         },
         role: {
             type: String,
@@ -49,7 +49,7 @@ const userSchema = new mongoose.Schema(
         authId:{
             type: String,
             unique: true,
-            sparse: true, // allows null for local users.
+            sparse: true, // allowing null for local users.
         },
 
         // enrolled in (For Students) an array, as students may enroll in multiple courses.

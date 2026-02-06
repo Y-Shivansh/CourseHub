@@ -1,12 +1,12 @@
 import bcrypt from 'bcrypt';
 import { generateToken } from "../utils/generateToken.js";
 import User from '../models/User.model.js';
+import fs from 'fs'
 import Course from '../models/Course.model.js'; // Add this import
 import DeletionLog from "../models/DeletionLog.js"
 import { registerSchema, loginSchema, updationSchema, deletionSchema, oauthRegisterSchema } from '../schemas/user.schema.js';
 import { sendEmail } from '../utils/sendEmail.js';
 import { uploadOnCloudinary } from '../utils/cloudinary.js';
-import fs from 'fs'
 
 
 export const registerUser = async (req, res) => {
@@ -64,7 +64,7 @@ export const loginUser = async (req, res) => {
         }
 
         // Password Check:
-        const isValidPassword = await bcrypt.compare(password, user.password);
+        const isValidPassword = bcrypt.compare(password, user.password);
         if (isValidPassword) {
             const token = generateToken(user._id, user.role);
 
