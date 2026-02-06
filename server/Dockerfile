@@ -1,5 +1,5 @@
 # official Node.js long-term support image
-FROM node:lts 
+FROM node:lts-alpine
 
 # WORKDIR /app - Inside the container, it creates a folder called /app, and run everything from there. (root folder of docker backend)
 WORKDIR /app

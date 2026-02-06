@@ -85,10 +85,11 @@ export const verifyPayment = async (req, res) => {
                and compare it with the signature Razorpay gave you.
         */
 
+               // HMAC = Hash-based Message Authentication Code checks if Data is tamper-free & Data genuine sender se aaya hai, 
         const expectedSignature = crypto
             .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
             .update(`${razorpay_order_id}|${razorpay_payment_id}`) // Add this string to the HMAC hash output
-            .digest("hex");
+            .digest("hex"); // Final hashed output and in format of hex
 
 
         // Compare Razorpay signature with ours
